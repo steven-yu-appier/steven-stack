@@ -12,8 +12,8 @@ work to subagents. You rarely call the other skills yourself.
 ## How it fits together
 
 Staff is the entry point. Its playbooks call workflow skills and cleanup
-passes. Workflows delegate through the routing contract, and Herdr runs the
-delegated agents.
+passes. Workflows delegate through the routing contract using the host's native
+subagent tool.
 
 ```mermaid
 flowchart TD
@@ -25,7 +25,7 @@ flowchart TD
     P --> Q["Cleanup<br/>unslop · technical-writing · deslop · no-comments"]
     P --> V["Verification<br/>control-ui · control-cli · verify-this"]
     W --> R["staff/references/subagent-routing.md"]
-    R --> H[herdr]
+    R --> N["Native subagent tool"]
 ```
 
 ### Example: `/staff login fails after restart`
@@ -50,7 +50,7 @@ the context window until a task needs them.
 | Invoked by | Skills |
 | --- | --- |
 | You or another skill only | Every skill not listed in the next row |
-| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `herdr`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit` |
+| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit` |
 
 ## Skills
 
@@ -206,11 +206,6 @@ surface that users see. You can also invoke these skills directly.
 - [`test-audit`](test-audit/) gates new tests against a value bar and prunes
   low-value, duplicative, or implementation-coupled tests.
 
-### Infrastructure
-
-- [`herdr`](herdr/) controls panes and agents for skills that delegate through
-  Herdr.
-
 ## Delegation requirements
 
 `staff`, `how`, `why`, `arena`, and `interrogate` delegate work to other
@@ -221,23 +216,15 @@ prompt.
 ```mermaid
 flowchart LR
     Lead[Lead agent] -->|role + route| Routing{"subagent-routing.md"}
-    Routing -->|"HERDR_ENV=1"| Herdr["herdr panes<br/>codex / claude CLI"]
     Routing -->|"native tool honors model + access"| Native["Native subagent tool"]
-    Routing -->|neither| Fallback["Optional work: the lead does it<br/>arena / interrogate: stop and name the missing route"]
+    Routing -->|unavailable| Fallback["Optional work: the lead does it<br/>arena / interrogate: stop and name the missing route"]
 ```
 
-Install these with the delegating skills:
+Delegation requires a native subagent tool that supports the requested model,
+reasoning effort, access mode, and working directory. If those controls are
+unavailable, follow the routing contract's fallback.
 
-- The bundled [herdr skill](herdr/SKILL.md). It owns pane operations and
-  cleanup, so delegation does not depend on a maintainer's personal skill file.
-- The Herdr CLI.
-- The agent CLIs named in the routing table.
-
-Inside Herdr, `HERDR_ENV=1` selects the Herdr route without a separate user
-request. Outside Herdr, delegation uses a native tool only if that tool
-supports the required model and access settings.
-
-Model access depends on the local provider configuration. CLI argument parsing
+Model access depends on the local provider configuration. Accepting a model setting
 alone does not prove that a model can answer requests. When a route is
 unavailable, `arena` and `interrogate` stop instead of replacing independent
 review with the lead agent's own opinion.
