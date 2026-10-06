@@ -1,6 +1,6 @@
-# lucastack
+# Steven's Sstack
 
-[Lucas](https://github.com/lucas-weng-appier) maintains this catalog of reusable
+[Steven](https://github.com/steven-yu-appier) maintains this catalog of reusable
 agent skills.
 
 ## Start here
@@ -47,9 +47,9 @@ Most skills set `disable-model-invocation: true`. They run only when you type
 the slash command or another skill names them. This keeps principles out of
 the context window until a task needs them.
 
-| Invoked by | Skills |
-| --- | --- |
-| You or another skill only | Every skill not listed in the next row |
+| Invoked by                             | Skills                                                                                                                                                   |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| You or another skill only              | Every skill not listed in the next row                                                                                                                   |
 | Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit` |
 
 ## Skills

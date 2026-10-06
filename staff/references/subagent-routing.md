@@ -20,12 +20,12 @@ The host decides its own native tool syntax. `Task`, `Agent`, and similar names 
 
 ## Model routes
 
-| Route | Agent kind | Launch arguments | Use |
-| --- | --- | --- | --- |
-| `gpt-6.1-sol-medium` | `codex` | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Default code work |
-| `gpt-6.1-sol-high` | `codex` | `-m gpt-6.1-sol -c model_reasoning_effort="high"` | Cross-provider candidates, architect sketches, direct code explanation, and independent review |
-| `claude-opus-5.5-med` | `claude` | `--model claude-opus-5-5 --effort medium` | Prose and Judgement |
-| `claude-opus-5.5-high` | `claude` | `--model claude-opus-5-5 --effort high` | Hard cross-cutting code and design, and independent cross-provider review |
+| Route                   | Agent kind | Launch arguments                                    | Use                                                                 |
+| ----------------------- | ---------- | --------------------------------------------------- | ------------------------------------------------------------------- |
+| `gpt-6-luna-extra-high` | `codex`    | `-m gpt-6-luna -c model_reasoning_effort="xhigh"`   | Default code work                                                   |
+| `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Architect sketches, direct code explanation, and independent review |
+| `claude-opus-5.5-med`   | `claude`   | `--model claude-opus-5-5 --effort medium`           | Prose and Judgement                                                 |
+| `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Hard cross-cutting code and design, and independent review          |
 
 Treat each row as one route. If the installed client rejects its arguments, the route is unavailable until the configuration is corrected. Do not weaken the route to make launch succeed.
 
@@ -33,10 +33,10 @@ Treat each row as one route. If the installed client rejects its arguments, the 
 
 Append the access arguments to the model arguments at launch. A prompt alone does not restrict tools.
 
-| Agent kind | Read-only arguments | Write arguments |
-| --- | --- | --- |
-| `codex` | `-s read-only -c approval_policy="never"` | `-s workspace-write` |
-| `claude` | `--permission-mode plan --disallowedTools Edit Write NotebookEdit ExitPlanMode` | `--permission-mode manual` |
+| Agent kind | Read-only arguments                                                             | Write arguments            |
+| ---------- | ------------------------------------------------------------------------------- | -------------------------- |
+| `codex`    | `-s read-only -c approval_policy="never"`                                       | `-s workspace-write`       |
+| `claude`   | `--permission-mode plan --disallowedTools Edit Write NotebookEdit ExitPlanMode` | `--permission-mode manual` |
 
 Keep read-only workers in that mode for the whole task. Do not approve a switch to write access. Claude plan mode restricts tools through its permission system. It is not an OS sandbox. Disable mutating MCP tools and other write-capable extensions for either kind. If the available controls cannot enforce the required access, treat the route as unavailable.
 
