@@ -19,6 +19,7 @@ Remaining triggers:
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface → the **unslop** skill. Your reply is a prose surface. Write it per **Writing the reply**.
 - Docs, RFCs, readmes, PR descriptions, or commit messages → the **technical-writing** skill
+- Before every delivery, including a local handoff without a PR → the **ss-simplify-code** addon over this delivery's settled code. Run it once after implementation and before final verification. Supply the delivery scope and prior cleanup outcomes; an empty/non-code scope completes as a no-op. Do not exempt small code changes. A result already completed in this delivery remains valid only while its scoped code and constraints are unchanged. If later cleanup changes code, refresh the affected scope before final verification. The caller owns the final verification after all cleanup. Review-only leaf assignments do not run delivery addons.
 - Before commit → the `deslop` skill
 - Before review → the **no-comments** skill (/no-comments).
 - Shipping UI / IDE / CLI → the matching control skill. Use `control-cli` (CLIs and TUIs) or `control-ui` (browser / Electron / web UIs). For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.

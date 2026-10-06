@@ -75,6 +75,7 @@ flowchart TD
     S --> PR["principle-* skills<br/>one rule each"]
     P --> W["Workflows<br/>how · why · architect · arena · interrogate · tdd"]
     P --> Q["Cleanup<br/>unslop · technical-writing · deslop · no-comments"]
+    P --> A["Delivery addon<br/>ss-simplify-code"]
     P --> V["Verification<br/>control-ui · control-cli · verify-this"]
     W --> R["skills/staff/references/subagent-routing.md"]
     R --> N["Native subagent tool"]
@@ -90,7 +91,7 @@ staff picks playbooks/bug-fix.md and copies its steps into a todo list
   3. plan the fix (architect if it crosses a function boundary); a routed subagent implements it
   4. verify on the same surface as the repro
   5. commit the failing repro before the fix (tdd)
-  6. open the PR: deslop, no-comments, technical-writing, unslop
+  6. deliver: ss-simplify-code, deslop, no-comments, final verification, PR writing
 ```
 
 ### Who can invoke a skill
@@ -102,7 +103,7 @@ the context window until a task needs them.
 | Invoked by                             | Skills                                                                                                                                                   |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | You or another skill only              | Every skill not listed in the next row                                                                                                                   |
-| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit` |
+| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
 
 ## Skills
 
@@ -139,12 +140,68 @@ Staff playbooks call these skills. You can also invoke them directly.
   focused code exploration.
 - [`interrogate`](skills/interrogate/) runs a multi-model adversarial code review and
   synthesizes the findings into a lead verdict.
+- [`ss-code-review`](skills/ss-code-review/) reviews bugs, regressions, tests, and
+  project standards with risk-selected reviewers and validated findings. It reports
+  by default; `apply:local` explicitly authorizes local fixes. It remains standalone
+  and is not called by Staff playbooks.
+- [`ss-simplify-code`](skills/ss-simplify-code/) runs before every Staff delivery,
+  including local handoffs without a PR. It reviews reuse and redundant runtime
+  work while preserving the settled design and behavior.
 - [`show-me-your-work`](skills/show-me-your-work/) records a reviewable TSV decision
   trail for long-running or unattended work.
 - [`tdd`](skills/tdd/) runs a failing-test-first bug-fix workflow when a focused
   regression test is practical.
 - [`why`](skills/why/) investigates the historical evidence behind code decisions and
   reports what is known, inferred, and still unknown.
+
+### Delivery addon and standalone review
+
+These two skills are adapted from Compound Engineering 3.24.0 and bundled here
+with their prompt assets, schemas, and helper scripts. Neither requires the
+Compound Engineering plugin or its other skills. Their steven-stack names are:
+
+```text
+$ss-code-review
+$ss-code-review base:origin/main
+$ss-code-review mode:agent
+$ss-code-review apply:local
+$ss-simplify-code
+```
+
+In the plugin picker, use `steven-stack:ss-code-review` and
+`steven-stack:ss-simplify-code`. Reinstall steven-stack using the update commands
+above and open a new chat to load these additions. You can then remove Compound
+Engineering if you do not use its other skills.
+
+Code review requires Python 3 for its bundled helpers. PR reviews use `gh`;
+cross-model review optionally uses an installed peer CLI and falls back to the
+local adversarial reviewer when no eligible peer is available. Simplification
+hands final checks to the delivery owner after all cleanup; direct invocations
+run applicable checks themselves. Both use native subagents when available,
+with an inline fallback that reports lost independent coverage.
+
+Every delivery invokes the simplification addon, regardless of code-change size.
+Non-code scopes complete as a no-op. Its two reviewers look for existing
+implementation reuse and provably redundant runtime work. Style and comments,
+architecture/type redesign, test audits, and profiling/tuning stay with their
+existing skills. The addon and the final verification are not repeated when
+their relevant source and constraints are unchanged. Code review remains
+standalone; this integration does not add it to delivery workflows.
+
+Optional repository settings live in `.steven-stack/config.yaml` and
+`.steven-stack/config.local.yaml`; neither file is required. `docs_root` defaults
+to `docs` and is read only from `config.yaml`. Peer settings include
+`cross_model_review_mode: off` to disable automatic external review,
+`cross_model_peer`, `cross_model_model`, and `cross_model_effort`. The bundled
+resolver also accepts optional `packs:` rule sources without requiring another
+plugin. Existing `.compound-engineering/` configuration is not read; copy any
+settings you want to keep into `.steven-stack/` yourself.
+
+Review artifacts use a private `steven-stack-<uid>` temporary directory.
+The upstream `CE_PEER_*`, `CE_PACKS_CACHE_ROOT`, and `CROSS_MODEL_*` environment
+variable names and `ce-unified-plan/v1` input contract remain compatible.
+Upstream attribution and the MIT license are in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ### Principles
 

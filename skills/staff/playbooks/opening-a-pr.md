@@ -6,6 +6,8 @@ Invoked at the end of every other playbook.
 
 **Commits.** Commit liberally. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable. Follow the format in [`/playbooks/writing-a-commit.md`](writing-a-commit.md).
 
+**Delivery addon.** Run `ss-simplify-code` over the settled delivery scope before final verification and publication. Reuse the Staff delivery result when the scoped code and constraints are unchanged, rather than dispatching the addon twice. Every code delivery runs the pass regardless of size; non-code scopes report a no-op. Finish `deslop` and `no-comments` cleanup, refresh the addon only for code changed since its pass, then run the caller's applicable final checks on the resulting source. A pending or failed final verification is not a successful delivery. The addon does not replace `interrogate`, and `ss-code-review` remains standalone.
+
 **PRs.** Run `/deslop` over the diff before commit. Run `/no-comments` before review. Write every PR title, PR description, and commit body with `/technical-writing`, then apply `/unslop`. Apply every technical-writing layer except Diátaxis. Use one word for each action, keep articles, and avoid `-ing` when a plain verb works.
 
 **Titles.** Use Conventional Commits in the form `type(scope): subject`. Use `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, or `perf` as the type. Use the changed app scope in the commits as the scope. Omit the scope if none exists in the commits. Keep the subject short and imperative. Name a real symbol when one carries the change. Append exact head branch name. For example, `AI-30704 feat: add persisted codex task recovery foundation`. Do not add a trailing period.
@@ -69,4 +71,4 @@ Attach videos or screenshots when they prove a claim. Do not paste full SHAs, sw
 
 **Babysit.** Opening a PR does not start a babysit. Post the URL and keep building. Finish the phase or stack first. Run a separate babysit pass only when the user asks for one after the whole stack exists. A babysit for each new PR stalls the build and spends checks on commits that later waves restart. Push back when feedback drifts from intent.
 
-A subagent that opens a PR runs `interrogate`, `/deslop`, and `/no-comments`. It returns the URL and does not babysit. Return to the parent.
+A subagent that opens a PR follows the delivery-addon and cleanup order above and runs `interrogate` on the resulting code. Any accepted review fixes require refreshed addon coverage for the affected code and final verification before publication. It returns the URL and does not babysit. Return to the parent.
