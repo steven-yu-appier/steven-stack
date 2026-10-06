@@ -1,0 +1,20 @@
+{
+  "name": "steven-local",
+  "interface": {
+    "displayName": "Steven's Plugins"
+  },
+  "plugins": [
+    {
+      "name": "steven-stack",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

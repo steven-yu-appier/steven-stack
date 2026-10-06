@@ -3,6 +3,58 @@
 [Steven](https://github.com/steven-yu-appier) maintains this catalog of reusable
 agent skills.
 
+## Install in Codex Desktop
+
+This repository packages its skills as the `steven-stack` plugin. It includes
+`plugin.json`, a `.codex-plugin/plugin.json` compatibility manifest, the workflows
+under `skills/`, and a local marketplace catalog at
+`.agents/plugins/marketplace.json`. No MCP server is bundled.
+
+### Install from a local checkout
+
+Run these commands in your terminal, replacing the path if your checkout lives
+elsewhere:
+
+```sh
+codex plugin marketplace add /Users/steven.yu/Documents/steven-stack
+codex plugin add steven-stack@steven-local
+```
+
+Restart Codex Desktop and open a new chat. Confirm that `steven-stack` appears
+in the installed plugins and that its Staff skill is available. Select Staff
+from the skill picker with your task; its plugin-qualified name is
+`steven-stack:staff`.
+
+The marketplace is named `steven-local`; its `./` source path resolves to this
+repository root, rather than the `.agents/plugins/` directory.
+
+### Update after editing the skills
+
+Codex loads an installed copy from its plugin cache. Remove and reinstall the
+plugin after changing this checkout to refresh that copy:
+
+```sh
+codex plugin remove steven-stack@steven-local
+codex plugin add steven-stack@steven-local
+```
+
+Restart Codex Desktop and test in a new chat so it loads the refreshed skills.
+
+### Uninstall
+
+```sh
+codex plugin remove steven-stack@steven-local
+```
+
+The marketplace can remain configured for a later reinstall. To remove it too:
+
+```sh
+codex plugin marketplace remove steven-local
+```
+
+See the [official plugin packaging and marketplace guide](https://developers.openai.com/plugins/build/plugins)
+for distribution options and local marketplace behavior.
+
 ## Start here
 
 Invoke `/staff` in Claude Code or `$staff` in Codex with your task. Staff
@@ -24,7 +76,7 @@ flowchart TD
     P --> W["Workflows<br/>how · why · architect · arena · interrogate · tdd"]
     P --> Q["Cleanup<br/>unslop · technical-writing · deslop · no-comments"]
     P --> V["Verification<br/>control-ui · control-cli · verify-this"]
-    W --> R["staff/references/subagent-routing.md"]
+    W --> R["skills/staff/references/subagent-routing.md"]
     R --> N["Native subagent tool"]
 ```
 
@@ -56,122 +108,122 @@ the context window until a task needs them.
 
 ### Entry point
 
-- [`staff`](staff/) applies the catalog's `principle-*` skills and routes work
+- [`staff`](skills/staff/) applies the catalog's `principle-*` skills and routes work
   through the bundled
-  [investigation](staff/playbooks/investigation.md),
-  [bug fix](staff/playbooks/bug-fix.md),
-  [perf issue](staff/playbooks/perf-issue.md),
-  [hillclimb](staff/playbooks/hillclimb.md),
-  [runtime forensics](staff/playbooks/runtime-forensics.md),
-  [trace forensics](staff/playbooks/trace-forensics.md),
-  [feature](staff/playbooks/feature.md),
-  [refactoring](staff/playbooks/refactoring.md),
-  [prototype](staff/playbooks/prototype.md),
-  [autonomous run](staff/playbooks/autonomous-run.md),
-  [session pickup](staff/playbooks/session-pickup.md),
-  [worktree cleanup](staff/playbooks/worktree-cleanup.md), and
-  [opening a PR](staff/playbooks/opening-a-pr.md) playbooks.
+  [investigation](skills/staff/playbooks/investigation.md),
+  [bug fix](skills/staff/playbooks/bug-fix.md),
+  [perf issue](skills/staff/playbooks/perf-issue.md),
+  [hillclimb](skills/staff/playbooks/hillclimb.md),
+  [runtime forensics](skills/staff/playbooks/runtime-forensics.md),
+  [trace forensics](skills/staff/playbooks/trace-forensics.md),
+  [feature](skills/staff/playbooks/feature.md),
+  [refactoring](skills/staff/playbooks/refactoring.md),
+  [prototype](skills/staff/playbooks/prototype.md),
+  [autonomous run](skills/staff/playbooks/autonomous-run.md),
+  [session pickup](skills/staff/playbooks/session-pickup.md),
+  [worktree cleanup](skills/staff/playbooks/worktree-cleanup.md), and
+  [opening a PR](skills/staff/playbooks/opening-a-pr.md) playbooks.
 
 ### Workflows
 
 Staff playbooks call these skills. You can also invoke them directly.
 
-- [`architect`](architect/) sketches types and module boundaries before
+- [`architect`](skills/architect/) sketches types and module boundaries before
   implementation, then keeps the design in the implementation loop.
-- [`arena`](arena/) runs parallel candidates, selects a base, and combines the
+- [`arena`](skills/arena/) runs parallel candidates, selects a base, and combines the
   strongest parts into one verified result.
-- [`figure-it-out`](figure-it-out/) designs an auditable playbook for large
+- [`figure-it-out`](skills/figure-it-out/) designs an auditable playbook for large
   migrations, ambitious multi-part changes, or work a human reviews after
   stepping away.
-- [`how`](how/) explains subsystem architecture and runtime flow through
+- [`how`](skills/how/) explains subsystem architecture and runtime flow through
   focused code exploration.
-- [`interrogate`](interrogate/) runs a multi-model adversarial code review and
+- [`interrogate`](skills/interrogate/) runs a multi-model adversarial code review and
   synthesizes the findings into a lead verdict.
-- [`show-me-your-work`](show-me-your-work/) records a reviewable TSV decision
+- [`show-me-your-work`](skills/show-me-your-work/) records a reviewable TSV decision
   trail for long-running or unattended work.
-- [`tdd`](tdd/) runs a failing-test-first bug-fix workflow when a focused
+- [`tdd`](skills/tdd/) runs a failing-test-first bug-fix workflow when a focused
   regression test is practical.
-- [`why`](why/) investigates the historical evidence behind code decisions and
+- [`why`](skills/why/) investigates the historical evidence behind code decisions and
   reports what is known, inferred, and still unknown.
 
 ### Principles
 
 Each principle skill holds one rule. Staff loads a principle when its
 situation matches, and cites only the principles it read. The groups match the
-sections in [`staff/SKILL.md`](staff/SKILL.md).
+sections in [`staff/SKILL.md`](skills/staff/SKILL.md).
 
 **Core**
 
-- [`principle-attack-the-premise`](principle-attack-the-premise/) questions a
+- [`principle-attack-the-premise`](skills/principle-attack-the-premise/) questions a
   shared premise after repeated fixes fail the same gate.
-- [`principle-build-the-lever`](principle-build-the-lever/) turns non-trivial
+- [`principle-build-the-lever`](skills/principle-build-the-lever/) turns non-trivial
   work into a rerunnable script, generator, check, or skill.
-- [`principle-exhaust-the-design-space`](principle-exhaust-the-design-space/)
+- [`principle-exhaust-the-design-space`](skills/principle-exhaust-the-design-space/)
   compares concrete prototypes before committing to a novel design.
-- [`principle-experience-first`](principle-experience-first/) resolves product
+- [`principle-experience-first`](skills/principle-experience-first/) resolves product
   and implementation tradeoffs in favor of the user's experience.
-- [`principle-foundational-thinking`](principle-foundational-thinking/) puts
+- [`principle-foundational-thinking`](skills/principle-foundational-thinking/) puts
   data structures, shared-state decisions, and reusable setup first.
-- [`principle-laziness-protocol`](principle-laziness-protocol/) favors deletion,
+- [`principle-laziness-protocol`](skills/principle-laziness-protocol/) favors deletion,
   flat call paths, and the smallest sufficient change.
-- [`principle-minimize-reader-load`](principle-minimize-reader-load/) reduces
+- [`principle-minimize-reader-load`](skills/principle-minimize-reader-load/) reduces
   indirection and the amount of mutable state a reader must track.
-- [`principle-outcome-oriented-execution`](principle-outcome-oriented-execution/)
+- [`principle-outcome-oriented-execution`](skills/principle-outcome-oriented-execution/)
   prioritizes a verified migration end state over temporary compatibility code.
-- [`principle-redesign-from-first-principles`](principle-redesign-from-first-principles/)
+- [`principle-redesign-from-first-principles`](skills/principle-redesign-from-first-principles/)
   integrates a new requirement as though it were part of the original design.
-- [`principle-subtract-before-you-add`](principle-subtract-before-you-add/)
+- [`principle-subtract-before-you-add`](skills/principle-subtract-before-you-add/)
   removes obsolete complexity before adding new behavior.
 
 **Architecture**
 
-- [`principle-boundary-discipline`](principle-boundary-discipline/) keeps
+- [`principle-boundary-discipline`](skills/principle-boundary-discipline/) keeps
   validation and error handling at system boundaries.
-- [`principle-make-operations-idempotent`](principle-make-operations-idempotent/)
+- [`principle-make-operations-idempotent`](skills/principle-make-operations-idempotent/)
   makes repeated or interrupted operations converge on one end state.
-- [`principle-migrate-callers-then-delete-legacy-apis`](principle-migrate-callers-then-delete-legacy-apis/)
+- [`principle-migrate-callers-then-delete-legacy-apis`](skills/principle-migrate-callers-then-delete-legacy-apis/)
   removes an internal legacy API in the same change that migrates its callers.
-- [`principle-model-the-domain`](principle-model-the-domain/) replaces scattered
+- [`principle-model-the-domain`](skills/principle-model-the-domain/) replaces scattered
   branches and shape assumptions with domain-specific structures.
-- [`principle-separate-before-serializing-shared-state`](principle-separate-before-serializing-shared-state/)
+- [`principle-separate-before-serializing-shared-state`](skills/principle-separate-before-serializing-shared-state/)
   removes shared write targets before adding concurrency controls.
-- [`principle-type-system-discipline`](principle-type-system-discipline/) uses
+- [`principle-type-system-discipline`](skills/principle-type-system-discipline/) uses
   types to exclude invalid states and expose unhandled variants.
 
 **Verification**
 
-- [`principle-fix-root-causes`](principle-fix-root-causes/) traces symptoms to
+- [`principle-fix-root-causes`](skills/principle-fix-root-causes/) traces symptoms to
   their source before changing code.
-- [`principle-prove-it-works`](principle-prove-it-works/) verifies completed work
+- [`principle-prove-it-works`](skills/principle-prove-it-works/) verifies completed work
   against the real artifact instead of a proxy.
-- [`principle-sequence-verifiable-units`](principle-sequence-verifiable-units/)
+- [`principle-sequence-verifiable-units`](skills/principle-sequence-verifiable-units/)
   breaks multi-step work into checked units and orders delivery as evidence.
-- [`principle-test-behavior-not-implementation`](principle-test-behavior-not-implementation/)
+- [`principle-test-behavior-not-implementation`](skills/principle-test-behavior-not-implementation/)
   tests observable results through the same interface that users call.
 
 **Delegation**
 
-- [`principle-guard-the-context-window`](principle-guard-the-context-window/)
+- [`principle-guard-the-context-window`](skills/principle-guard-the-context-window/)
   limits unnecessary reads and keeps large payloads out of the main context.
-- [`principle-never-block-on-the-human`](principle-never-block-on-the-human/)
+- [`principle-never-block-on-the-human`](skills/principle-never-block-on-the-human/)
   proceeds with reversible work and reserves questions for genuine ambiguity.
 
 **Meta**
 
-- [`principle-encode-lessons-in-structure`](principle-encode-lessons-in-structure/)
+- [`principle-encode-lessons-in-structure`](skills/principle-encode-lessons-in-structure/)
   replaces repeated instructions with enforceable mechanisms.
 
 ### Cleanup passes
 
-- [`deslop`](deslop/) removes AI-generated code patterns while preserving
+- [`deslop`](skills/deslop/) removes AI-generated code patterns while preserving
   behavior and local style.
-- [`no-comments`](no-comments/) audits comments, removes accepted clutter, and
+- [`no-comments`](skills/no-comments/) audits comments, removes accepted clutter, and
   reports constraints that need structural fixes.
-- [`technical-writing`](technical-writing/) applies Diátaxis, Google developer
+- [`technical-writing`](skills/technical-writing/) applies Diátaxis, Google developer
   style, Simplified Technical English, and Global English to technical prose.
-- [`typescript-best-practices`](typescript-best-practices/) applies the catalog's
+- [`typescript-best-practices`](skills/typescript-best-practices/) applies the catalog's
   type-system and boundary principles to TypeScript code.
-- [`unslop`](unslop/) removes common AI writing patterns while preserving the
+- [`unslop`](skills/unslop/) removes common AI writing patterns while preserving the
   meaning and tone.
 
 ### Verification harnesses
@@ -179,37 +231,37 @@ sections in [`staff/SKILL.md`](staff/SKILL.md).
 Staff calls a control skill to reproduce a bug or check a change on the
 surface that users see. You can also invoke these skills directly.
 
-- [`control-cli`](control-cli/) builds or reuses a local tmux or PTY harness to
+- [`control-cli`](skills/control-cli/) builds or reuses a local tmux or PTY harness to
   drive, inspect, and profile an interactive CLI or TUI.
-- [`control-ui`](control-ui/) builds or reuses a local browser or CDP harness to
+- [`control-ui`](skills/control-ui/) builds or reuses a local browser or CDP harness to
   drive, screenshot, and profile a web, IDE, or Electron UI.
-- [`verify-this`](verify-this/) tests one falsifiable claim against a baseline
+- [`verify-this`](skills/verify-this/) tests one falsifiable claim against a baseline
   and a treatment, then returns `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`.
 
 ### Standalone tools
 
-- [`bro`](bro/) restates the last message in simpler language without jargon.
-- [`create-jira-ticket`](create-jira-ticket/) creates or updates concise Jira
+- [`bro`](skills/bro/) restates the last message in simpler language without jargon.
+- [`create-jira-ticket`](skills/create-jira-ticket/) creates or updates concise Jira
   tickets from specs, related issues, pull requests, or user notes.
-- [`post-pending-review-comments`](post-pending-review-comments/) writes
+- [`post-pending-review-comments`](skills/post-pending-review-comments/) writes
   validated findings to an unsubmitted GitHub review and verifies the result.
-- [`pr-author-context-comments`](pr-author-context-comments/) explains
+- [`pr-author-context-comments`](skills/pr-author-context-comments/) explains
   non-obvious author decisions at their exact PR diff locations.
-- [`recall`](recall/) rebuilds your recent working context from Claude Code and
+- [`recall`](skills/recall/) rebuilds your recent working context from Claude Code and
   Codex transcripts, live state, and the shared record.
-- [`show-me`](show-me/) explains the current topic with concise diagrams,
+- [`show-me`](skills/show-me/) explains the current topic with concise diagrams,
   code-shape sketches, and focused HTML artifacts.
-- [`skill-audit`](skill-audit/) reviews a skill's triggering, target mechanics,
+- [`skill-audit`](skills/skill-audit/) reviews a skill's triggering, target mechanics,
   and instruction fitness without editing the skill.
-- [`teach`](teach/) runs `how` and `why` and combines their findings into one
+- [`teach`](skills/teach/) runs `how` and `why` and combines their findings into one
   plain explanation of a change or subsystem.
-- [`test-audit`](test-audit/) gates new tests against a value bar and prunes
+- [`test-audit`](skills/test-audit/) gates new tests against a value bar and prunes
   low-value, duplicative, or implementation-coupled tests.
 
 ## Delegation requirements
 
 `staff`, `how`, `why`, `arena`, and `interrogate` delegate work to other
-agents. The [staff routing contract](staff/references/subagent-routing.md)
+agents. The [staff routing contract](skills/staff/references/subagent-routing.md)
 selects the control method, the model route, the access mode, and the child
 prompt.
 
