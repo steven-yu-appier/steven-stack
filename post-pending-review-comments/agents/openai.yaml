@@ -1,0 +1,6 @@
+interface:
+  display_name: "Post Pending Review Comments"
+  short_description: "Draft GitHub PR review threads"
+  default_prompt: "Use $post-pending-review-comments to post these review findings as pending GitHub PR comments without submitting the review."
+policy:
+  allow_implicit_invocation: true

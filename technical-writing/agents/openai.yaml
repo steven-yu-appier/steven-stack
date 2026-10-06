@@ -1,0 +1,6 @@
+interface:
+  display_name: "Technical Writing"
+  short_description: "Write technical prose for the first read"
+  default_prompt: "Use $technical-writing to revise this technical document for clarity and precision."
+policy:
+  allow_implicit_invocation: false

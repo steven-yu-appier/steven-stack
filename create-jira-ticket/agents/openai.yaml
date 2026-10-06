@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Jira Ticket"
+  short_description: "Draft Jira tickets from specs"
+  default_prompt: "Use $create-jira-ticket to create a Jira ticket from this spec in the established ticket format."

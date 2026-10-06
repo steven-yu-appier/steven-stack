@@ -1,0 +1,6 @@
+interface:
+  display_name: "No comments"
+  short_description: "Audit comments and remove accepted clutter"
+  default_prompt: "Use $no-comments to audit comments and act on accepted findings."
+policy:
+  allow_implicit_invocation: false

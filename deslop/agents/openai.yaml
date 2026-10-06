@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deslop"
+  short_description: "Remove AI-generated code patterns"
+  default_prompt: "Use $deslop to clean up the current branch without changing its behavior."

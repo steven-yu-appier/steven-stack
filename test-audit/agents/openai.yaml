@@ -1,0 +1,6 @@
+interface:
+  display_name: "Test Audit"
+  short_description: "Gate new tests and prune low-value or coupled tests"
+  default_prompt: "Use $test-audit to audit the tests in this area for low-value coverage."
+policy:
+  allow_implicit_invocation: true
