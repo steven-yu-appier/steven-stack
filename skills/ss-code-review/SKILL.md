@@ -5,6 +5,8 @@ description: "Structured code review for bugs, regressions, tests, and standards
 
 # Code Review
 
+Read [Scoped checks](../staff/references/scoped-checks.md) before starting the review. It governs every stage, including reviewers, validators, and local apply; pass its absolute path and the check scope to every delegate.
+
 Help the caller deliver a correct change within the agreed scope. Find defects and improvements whose consequences justify action; judge the code against its intended behavior and project requirements, not a preferred rewrite. Serious defects remain important even when the diff is small. An adequate change needs no findings.
 
 **Done when:** required review and validation are complete, retained findings are supported by the source, and the caller has a clear result with any remaining coverage limits. Apply only when the invocation authorizes it, under the rules below.
@@ -43,3 +45,9 @@ Follow these steps in order; the references supply the detail but never change t
 ## Task Visibility
 
 Use the platform's task-tracking capability after resolving scope, as described in `references/scope.md`.
+
+## Reviewer references
+
+At Stage 4, read [Reviewer prompt template](references/subagent-template.md) for the authoritative artifact and compact-return contract; dispatch supplies it and synthesis consumes it without redefining it.
+
+When selected at Stage 3, read the corresponding persona: [Adversarial](references/personas/adversarial-reviewer.md), [Agent-native](references/personas/agent-native-reviewer.md), [Data migration](references/personas/data-migration-reviewer.md), or [Deployment verification](references/personas/deployment-verification-agent.md). Other selected personas remain routed by the persona catalog.

@@ -6,6 +6,12 @@ disable-model-invocation: true
 
 ## Non-negotiables
 
+Read [Scoped checks](references/scoped-checks.md) before starting any playbook. It governs type-check, lint, and test execution in every stage, including delegated work.
+
+Before planning or implementing a change, read [Implementation scope](references/implementation-scope.md). Apply its AC scope and Figma/component checks during grill or clarify, before implementation or delegation. Include the confirmed scope and component mapping in implementation prompts.
+
+For FE AC screenshot uploads, read [GitHub screenshot attachments](references/github-attachments.md). For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). When creating a new PR in `ad-cloud-portal` or `idash-mono`, also read [Preview links and Jira sync](references/jira-preview.md).
+
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 
 Remaining triggers:
@@ -68,6 +74,10 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 - **Encode Lessons in Structure** (**principle-encode-lessons-in-structure**). You catch yourself writing the same instruction a second time. Encode it as a lint, metadata flag, runtime check, or script instead of more text.
 
 ## Autonomy
+
+**Automatic delivery.** A Staff implementation or fix request authorizes task-scoped commit, normal push, and PR creation or maintenance. After cleanup and successful final verification, continue directly through [Opening a PR](playbooks/opening-a-pr.md), including updating an existing PR body for the resulting change and evidence. Do not end with a local-only completion report, ask whether to commit or push, or wait for another reminder. Apply this to follow-up fixes and accepted review changes as well as the initial implementation. Delivery is complete when the intended commit is verified on the remote branch and the current PR body and head are read back successfully, plus any applicable preview synchronization outcome is reported.
+
+Explicit limits override this default: read-only/review-only requests do not authorize delivery; `local only` omits commit, push, and PR writes; `no push` omits push and PR publication; `no PR` omits PR work; `push only` pushes existing commits without staging uncommitted changes or editing a PR. Respect named approval gates and tool, hook, or remote rejection. Missing or ambiguous inputs block only dependent actions; continue independent work and report concrete pending steps. Delegated implementation and review leaves return their artifacts to the delivery owner rather than publishing independently unless publication is assigned explicitly.
 
 **Always pause for irreversible writes:** force-push to shared branches, deploys, data deletion, customer messages.
 

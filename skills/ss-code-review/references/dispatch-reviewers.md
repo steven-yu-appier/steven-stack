@@ -81,34 +81,7 @@ Persona sub-agents are **read-only** with respect to the project: they review an
 
 Read-only here means **non-mutating**, not "no shell access." Reviewer sub-agents may use non-mutating inspection commands when needed to gather evidence or verify scope, including read-oriented `git` / `gh` usage such as `git diff`, `git show`, `git blame`, `git log`, and `gh pr view`. When a finding's claim depends on line history (`pre_existing`, intent, introduced-by-this-diff, or P0/P1 confidence that depends on authorship/age), reviewers are expected to attach one concise provenance evidence line from targeted blame/log on the cited line — additional to the quote-the-line gate, never a full-file dump, and omitted when the finding is justified from the diff alone. In **`pr-remote`** or **`branch-remote`** scope (see Stage 1), inspect changed files via `git show <remote-head-ref>:<path>` or diff hunks — do not Read/Grep workspace paths for files in scope; gather blame/log against that reviewed head ref. They must not edit project files, change branches, commit, push, create PRs, or otherwise mutate the checkout or repository state.
 
-Each persona sub-agent writes full JSON (all schema fields) to `{run_dir}/{reviewer_name}.json` and returns compact JSON with merge-tier fields only:
-
-```json
-{
-  "reviewer": "security",
-  "findings": [
-    {
-      "title": "User-supplied ID in account lookup without ownership check",
-      "severity": "P0",
-      "file": "orders_controller.rb",
-      "line": 42,
-      "confidence": 100,
-      "autofix_class": "gated_auto",
-      "owner": "downstream-resolver",
-      "requires_verification": true,
-      "pre_existing": false,
-      "suggested_fix": "Add current_user.owns?(account) guard before lookup",
-      "first_evidence": "orders_controller.rb:42 -- account = Account.find(params[:account_id])"
-    }
-  ],
-  "residual_risks": [...],
-  "testing_gaps": [...]
-}
-```
-
-`first_evidence` is the **one** detail-tier field promoted into the compact return: the verbatim motivating line with `file:line` that the quote-the-line gate requires. It is **mandatory for every finding at anchor 75 or 100** (the gate is unenforceable without it in-band, since the rest of `evidence` lives only in the artifact). Omit it only for anchor-50 findings. Stage 5 drops/demotes any 75/100 finding missing it; Stage 5b uses it for the validator-skip check. Keep it to the single triggering line, not the full `evidence` array — the array stays in the artifact.
-
-The artifact file **must** carry the full detail-tier fields (`why_it_matters`, `evidence`); the compact *return* omits all detail-tier fields **except `first_evidence`**, but writing the compact shape to the artifact (a common reviewer slip) silently strips the detail Coverage and the keyed detail lines depend on. However review context is delivered — inlined, or staged to disk for a large diff — each reviewer still receives the full subagent-template output contract; staging context never licenses a thinner one. `suggested_fix` is optional in both tiers -- included in compact returns when present so callers can apply fixes after review. If the file write fails, the compact return still provides everything the merge needs.
+**Reviewer output.** Read and supply the complete `<output-contract>` in [Reviewer prompt template](subagent-template.md#template). It is the single source for the full artifact, compact-return fields, quote-the-line requirement, and artifact-write failure behavior. Validate returns against that contract; a compact return is not a full artifact.
 
 **bundled generic conditional local prompt assets** (`agent-native-reviewer`, `learnings-researcher`) are dispatched only when selected by Stage 3, through the same deterministic foreground batch dispatch as the structured personas. Read their prompt files from `references/personas/`, then give them the same review context bundle the personas receive: entry mode, any PR metadata gathered in Stage 1, intent summary, review base branch name when known, `BASE:` marker, file list, diff, and `UNTRACKED:` scope notes.
 

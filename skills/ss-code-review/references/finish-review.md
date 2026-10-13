@@ -90,7 +90,7 @@ Local apply does not authorize reversing a settled decision. When a retained def
 
 **Scope invariant.** Apply only when the working tree *is* what was reviewed — `local-aligned` or standalone. In `pr-remote` / `branch-remote` the working tree is not the reviewed head; do not apply — report instead.
 
-**Verify, then keep.** After applying, run the affected tests and lint (targeted by default; broaden when fixes span files). If they fail, revert that fix and report it as a finding instead — an unverified fix is not finished. Never leave the tree red.
+**Verify, then keep.** Before applying a fix, retain a checkpoint of the affected files, including any pre-existing staged and unstaged changes. Run the affected tests and lint within the task's scope, following [Scoped checks](../../staff/references/scoped-checks.md). If a required check fails, cannot isolate the permitted scope, or is unavailable, revert only that fix to its checkpoint and report the finding with the failed or blocked check and concrete reason. Preserve the user's prior changes and successful independent fixes; do not reset the checkout or widen checks to the full monorepo. A blocked check is not a pass, and an unverified fix is not retained or committed. If restoring the fix cannot be completed, stop local apply and report the remaining diff and recovery limitation rather than claiming a clean tree.
 
 **Review the autofix diff before finishing.** Before committing or reporting applied fixes, diff only the changes introduced during Stage 5c against the pre-apply checkpoint. Run one self-review pass over that diff:
 - If the same helper, policy, or guard was added to multiple parallel surfaces, extract it or explain in the Applied section why duplication is intentional.

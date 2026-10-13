@@ -51,6 +51,7 @@ Every child prompt includes:
 - Read-only or write access.
 - The working directory or assigned worktree.
 - File pointers instead of copied bulk context.
+- The task's check scope and the absolute path to [Scoped checks](scoped-checks.md), with a required read before running or recommending checks.
 - Success criteria and the expected output. Give each write delegate an absolute scratch file path for its complete report. Require it to finish the file before replying with the path. The report names changed files, verification results, and unresolved issues.
 
 Read-only children return text. The parent saves long replies to the assigned report path. Never relax read-only access to obtain a report file. The native subagent tool handles result collection.
