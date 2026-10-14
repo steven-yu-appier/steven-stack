@@ -7,11 +7,13 @@ Invoked at the end of every other playbook.
 - Delivery scope, worktree, and commits
 - Cleanup, test audit, commit, and push
 - PR writing and required body sections
-- FE AC evidence and freshness
+- FE AC reviewer targets and freshness
 - Preview synchronization, publication, and readback
 - Forge, stacks, readiness, and babysitting
 
 For implementation and fix work, follow Staff's **Automatic delivery** scope in [`../SKILL.md`](../SKILL.md#autonomy). Read-only playbooks and explicitly limited requests perform only their authorized actions. The delivery owner runs this playbook after successful final verification without another user prompt.
+
+**Acceptance gate.** Apply [Acceptance and delivery](../references/implementation-scope.md#acceptance-and-delivery) before drafting readiness claims. Use its acceptance record to build Verification. Keep authorized draft publication separate from QA readiness when coverage is pending.
 
 **Worktree.** Reuse the task's current branch and worktree for delivery, including follow-up fixes to an existing PR. Create any needed isolated worktree during task setup, before implementation; give concurrent writers separate worktrees or disjoint files. Preserve unrelated work and published history. Delivery does not reset the checkout, reconstruct the change from main, or move it onto a fresh branch.
 
@@ -66,29 +68,24 @@ Use this default template:
 
 ## Verification
 
-- [x] <State behavior that the author verified on the current source state>. [Evidence](...)
-- [ ] Reviewer check: <State a manual action that a reviewer can repeat with normal access.>
+| # | FE acceptance criterion |
+|---|---|
+| <source AC number> | <Criterion with the concrete state/action and confirmed expected result for the reviewer to check> |
 
-<If needed, state a blocked check or coverage limit in prose.>
-
-## FE acceptance criteria
-
-| # | ac | screenshot |
-|---|---|---|
-| <source AC number> | <FE acceptance criterion> | ![<verified state>](<GitHub attachment URL>) |
+<Brief author coverage with tested source/environment, plus any pending checks and reasons. For tasks without FE AC, omit the table and describe the relevant behavioral verification here.>
 ````
 
 `Why`, `Change outline` and `Verification` are required in the default template. Omit `Tradeoffs and risk` when it has nothing material to say. Do not write `None.`.
 
-The first non-empty line of every PR body must be exactly `- [ ] QA`, including when using a repository template. Include `## Significant change` with the breaking-change table above; when there are no breaking changes, retain the heading and table headers, omit the example row, and state that there are no breaking changes. Map the remaining content into the repository template without duplicating sections. Include the FE AC table when the task has FE criteria; omit it when none apply. These evidence tables do not count toward the change outline's one-visual limit. Keep the body concise, but retain all required AC rows even when they exceed the approximate line budget.
+The first non-empty line of every PR body must be exactly `- [ ] QA`, including when using a repository template. Include `## Significant change` with the breaking-change table above; when there are no breaking changes, retain the heading and table headers, omit the example row, and state that there are no breaking changes. Map the remaining content into the repository template without duplicating sections. Keep the body concise, but retain all required FE AC rows even when they exceed the approximate line budget. The tables do not count toward the change outline's one-visual limit.
 
-**FE AC evidence.** List every FE-scope AC in source order with the numbering confirmed during clarification; exclude criteria outside FE scope. Exercise each visual criterion on the actual application and capture enough screenshots to demonstrate its required states. Read [GitHub screenshot attachments](../references/github-attachments.md) and follow its upload, URL capture, and rendered-access verification procedure. Embed the returned image Markdown in the `screenshot` cell. One row may contain multiple images; one image may support multiple criteria only when it demonstrates each. For nonvisual FE behavior, put exactly `不適用` in that cell and report its behavioral verification in Verification. Keep the evidence tied to the tested source state under the freshness rules below. If capture or upload is unavailable, mark the row pending with the reason and report the evidence gap; do not label it verified or nonvisual.
+**FE AC reviewer targets.** In Verification, list every FE-scope AC in source order using the confirmed numbering. Include enough precondition, action, and expected result for a reviewer to target the check, preserving the source meaning and recorded clarifications. Link the source story or relevant Figma state when useful. Exclude BE-only AC and omit the table when no FE AC apply. This is a requirements list, not a passed checklist; author coverage and pending checks belong in the brief prose below it. Do not add a separate FE AC section, screenshot column, image attachments, or screenshot upload step. Local visual acceptance still follows Implementation scope.
 
 **Gather before writing.** Read the linked ticket or specification, the complete diff, the commit list, changed files, and enough surrounding code to understand ownership and behavior. For an existing PR, also read its current body, the motivating review comment, any accepted comment that changed scope, and any verification-evidence comment. Treat the existing body as context; rebuild its claims from the current full diff. Do not read every comment by default. Capture the current PR or branch head as `draftHead` before drafting.
 
 **Change outline.** Use prose when prose is clearer. Use at most one visual. Split the PR when one bounded view cannot explain its independent changes.
 
-**Verification states.** Checked items report author-run behavioral evidence from the current source state and link the retained evidence when available. Unchecked items begin with `Reviewer check:` and describe actions a reviewer can repeat with normal access, documented tooling, and available builds. Failed, blocked, unexecuted, or incomplete coverage appears in prose with the concrete status and reason. Do not disguise it as a reviewer task. Do not include type-check, lint, git diff, build, compile, or routine test commands. For a performance change, report one primary number with its unit in `before → after` form. Do not claim that old evidence applies to the current head because later changes appear unrelated. State the tested source when the evidence comes from a different source state.
+**Verification coverage.** Report author-run behavioral coverage from the current source state, separate from the reviewer targets. Describe failed, blocked, unexecuted, or incomplete checks with their concrete reasons; assigning a reviewer target does not complete them. Do not include type-check, lint, git diff, build, compile, or routine test commands. For a performance change, report one primary number with its unit in `before → after` form. Do not claim that old evidence applies to the current head because later changes appear unrelated. State the tested source when the evidence comes from a different source state.
 
 **Freshness gate.** Immediately before creating or updating the PR, read the current head again. If `currentHead != draftHead`, refresh the commits and diff, revise every affected section and set `draftHead = currentHead`. Do not publish until the draft describes the current head.
 
@@ -98,7 +95,7 @@ The first non-empty line of every PR body must be exactly `- [ ] QA`, including 
 
 **Publish and read back.** Create or update the PR, then read its body and head from the forge. Confirm that the published body matches the reviewed draft, the selected template's headings appear once and in order, fenced blocks and links survived escaping, and the PR head still equals `draftHead`. If the head changed, refresh and publish again. Remove the temporary file after successful readback.
 
-Attach videos when they prove a claim; screenshots follow the FE AC evidence requirements above. Do not paste full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, metric tables, or "CLEAN" verdicts. Put these details in a linked artifact. Do not use `## Summary` or `## Test plan` boilerplate. A commit body does not restate its subject.
+Attach videos when they prove a claim. Do not paste full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, metric tables, or "CLEAN" verdicts. Put these details in a linked artifact. Do not use `## Summary` or `## Test plan` boilerplate. A commit body does not restate its subject.
 
 **Forge.** Use `gh` for every PR operation, including create, edit, view, watch, and merge. Run every `gh` command outside the sandbox with escalated permissions; credentials are stored in the macOS Keychain. A sandboxed authentication failure is not evidence that the user needs to log in. Rerun outside the sandbox first.
 

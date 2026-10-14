@@ -1,7 +1,7 @@
 ### Feature
 
 **You own the design. Plan, review, verify.** Delegate implementation. Stay in the lead.
-1. `how` over the affected subsystem.
+1. Complete [Confirm requirements](../references/implementation-scope.md#confirm-requirements), then `how` over the affected subsystem.
 2. `architect` for parallel design exploration. Skipping stays as `architect skipped: <reason>`. Do not fold the design decision silently into implementation.
 3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
    - **Blocking first steps.** Gates run before fan-out.
@@ -11,7 +11,7 @@
 4. Delegate code-writing through [`../references/subagent-routing.md`](../references/subagent-routing.md) using your configured feature route (default `gpt-6.1-sol-medium`) with a specific scope (file paths, named data shape and its organizing structure per **principle-model-the-domain**, a state machine over scattered booleans, a table/registry over branching, a typed model over repeated shape assumptions, chosen before the delegate writes logic, and success criteria). Review its diff yourself.
 When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). You can spawn a subagent even though you are one. "The app is small" and "a subagent cannot spawn one" are both wrong.
 A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation. No "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
-5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass. Flag it.
+5. Complete [Acceptance and delivery](../references/implementation-scope.md#acceptance-and-delivery) on the matching surface.
 6. Arrange small, ordered commits under **Opening a PR**'s Commits policy. Stack follow-ups while preserving published history.
    Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
 7. If the design is contested, `interrogate` before shipping.

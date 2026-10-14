@@ -1,0 +1,38 @@
+[
+  {
+    "id": "event-clear",
+    "request": "Implement this story under full autonomy. Decide what can proceed and what must be settled before coding or writing acceptance tests.",
+    "source": "Duplicate to another OID or switch OID during create: keep minor events with the same event type. Missing types keep current behavior: clear and require reselection before saving. Compare event type only.",
+    "artifacts": "Baseline OID-switch setter clears the event selection but preserves its condition. Successful metadata refresh removes the entire invalid condition. AI-suggested test row says keep an empty selector and block saving. No owner clarification exists."
+  },
+  {
+    "id": "event-confirmed",
+    "request": "Fix the owner feedback and define acceptance tests.",
+    "source": "Owner explicitly clarified: if target OID lacks the event type, remove the entire condition. Matching sibling conditions keep type, operator and threshold. Existing form validation governs whether remaining conditions can save.",
+    "artifacts": "Current UI leaves an empty Select event type chip. Existing tests expect the blank chip. Two conditions contain shared purchase and source-only signup."
+  },
+  {
+    "id": "avatar-and-update",
+    "request": "Assess whether this story UI is correct and ready for QA.",
+    "source": "Story updated after Code Complete: list client users only; FE filters internal roles 1,2,3,4,5,6,11; title count is after filtering. Reuse existing user-row avatar rules.",
+    "artifacts": "API returns one System Admin role 1 and one Client Admin role 7. Popover displays both and count 2. Purple condition is role===7, matching the Client Admin filter. Existing BasicUserInfo renders Client Admin purple, other clients gray, System Admin green, other internal roles blue. QA child ticket still says include internal and external users and lists the feature as optional."
+  },
+  {
+    "id": "figma-states",
+    "request": "Review the acceptance evidence and decide readiness. Identify what to verify or fix.",
+    "source": "Figma has-users state contains title and user rows only. Empty-users state contains the empty message and permission explanation. Empty-accounts contains only No accessible report accounts for this user. Popover width is 300px; search category headings are 12px muted regular. Range text is Total cap start time to last hour with the complete tooltip example. Budget timezone warning is below tags and add controls.",
+    "artifacts": "Browser observation: popover 400px; users helper appears with data; accounts empty state also has count heading; category heading bold; range text omits time; tooltip example truncated; warning above tags. Real DS components are imported and all tests pass. Author proposes passing tests plus one happy-path screenshot as complete acceptance."
+  },
+  {
+    "id": "cap-contract",
+    "request": "Classify this API error and draft an accurate handoff.",
+    "source": "Left revenue operand range defaults to Today to last hour and is editable. Right daily cap is a setting value. Merged BE validator accepts daily_revenue_cap with time_range_type=this_hour as a placeholder.",
+    "artifacts": "FE serializer sends the accepted right operand. Live staging rejects it with HTTP 400. Serving revision is unknown. Fixture save/reopen passes; no successful staging round-trip. Story says Done. An AI code note says cap is not time-series so schema should be extended and is marked verified."
+  },
+  {
+    "id": "cap-copy-and-pr",
+    "request": "Draft only the PR Verification section. Do not publish. Give reviewers targeted FE acceptance checks.",
+    "source": "FE AC 1: all ten daily/total cap menu labels use sentence case, including Daily action cap. FE AC 2: selected value and condition summary show the same copy. BE AC 3: cap value resolves at rule runtime.",
+    "artifacts": "Browser on current source verifies all ten menu labels, selected value and summary. Changed tests pass. Staging runtime cap resolution was not exercised. Screenshot upload is unavailable. The user requires no screenshot uploads or screenshot column; list FE-scope AC only."
+  }
+]
