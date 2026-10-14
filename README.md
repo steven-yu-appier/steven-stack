@@ -3,14 +3,16 @@
 [Steven](https://github.com/steven-yu-appier) maintains this catalog of reusable
 agent skills.
 
-## Install in Codex Desktop
+## Install
 
-This repository packages its skills as the `steven-stack` plugin. It includes
-`plugin.json`, a `.codex-plugin/plugin.json` compatibility manifest, the workflows
-under `skills/`, and a local marketplace catalog at
-`.agents/plugins/marketplace.json`. No MCP server is bundled.
+This repository packages its skills as the `steven-stack` plugin for both
+Codex Desktop and Claude Code. It includes `plugin.json` and
+`.codex-plugin/plugin.json` (Codex manifests), `.claude-plugin/plugin.json`
+(Claude Code manifest), the workflows under `skills/`, and local marketplace
+catalogs at `.agents/plugins/marketplace.json` (Codex) and
+`.claude-plugin/marketplace.json` (Claude Code). No MCP server is bundled.
 
-### Install from a local checkout
+### Install in Codex Desktop
 
 Run these commands in your terminal, replacing the path if your checkout lives
 elsewhere:
@@ -28,7 +30,7 @@ from the skill picker with your task; its plugin-qualified name is
 The marketplace is named `steven-local`; its `./` source path resolves to this
 repository root, rather than the `.agents/plugins/` directory.
 
-### Update after editing the skills
+#### Update after editing the skills
 
 Codex loads an installed copy from its plugin cache. Remove and reinstall the
 plugin after changing this checkout to refresh that copy:
@@ -40,7 +42,7 @@ codex plugin add steven-stack@steven-local
 
 Restart Codex Desktop and test in a new chat so it loads the refreshed skills.
 
-### Uninstall
+#### Uninstall
 
 ```sh
 codex plugin remove steven-stack@steven-local
@@ -54,6 +56,50 @@ codex plugin marketplace remove steven-local
 
 See the [official plugin packaging and marketplace guide](https://developers.openai.com/plugins/build/plugins)
 for distribution options and local marketplace behavior.
+
+### Install in Claude Code
+
+Run these commands in your terminal, replacing the path if your checkout lives
+elsewhere:
+
+```sh
+claude plugin marketplace add /Users/steven.yu/Documents/steven-stack
+claude plugin install steven-stack@steven-local
+```
+
+Reload plugins (`/reload-plugins`) or start a new session, then confirm
+`steven-stack` appears with `claude plugin list`. Skills are available as
+slash commands scoped to the plugin, e.g. `/steven-stack:staff`.
+
+The marketplace is also named `steven-local` here; its `./` source path
+resolves to this repository root, and the plugin manifest lives at
+`.claude-plugin/plugin.json` rather than `.codex-plugin/plugin.json`.
+
+#### Update after editing the skills
+
+The local marketplace source points directly at this checkout, so edits are
+generally picked up on the next reload. If a change doesn't show up, remove
+and reinstall:
+
+```sh
+claude plugin remove steven-stack@steven-local
+claude plugin install steven-stack@steven-local
+```
+
+#### Uninstall
+
+```sh
+claude plugin remove steven-stack@steven-local
+```
+
+The marketplace can remain configured for a later reinstall. To remove it too:
+
+```sh
+claude plugin marketplace remove steven-local
+```
+
+See the [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/install) for
+distribution options and local marketplace behavior.
 
 ## Start here
 

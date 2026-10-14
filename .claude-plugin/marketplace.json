@@ -1,0 +1,11 @@
+{
+  "name": "steven-local",
+  "owner": { "name": "Steven" },
+  "plugins": [
+    {
+      "name": "steven-stack",
+      "description": "Steven's engineering workflows and reusable skills",
+      "source": "./"
+    }
+  ]
+}
