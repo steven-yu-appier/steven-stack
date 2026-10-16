@@ -25,7 +25,7 @@ Remaining triggers:
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface → the **unslop** skill. Your reply is a prose surface. Write it per **Writing the reply**.
 - Docs, RFCs, readmes, PR descriptions, or commit messages → the **technical-writing** skill
-- Before every delivery, including a local handoff without a PR → the **ss-simplify-code** addon over this delivery's settled code. Run it once after implementation and before final verification. Supply the delivery scope and prior cleanup outcomes; an empty/non-code scope completes as a no-op. Do not exempt small code changes. A result already completed in this delivery remains valid only while its scoped code and constraints are unchanged. If later cleanup changes code, refresh the affected scope before final verification. The caller owns the final verification after all cleanup. Review-only leaf assignments do not run delivery addons.
+- Before every delivery, including a local handoff without a PR → **ss-simplify-code** under [Delivery addon](playbooks/opening-a-pr.md#delivery-addon). Review-only leaf assignments skip delivery addons.
 - Before commit → the `deslop` skill
 - Before delivery review of your authorized code changes → the **no-comments** skill (/no-comments), scoped to that diff. A read-only review inspects comments and reports findings without running cleanup.
 - Shipping UI / IDE / CLI → the matching control skill. Use `control-cli` (CLIs and TUIs) or `control-ui` (browser / Electron / web UIs). For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
@@ -114,6 +114,8 @@ Write the reply clean as you draft it. A cleanup pass after drafting does not re
 Comments follow the same rule as the reply. Write them clean as you go. Keep a comment only for a non-obvious *why* the code can't show. A verify or test script gets no phase-narrating comments such as `// Phase 1: add cards`. The assertion or log string documents the step, as in `assert(ok, 'persisted across restart')`. This applies to every file you produce, including the delegate's diff.
 
 ## Playbooks
+
+For commit messages, read [Commit format](playbooks/writing-a-commit.md). For PR body visuals, read [PR change outlines](references/pr-change-outline.md).
 
 Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below, open its file, and copy its steps in verbatim.
 

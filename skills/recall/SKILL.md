@@ -14,8 +14,8 @@ Your context lives in two records. Your own chat history holds what you did and 
 
 Your chat history lives in two transcript stores, and every line in them is one JSON record:
 
-- Claude Code writes `/Users/<$USER>/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the workspace path with each `/` and `.` turned into `-` (so `/Users/you/my.proj` becomes `-Users-you-my-proj`).
-- Codex writes `/Users/<$USER>/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`. The first `session_meta` record in each file names its `session_id` and `cwd`, so match `cwd` against the workspace.
+- Claude Code writes `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the workspace path with each `/` and `.` turned into `-` (so `/Users/you/my.proj` becomes `-Users-you-my-proj`).
+- Codex writes `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`. The first `session_meta` record in each file names its `session_id` and `cwd`, so match `cwd` against the workspace.
 
 Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md).
 

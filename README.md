@@ -18,7 +18,7 @@ Run these commands in your terminal, replacing the path if your checkout lives
 elsewhere:
 
 ```sh
-codex plugin marketplace add /Users/<$USER>/Documents/steven-stack
+codex plugin marketplace add "$HOME/Documents/steven-stack"
 codex plugin add steven-stack@steven-local
 ```
 
@@ -63,7 +63,7 @@ Run these commands in your terminal, replacing the path if your checkout lives
 elsewhere:
 
 ```sh
-claude plugin marketplace add /Users/<$USER>/Documents/steven-stack
+claude plugin marketplace add "$HOME/Documents/steven-stack"
 claude plugin install steven-stack@steven-local
 ```
 

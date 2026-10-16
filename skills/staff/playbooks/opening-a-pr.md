@@ -5,7 +5,8 @@ Invoked at the end of every other playbook.
 ## Contents
 
 - Delivery scope, worktree, and commits
-- Cleanup, test audit, commit, and push
+- Delivery addon
+- Test audit, commit, and push
 - PR writing and required body sections
 - FE AC reviewer targets and freshness
 - Preview synchronization, publication, and readback
@@ -21,7 +22,9 @@ For implementation and fix work, follow Staff's **Automatic delivery** scope in 
 
 **Commits.** Keep commits small, ordered, and independently landable. Rebase or amend only unpublished task commits; append follow-up commits to a published branch so delivery remains a normal push. Follow the format in [`/playbooks/writing-a-commit.md`](writing-a-commit.md).
 
-**Delivery addon.** Run `ss-simplify-code` over the settled delivery scope before final verification and publication. Reuse the Staff delivery result when the scoped code and constraints are unchanged, rather than dispatching the addon twice. Every code delivery runs the pass regardless of size; non-code scopes report a no-op. Finish `deslop` and `no-comments` cleanup within the authorized delivery diff, refresh the addon only for code changed since its pass, then run the caller's applicable final checks on the resulting source. A pending or failed final verification is not a successful delivery. The addon does not replace `interrogate`, and `ss-code-review` remains standalone.
+## Delivery addon
+
+Run `ss-simplify-code` once after implementation and before final verification for every delivery, including local handoffs without a PR. Supply the settled code scope, constraints, and prior cleanup outcomes. Reuse the Staff delivery result when the scoped code and constraints are unchanged, rather than dispatching the addon twice. Every code delivery runs the pass regardless of size; empty or non-code scopes report a no-op. Finish `deslop` and `no-comments` cleanup within the authorized delivery diff, refresh the addon only for code changed since its pass, then run the caller's applicable final checks on the resulting source. A pending or failed final verification is not a successful delivery. The addon does not replace `interrogate`, and `ss-code-review` remains standalone.
 
 **Test audit.** When preparing or committing implementation changes, or reviewing task tests, invoke `test-audit` in audit mode. Account for every task-added or modified test using its candidate evidence and value/retention bars. Apply its authoring gate to new or rewritten tests. Remove only task-added tests proven to lack distinct coverage; keep unchanged pre-existing tests intact. Use repository verification and review policy in place of external tooling or landing flows. Run focused checks after audit edits and report test dispositions and failed or unavailable verification in the handoff and PR. If the skill is unavailable, mark the audit pending. A task with no added or modified tests reports that disposition without adding tests for the audit.
 
@@ -29,7 +32,7 @@ For implementation and fix work, follow Staff's **Automatic delivery** scope in 
 
 **Continue to the PR.** After a verified push, find the open PR for the exact repository and head branch through `gh`. For an existing PR, preserve its base and preview URLs, refresh its body from the complete current change and verification evidence, publish it with `gh pr edit --body-file`, and perform the freshness and readback checks below. If the body already describes the current change and evidence, verify it without a redundant edit. If no open PR exists, resolve the base from the user, repository convention, or verified remote default and create a draft; ask only if that choice remains ambiguous. Do not modify a closed or merged PR. Report the delivered commit, remote branch, PR URL, verification results, and any pending actions after completing the authorized delivery steps.
 
-**PRs.** Run `/deslop` over the diff before commit. Run `/no-comments` on your authorized delivery diff before review; a review-only request reports comment findings without cleanup. Write every PR title, PR description, and commit body with `/technical-writing`, then apply `/unslop`. Apply every technical-writing layer except Diátaxis. Use one word for each action, keep articles, and avoid `-ing` when a plain verb works.
+**PRs.** Write every PR title, PR description, and commit body with `/technical-writing`, then apply `/unslop`. Apply every technical-writing layer except Diátaxis. Use one word for each action, keep articles, and avoid `-ing` when a plain verb works.
 
 **Titles.** Use Conventional Commits in the form `type(scope): subject`. Use `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, or `perf` as the type. Use the changed app scope in the commits as the scope. Omit the scope if none exists in the commits. Keep the subject short and imperative. Name a real symbol when one carries the change. Append exact head branch name. For example, `AI-30704 feat: add persisted codex task recovery foundation`. Do not add a trailing period.
 

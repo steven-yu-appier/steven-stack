@@ -5,12 +5,12 @@ Use this policy before reading a Jira ticket, Story, description, AC, specificat
 ## Cache-first reads
 
 1. Validate the ticket key against `^[A-Z][A-Z0-9]+-[0-9]+$` before using it in a path or command.
-2. The canonical ticket directory is `/Users/<$USER>/.local/share/jarkdown/<KEY>/`, with main file `<KEY>.md`. The per-ticket promotion lock is its sibling `<KEY>.lock`, unless active instructions specify another sibling name. Readers and writers use the same lock. Wait for an existing lock to be released before inspecting the snapshot; if it remains occupied, report the operation pending. Never bypass or delete a lock owned by another operation.
+2. The canonical ticket directory is `~/.local/share/jarkdown/<KEY>/`, with main file `<KEY>.md`. The per-ticket promotion lock is its sibling `<KEY>.lock`, unless active instructions specify another sibling name. Readers and writers use the same lock. Wait for an existing lock to be released before inspecting the snapshot; if it remains occupied, report the operation pending. Never bypass or delete a lock owned by another operation.
 3. If the main file and required resources are present, read them there without contacting Jira. Fetch when required content is missing. An explicit request for refreshed/latest content or a known Jira update requires a refresh that replaces the complete snapshot after verification.
 
 ## Download and promote
 
-Every fetch or refresh runs outside the sandbox through an interactive login zsh so `/Users/<$USER>/.zshrc` exports `JIRA_DOMAIN`, `JIRA_EMAIL`, and `JIRA_API_TOKEN`. Never print, copy, or request their values, run `jarkdown --setup`, or create a credential-bearing `.env`.
+Every fetch or refresh runs outside the sandbox through an interactive login zsh so `~/.zshrc` exports `JIRA_DOMAIN`, `JIRA_EMAIL`, and `JIRA_API_TOKEN`. Never print, copy, or request their values, run `jarkdown --setup`, or create a credential-bearing `.env`.
 
 1. Create a unique temporary directory under `/private/tmp` and an empty `.env` marker inside it. Run the absolute executable from that directory with the same explicit output root. With a validated key:
 
@@ -19,7 +19,7 @@ Every fetch or refresh runs outside the sandbox through an interactive login zsh
    jarkdown_dir=$(mktemp -d /private/tmp/jarkdown.XXXXXX)
    touch "$jarkdown_dir/.env"
    cd "$jarkdown_dir"
-   /Users/<$USER>/.local/bin/jarkdown "$ticket_key" --output "$jarkdown_dir"
+   "$HOME/.local/bin/jarkdown" "$ticket_key" --output "$jarkdown_dir"
    ```
 
 2. Require a successful download and readable `$jarkdown_dir/<KEY>/<KEY>.md`. On failure, preserve the live cache and clean up only this operation's temporary directory.

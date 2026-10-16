@@ -33,7 +33,7 @@ Entry shape (documented subset -- anything else under `packs:` is a loud error):
 
     packs:
       - source: packs/local-rules              # repo-relative path
-      - source: /Users/<$USER>/packs/kk-style               # ~ or absolute path
+      - source: ~/packs/kk-style               # ~ or absolute path
       - source: https://github.com/o/r         # git URL: ref required
         ref: v1.2.0                            # tag, sha, or branch
         path: packs                            # optional subfolder (git only)
