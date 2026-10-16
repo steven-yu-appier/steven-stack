@@ -19,15 +19,15 @@ Remaining triggers:
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
-- Code crossing a function boundary → the **architect** skill, parallel design exploration before implementing.
-- Parallel fan-out → Use **arena** for design or code bakeoffs with base selection and grafting.
+- Material architectural uncertainty across ownership, state, or API boundaries → the **architect** skill before implementing. Routine changes follow the existing structure in the parent.
+- Genuinely competing designs needing experiments, or an explicit bakeoff request → **arena**. Ordinary parallel work does not require a bakeoff.
 - Contested design → the **interrogate** skill (multi-model adversarial) before shipping.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface → the **unslop** skill. Your reply is a prose surface. Write it per **Writing the reply**.
 - Docs, RFCs, readmes, PR descriptions, or commit messages → the **technical-writing** skill
 - Before every delivery, including a local handoff without a PR → the **ss-simplify-code** addon over this delivery's settled code. Run it once after implementation and before final verification. Supply the delivery scope and prior cleanup outcomes; an empty/non-code scope completes as a no-op. Do not exempt small code changes. A result already completed in this delivery remains valid only while its scoped code and constraints are unchanged. If later cleanup changes code, refresh the affected scope before final verification. The caller owns the final verification after all cleanup. Review-only leaf assignments do not run delivery addons.
 - Before commit → the `deslop` skill
-- Before review → the **no-comments** skill (/no-comments).
+- Before delivery review of your authorized code changes → the **no-comments** skill (/no-comments), scoped to that diff. A read-only review inspects comments and reports findings without running cleanup.
 - Shipping UI / IDE / CLI → the matching control skill. Use `control-cli` (CLIs and TUIs) or `control-ui` (browser / Electron / web UIs). For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **show-me-your-work** skill. Commit it when stakes need an auditable record. Keep it local otherwise.
 
@@ -77,7 +77,9 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Automatic delivery.** A Staff implementation or fix request authorizes task-scoped commit, normal push, and PR creation or maintenance. After cleanup and successful final verification, continue directly through [Opening a PR](playbooks/opening-a-pr.md), including updating an existing PR body for the resulting change and evidence. Do not end with a local-only completion report, ask whether to commit or push, or wait for another reminder. Apply this to follow-up fixes and accepted review changes as well as the initial implementation. Delivery is complete when the intended commit is verified on the remote branch and the current PR body and head are read back successfully, plus any applicable preview synchronization outcome is reported.
 
-Explicit limits override this default: read-only/review-only requests do not authorize delivery; `local only` omits commit, push, and PR writes; `no push` omits push and PR publication; `no PR` omits PR work; `push only` pushes existing commits without staging uncommitted changes or editing a PR. Respect named approval gates and tool, hook, or remote rejection. Missing or ambiguous inputs block only dependent actions; continue independent work and report concrete pending steps. Delegated implementation and review leaves return their artifacts to the delivery owner rather than publishing independently unless publication is assigned explicitly.
+Read-only and review-only requests authorize inspection and reporting, not source edits, comment cleanup, commits, or runtime changes. A playbook or delegated skill cannot expand that authorization. This is a workflow constraint, not a claim that the host enforces a read-only sandbox.
+
+Explicit delivery limits override the default: `local only` omits commit, push, and PR writes; `no push` omits push and PR publication; `no PR` omits PR work; `push only` pushes existing commits without staging uncommitted changes or editing a PR. Respect named approval gates and tool, hook, or remote rejection. Missing or ambiguous inputs block only dependent actions; continue independent work and report concrete pending steps. Delegated implementation and review leaves return their artifacts to the delivery owner rather than publishing independently unless publication is assigned explicitly.
 
 **Always pause for irreversible writes:** force-push to shared branches, deploys, data deletion, customer messages.
 
@@ -87,7 +89,7 @@ Explicit limits override this default: read-only/review-only requests do not aut
 
 ## Subagents
 
-Route every delegate through [`references/subagent-routing.md`](references/subagent-routing.md). That file selects the available control method and maps each role to a model. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
+Complete ordinary, well-scoped work in the parent. Delegate when independent slices or an explicitly required second opinion justify it, subject to the host's capabilities and higher-priority restrictions. Route every delegate through [`references/subagent-routing.md`](references/subagent-routing.md). That file selects the available control method and maps each role to a model. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
 
 Every child prompt opens with the staff invocation, `$staff` for Codex and `/staff` for Claude Code. It gives the child its role and model route, its access mode, the working directory or worktree, file pointers, success criteria, and the output contract. The routing file owns how that prompt reaches each host.
 

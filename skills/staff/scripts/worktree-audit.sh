@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 # Read-only worktree prune audit. Classifies every git worktree by size, merge
-# state, uncommitted work, remote/PR state, and the most recent chat that
-# operated in it. Emits a table sorted by size with a suggested bucket. Never
-# deletes anything; deletion stays a human-gated step in the playbook.
+# state, local data, and remote/PR state. Session usage remains unknown until
+# checked by the caller. Never reads chat contents or deletes user files.
 #
 # Usage: worktree-audit.sh [--github] [repo-path] (defaults to the current repo)
 # --github invokes gh; run the script outside the sandbox with escalated permissions.
 # Without it, PR state is unknown. Git refs are local snapshots; no fetch is performed.
-set -u
+set -uo pipefail
+
+for dependency in git du awk sort grep; do
+	command -v "$dependency" >/dev/null 2>&1 || { echo "requires $dependency" >&2; exit 1; }
+done
 
 github=false
 if [ "${1:-}" = --github ]; then github=true; shift; fi
 repo="${1:-$(git rev-parse --show-toplevel 2>/dev/null)}"
 [ -z "$repo" ] && { echo "not in a git repo; pass a repo path" >&2; exit 1; }
 cd "$repo" || exit 1
-
-# Main worktree is the first entry; everything else is a candidate.
-main_wt=$(git worktree list --porcelain | awk '/^worktree /{print $2; exit}')
 
 # Local remote refs drive merge checks; their freshness is reported to the caller.
 base=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null)
@@ -30,6 +30,10 @@ fi
 # PR state is known only after a successful, parseable GitHub query.
 audit_tmp=$(mktemp -d) || exit 1
 trap 'rm -rf "$audit_tmp"' EXIT
+if ! git worktree list --porcelain -z > "$audit_tmp/worktrees"; then
+	echo "cannot enumerate worktrees; audit incomplete" >&2
+	exit 1
+fi
 prs="$audit_tmp/prs.json"
 pr_known=false
 if [ "$github" = true ]; then
@@ -53,18 +57,14 @@ else
 	echo "PR state is unknown; rerun with --github outside the sandbox to query GitHub" >&2
 fi
 
-# Claude Code and Codex transcript roots, scanned in full because a
-# worktree's sessions can live under any project or date directory.
-transcripts=()
-for dir in "$HOME/.claude/projects" "$HOME/.codex/sessions"; do
-	[ -d "$dir" ] && transcripts+=("$dir")
-done
 now=$(date +%s)
 
-printf "SIZE\tAGE\tMERGED\tDIRTY\tREMOTE\tPR\tLAST_CHAT\tBUCKET\tWORKTREE\n"
+printf "SIZE\tAGE\tMERGED\tDIRTY\tREMOTE\tPR\tUSAGE\tBUCKET\tWORKTREE\n"
 
-git worktree list --porcelain | awk '/^worktree /{print $2}' | while read -r wt; do
-	[ "$wt" = "$main_wt" ] && continue
+main_wt=""
+while IFS= read -r -d '' field; do
+	case "$field" in 'worktree '*) wt=${field#worktree } ;; *) continue ;; esac
+	if [ -z "$main_wt" ]; then main_wt=$wt; continue; fi
 
 	size=$(du -sh "$wt" 2>/dev/null | awk '{print $1}')
 	head=$(git -C "$wt" rev-parse HEAD 2>/dev/null)
@@ -80,12 +80,14 @@ git worktree list --porcelain | awk '/^worktree /{print $2}' | while read -r wt;
 		case "$merge_result" in 0) merged=YES ;; 1) merged=no ;; esac
 	fi
 
-	# Distinguish real WIP (tracked edits) from disposable untracked scratch.
-	porcelain=$(git -C "$wt" status --porcelain 2>/dev/null)
-	if [ -z "$porcelain" ]; then dirty=clean
-	elif printf '%s\n' "$porcelain" | grep -qv '^??'; then
-		dirty="wip:$(printf '%s\n' "$porcelain" | grep -cv '^??')"
-	else dirty="scratch:$(printf '%s\n' "$porcelain" | grep -c '^??')"; fi
+	if ! porcelain=$(git --no-optional-locks -C "$wt" status --porcelain --untracked-files=all --ignored=matching); then
+		dirty=unknown
+	elif [ -z "$porcelain" ]; then dirty=clean
+	elif printf '%s\n' "$porcelain" | grep -qv -e '^??' -e '^!!'; then
+		dirty="wip:$(printf '%s\n' "$porcelain" | grep -cv -e '^??' -e '^!!')"
+	elif printf '%s\n' "$porcelain" | grep -q '^??'; then
+		dirty="untracked:$(printf '%s\n' "$porcelain" | grep -c '^??')"
+	else dirty="ignored:$(printf '%s\n' "$porcelain" | grep -c '^!!')"; fi
 
 	branch=$(git -C "$wt" symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")
 	if [ -z "$branch" ]; then remote=detached
@@ -102,28 +104,19 @@ git worktree list --porcelain | awk '/^worktree /{print $2}' | while read -r wt;
 		[ -z "$pr" ] && pr="-"
 	fi
 
-	# Most recent chat whose transcript operated in this worktree. Match path
-	# followed by "/" or a quote so glint-482 does not match glint-482-r37.
-	last="-"; last_ts=0
-	if [ "${#transcripts[@]}" -gt 0 ]; then
-		f=$(rg -l -F -e "${wt}/" -e "${wt}\"" "${transcripts[@]}" 2>/dev/null \
-			| xargs stat -f '%m %N' 2>/dev/null | sort -rn | head -1)
-		if [ -n "$f" ]; then last_ts=$(echo "$f" | awk '{print $1}')
-			last=$(date -r "$last_ts" '+%Y-%m-%d' 2>/dev/null); fi
-	fi
-	recent=$([ "$last_ts" -gt 0 ] 2>/dev/null && [ $(( (now - last_ts) / 86400 )) -le 4 ] && echo yes || echo no)
-
-	case "$dirty" in wip:*) bucket=hold-wip ;; *)
+	case "$dirty" in
+	unknown) bucket=hold-unknown ;;
+	clean)
 		if [ "$pr" = unknown ]; then bucket=hold-unknown
 		else
 		case "$pr" in *OPEN*) bucket=hold-open-pr ;; *)
-			if [ "$recent" = yes ]; then bucket=verify-recent-chat
-			elif [ "$merged" = YES ] || [ "$pr" != "-" ]; then bucket=safe
+			if [ "$merged" = YES ] || [[ "$pr" = */MERGED ]]; then bucket=verify-usage
 			else bucket=review; fi ;;
 		esac
 		fi ;;
+	*) bucket=hold-local-data ;;
 	esac
 
 	printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" \
-		"$size" "$age" "$merged" "$dirty" "$remote" "$pr" "$last" "$bucket" "$wt"
-done | sort -t$'\t' -k1,1 -rh
+		"$size" "$age" "$merged" "$dirty" "$remote" "$pr" unknown "$bucket" "$wt"
+done < "$audit_tmp/worktrees" | sort -t$'\t' -k1,1 -rh

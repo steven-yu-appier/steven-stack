@@ -10,7 +10,7 @@ Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md).
+Investigators and the synthesizer are optional execution helpers, not independent-judgment gates. The spawning steps below apply only when delegation is supported and useful; otherwise the parent performs the same evidence searches and synthesis without changing source or external state. Preserve the coverage map and confidence labels. Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md).
 
 ## Operating Posture
 
@@ -61,7 +61,7 @@ Capture this as seed context (file paths, symbols, commits, PR numbers, linked t
 
 ### Discovery
 
-Before spawning investigators, list the MCP servers available to this session. In Claude Code, read the `mcp__<server>__<tool>` tools in your tool list, or run `claude mcp list`. In Codex, run `codex mcp list` or read `[mcp_servers]` in `~/.codex/config.toml`. Treat a server that only exposes an authenticate tool as unavailable.
+Before spawning investigators, list the MCP servers available to this session. In Claude Code, read the `mcp__<server>__<tool>` tools in your tool list, or run `claude mcp list`. In Codex, run `codex mcp list` or read `[mcp_servers]` in `/Users/<$USER>/.codex/config.toml`. Treat a server that only exposes an authenticate tool as unavailable.
 
 Map each available MCP to one evidence category:
 
@@ -80,10 +80,12 @@ Aim for a complete **coverage map**, not a minimal one. Document the null, don't
 Launch all matching investigators before waiting for any investigator. Don't ask one agent to cover multiple MCPs.
 
 Subagent config (each):
+
 - Route: `gpt-6.1-sol-medium`
 - Give each investigator access to its assigned MCP, and instruct it not to modify files or external state.
 
 Each investigator gets:
+
 1. The base prompt from `references/investigator-prompt.md`
 2. The category playbook `references/sources/<source>.md` for the selected MCP, adapted from the examples in `references/source-playbook.md`
 3. The cross-cutting `references/sources/incident-postmortem.md` **if the target code looks defensive** (null checks, retry logic, timeout handling, rate limiting, feature flags, egress guards, OOM handlers)
@@ -96,19 +98,19 @@ Spawn one investigator per category that has a matching MCP. Each owns exactly o
 
 Each entry names the category and the kind of "why" it uniquely surfaces. Use it to know what to expect back, how to name a gap when a category returns empty, and (only in the rare provably-irrelevant case) to justify a skip.
 
-1. **Source control investigator**. Git history, `gh` for PRs, code comments, tests. Always spawn. The only guaranteed source. Best at surfacing *implementation-time rationale captured during review*.
+1. **Source control investigator**. Git history, `gh` for PRs, code comments, tests. Always spawn. The only guaranteed source. Best at surfacing _implementation-time rationale captured during review_.
 
-2. **Issue / ticket tracker investigator** (e.g. Jira, GitHub Issues, Plane, Shortcut MCP). Best at surfacing *the product or business forcing function*. Strongest when the why is external to engineering.
+2. **Issue / ticket tracker investigator** (e.g. Jira, GitHub Issues, Plane, Shortcut MCP). Best at surfacing _the product or business forcing function_. Strongest when the why is external to engineering.
 
-3. **Long-form documents investigator** (e.g. Notion, Confluence, Google Docs, Coda MCP). Best at surfacing *long-form design rationale*. Where the why is written out before it becomes code.
+3. **Long-form documents investigator** (e.g. Notion, Confluence, Google Docs, Coda MCP). Best at surfacing _long-form design rationale_. Where the why is written out before it becomes code.
 
-4. **Real-time team chat investigator** (e.g. Slack, Discord, Microsoft Teams, Mattermost MCP). Best at surfacing *real-time deliberation that never reached a doc*. Especially important when the source control, ticket, and doc paper trail is thin.
+4. **Real-time team chat investigator** (e.g. Slack, Discord, Microsoft Teams, Mattermost MCP). Best at surfacing _real-time deliberation that never reached a doc_. Especially important when the source control, ticket, and doc paper trail is thin.
 
-5. **Infrastructure observability investigator** (e.g. Datadog, New Relic, Honeycomb, Grafana, Splunk MCP). Infra/runtime view. Best at surfacing *infrastructure and runtime reality that motivated the code*. Strongest when the target reacts to an infra signal (timeouts, retries, rate limits, circuit breakers).
+5. **Infrastructure observability investigator** (e.g. Datadog, New Relic, Honeycomb, Grafana, Splunk MCP). Infra/runtime view. Best at surfacing _infrastructure and runtime reality that motivated the code_. Strongest when the target reacts to an infra signal (timeouts, retries, rate limits, circuit breakers).
 
-6. **Error / exception tracking investigator** (e.g. Sentry, Rollbar, Bugsnag, Airbrake MCP). Best at surfacing *the specific exceptions and error trajectories that motivated defensive or corrective code*. Strongest for catch blocks, null guards, type checks, retries, and other defenses.
+6. **Error / exception tracking investigator** (e.g. Sentry, Rollbar, Bugsnag, Airbrake MCP). Best at surfacing _the specific exceptions and error trajectories that motivated defensive or corrective code_. Strongest for catch blocks, null guards, type checks, retries, and other defenses.
 
-7. **Product analytics warehouse investigator** (e.g. Databricks, Snowflake, BigQuery, ClickHouse, dbt, Redshift MCP). Product/data view. Best at surfacing *product and data reality that shaped the code*. Strongest for flag-gated code, experiment-driven ships, data migrations, and "where did this number come from" questions.
+7. **Product analytics warehouse investigator** (e.g. Databricks, Snowflake, BigQuery, ClickHouse, dbt, Redshift MCP). Product/data view. Best at surfacing _product and data reality that shaped the code_. Strongest for flag-gated code, experiment-driven ships, data migrations, and "where did this number come from" questions.
 
 ### When to skip an investigator
 
@@ -127,6 +129,7 @@ Launch one synthesizer:
 - Give the synthesizer access to the MCPs needed to verify citations, and instruct it not to modify files or external state.
 
 The synthesizer gets:
+
 1. The investigator findings, including any null results and any categories skipped with justification
 2. The code anchor from Step 2 (file paths, symbols, commit hashes, PR numbers, ticket IDs)
 3. The user's original question

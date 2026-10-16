@@ -18,7 +18,7 @@ Run these commands in your terminal, replacing the path if your checkout lives
 elsewhere:
 
 ```sh
-codex plugin marketplace add /Users/steven.yu/Documents/steven-stack
+codex plugin marketplace add /Users/<$USER>/Documents/steven-stack
 codex plugin add steven-stack@steven-local
 ```
 
@@ -63,7 +63,7 @@ Run these commands in your terminal, replacing the path if your checkout lives
 elsewhere:
 
 ```sh
-claude plugin marketplace add /Users/steven.yu/Documents/steven-stack
+claude plugin marketplace add /Users/<$USER>/Documents/steven-stack
 claude plugin install steven-stack@steven-local
 ```
 
@@ -146,9 +146,9 @@ Most skills set `disable-model-invocation: true`. They run only when you type
 the slash command or another skill names them. This keeps principles out of
 the context window until a task needs them.
 
-| Invoked by                             | Skills                                                                                                                                                   |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| You or another skill only              | Every skill not listed in the next row                                                                                                                   |
+| Invoked by                             | Skills                                                                                                                                                                                         |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| You or another skill only              | Every skill not listed in the next row                                                                                                                                                         |
 | Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
 
 ## Skills

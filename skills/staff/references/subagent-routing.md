@@ -1,6 +1,6 @@
 # Subagent routing
 
-Use this contract whenever a skill delegates work. The workflow chooses the role and route. This file chooses the control method.
+Use this contract whenever a skill delegates work. The workflow chooses the role and route. This file chooses the control method. Optional helper delegation must not block work the parent can complete. Explicit independence or model-diversity gates remain required.
 
 ## Contents
 
@@ -13,21 +13,22 @@ Use this contract whenever a skill delegates work. The workflow chooses the role
 
 ## Select a control method
 
-1. Use the host's native subagent tool only when it can honor the requested model family, reasoning effort, access mode, and working directory.
+1. Check the actual tool schema and host policy before planning a fan-out. Use the host's native subagent tool only when it can honor the requested model family, reasoning effort, access mode, and working directory. A skill does not override host restrictions on spawning or model selection.
 2. Otherwise, follow **Handle unavailable routes**. Do not silently substitute a model or claim that an independent worker ran.
 
 The host decides its own native tool syntax. `Task`, `Agent`, and similar names are examples of host APIs, not portable instructions.
 
 ## Model routes
 
-| Route                   | Agent kind | Launch arguments                                    | Use                                                                 |
-| ----------------------- | ---------- | --------------------------------------------------- | ------------------------------------------------------------------- |
-| `gpt-6-luna-extra-high` | `codex`    | `-m gpt-6-luna -c model_reasoning_effort="xhigh"`   | Default code work                                                   |
-| `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Architect sketches, direct code explanation, and independent review |
-| `claude-opus-5.5-med`   | `claude`   | `--model claude-opus-5-5 --effort medium`           | Prose and Judgement                                                 |
-| `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Hard cross-cutting code and design, and independent review          |
+| Route | Agent kind | Launch arguments | Use |
+| --- | --- | --- | --- |
+| `gpt-6-luna-extra-high` | `codex` | `-m gpt-6-luna -c model_reasoning_effort="xhigh"` | Default code work |
+| `gpt-6.1-sol-medium` | `codex` | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Exploration, code work, and review |
+| `gpt-6.1-sol-high` | `codex` | `-m gpt-6.1-sol -c model_reasoning_effort="high"` | Hard code and design |
+| `claude-opus-5.5-med` | `claude` | `--model claude-opus-5-5 --effort medium` | Prose and judgment |
+| `claude-opus-5.5-high` | `claude` | `--model claude-opus-5-5 --effort high` | Independent design and adversarial review |
 
-Treat each row as one route. If the installed client rejects its arguments, the route is unavailable until the configuration is corrected. Do not weaken the route to make launch succeed.
+These are requested routes, not claims of availability. If the host lacks a route or the installed client rejects its arguments, that route is unavailable. Do not weaken a required route to make launch succeed.
 
 ## Enforce access
 
@@ -66,4 +67,4 @@ Do not assume that a child inherits active skills. For a native Claude Code Agen
 
 ## Handle unavailable routes
 
-For optional helper work, continue in the parent and state that delegation was unavailable. For workflows that require independent or diverse judgment, including **arena** and **interrogate**, stop that workflow and name the unavailable route. Do not replace independent review with the parent's own opinion.
+For optional helper work, continue in the parent and state that delegation was unavailable. For required independent or diverse judgment, including **architect**, **arena**, and **interrogate**, mark the affected gate pending and name the missing model or access control. Continue only work that does not depend on that gate; do not ship while a required gate is pending. Never replace independent review with the parent's opinion, silently downgrade a route, or label a write-capable child read-only because its prompt asks it not to edit.
