@@ -10,7 +10,7 @@ Read [Scoped checks](references/scoped-checks.md) before starting any playbook. 
 
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
-For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). When creating a new PR in `ad-cloud-portal` or `idash-mono`, also read [Preview links and Jira sync](references/jira-preview.md).
+For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 

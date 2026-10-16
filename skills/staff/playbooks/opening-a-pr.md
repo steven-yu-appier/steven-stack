@@ -15,6 +15,8 @@ For implementation and fix work, follow Staff's **Automatic delivery** scope in 
 
 **Acceptance gate.** Apply [Acceptance and delivery](../references/implementation-scope.md#acceptance-and-delivery) before drafting readiness claims. Use its acceptance record to build Verification. Keep authorized draft publication separate from QA readiness when coverage is pending.
 
+**Backend environment gate.** Before creating or updating the PR, complete [Confirm the backend environment](../references/jira-preview.md#confirm-the-backend-environment). Carry the confirmed choice into the PR body and apply its repository title convention before publication.
+
 **Worktree.** Reuse the task's current branch and worktree for delivery, including follow-up fixes to an existing PR. Create any needed isolated worktree during task setup, before implementation; give concurrent writers separate worktrees or disjoint files. Preserve unrelated work and published history. Delivery does not reset the checkout, reconstruct the change from main, or move it onto a fresh branch.
 
 **Commits.** Keep commits small, ordered, and independently landable. Rebase or amend only unpublished task commits; append follow-up commits to a published branch so delivery remains a normal push. Follow the format in [`/playbooks/writing-a-commit.md`](writing-a-commit.md).
@@ -89,11 +91,11 @@ The first non-empty line of every PR body must be exactly `- [ ] QA`, including 
 
 **Freshness gate.** Immediately before creating or updating the PR, read the current head again. If `currentHead != draftHead`, refresh the commits and diff, revise every affected section and set `draftHead = currentHead`. Do not publish until the draft describes the current head.
 
-**Preview and Jira.** Before creating a new PR in `ad-cloud-portal` or `idash-mono`, read [Preview links and Jira sync](../references/jira-preview.md), derive the preview URLs, and include them in the body. After successful creation and PR readback, synchronize those URLs to the Jira Story comment using that reference. Existing-PR maintenance preserves preview URLs and does not trigger Jira synchronization. Report the Story key, preview URLs, comment ID and outcome, or the concrete pending reason.
+**Preview and Jira.** For a new PR in `ad-cloud-portal` or `idash-mono`, derive the preview URLs under [Preview links and Jira sync](../references/jira-preview.md), including its library-only exception, and include them in the body. After successful creation and PR readback, synchronize those URLs to the Jira Story comment using that reference. Existing-PR maintenance preserves preview URLs and does not trigger Jira synchronization. Report the Story key, preview URLs, comment ID and outcome, or the concrete pending reason.
 
 **Body file.** Use a task-specific temporary file for the forge command. Do not retain one file per PR by default. When the user requests a retained copy, save it separately, keep it synchronized with the reviewed draft after every refresh, and still use a temporary forge input. Remove only the temporary file after publication. For a preview-only request, show the body without creating or updating the PR.
 
-**Publish and read back.** Create or update the PR, then read its body and head from the forge. Confirm that the published body matches the reviewed draft, the selected template's headings appear once and in order, fenced blocks and links survived escaping, and the PR head still equals `draftHead`. If the head changed, refresh and publish again. Remove the temporary file after successful readback.
+**Publish and read back.** Create or update the PR, then read its title, body, and head from the forge. Confirm that the title and body reflect the confirmed backend, the published body matches the reviewed draft, the selected template's headings appear once and in order, fenced blocks and links survived escaping, and the PR head still equals `draftHead`. If the head changed, refresh and publish again. Remove the temporary file after successful readback.
 
 Attach videos when they prove a claim. Do not paste full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, metric tables, or "CLEAN" verdicts. Put these details in a linked artifact. Do not use `## Summary` or `## Test plan` boilerplate. A commit body does not restate its subject.
 
