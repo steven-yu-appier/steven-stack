@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Design before implementing. Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple model perspectives, then fill in code against the chosen sketch. If implementation proves the sketch wrong, throw it out and redesign.
 
+Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for plans and design evidence, including standalone use. Keep candidate reports in scratch and the selected design in the archived plan, except source scaffolding or documentation that belongs in the project.
+
 ## Start
 
 Open a todolist with one entry per phase before starting.

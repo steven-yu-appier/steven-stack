@@ -7,6 +7,8 @@ description: "Structured code review for bugs, regressions, tests, and standards
 
 Read [Scoped checks](../staff/references/scoped-checks.md) before starting the review. It governs every stage, including reviewers, validators, and local apply; pass its absolute path and the check scope to every delegate.
 
+Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before producing local output, including standalone review. Reuse caller task paths when supplied. The owner-checked runner `<run-dir>` is scratch for intermediate review data; final report files use a unique `<report-dir>` under the task archive. Stage 6 owns report persistence and review-run cleanup. Only a standalone task owner finishes the helper-managed task scratch.
+
 Help the caller deliver a correct change within the agreed scope. Find defects and improvements whose consequences justify action; judge the code against its intended behavior and project requirements, not a preferred rewrite. Serious defects remain important even when the diff is small. An adequate change needs no findings.
 
 **Done when:** required review and validation are complete, retained findings are supported by the source, and the caller has a clear result with any remaining coverage limits. Apply only when the invocation authorizes it, under the rules below.
@@ -14,11 +16,11 @@ Help the caller deliver a correct change within the agreed scope. Find defects a
 ## Artifact Root
 
 <!-- ce-docs-root:start -->
-**Resolve the steven-stack artifact root `<root>` before composing any artifact path.**
+**Resolve the repository documentation root `<root>` before composing repository plan or solution paths.** Runtime scratch and final review reports follow Task files and cleanup instead.
 
 - **Read** `docs_root` from `<repo-root>/.steven-stack/config.yaml` only (`<repo-root>` = `git rev-parse --show-toplevel`). Do not read it from `config.local.yaml`. Unset -> `<root>` is `docs`, exactly as before.
 - **Validate** a set value: a repo-relative directory whose real, symlink-resolved path stays inside the repo and is neither the repo root nor under `.git/`. Otherwise stop with an error naming `docs_root` and the value -- never fall back to `docs`.
-- **Use** `<root>` as the sole artifact location: create it if absent, compose each path as `<root>/<subdir>` with this skill's own subdirectory, and never also read `docs`.
+- **Use** `<root>` as the sole repository documentation location; compose those paths as `<root>/<subdir>` and never also read `docs`. Reading plans or writing an external review archive does not require creating a repository directory.
 <!-- ce-docs-root:end -->
 
 **Agent lifecycle.** Collect terminal outcomes, including failures, before cleanup. Close or release review-owned agents when the harness provides caller-owned cleanup, before refilling slots, advancing stages, or returning. Do not message completed agents with no remaining work. Do not infer released capacity from completion or interruption, or invent cleanup operations.

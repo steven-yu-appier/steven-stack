@@ -112,8 +112,7 @@ Complete this stage **before reading persona prompt assets, `references/dispatch
 Generate the review run ID now so both routes share one artifact directory:
 
 ```bash
-SCRATCH_ROOT="/tmp/steven-stack-$(id -u)";
-[ ! -L "$SCRATCH_ROOT" ] && (umask 077; mkdir -p "$SCRATCH_ROOT") 2>/dev/null && [ ! -L "$SCRATCH_ROOT" ] && [ -O "$SCRATCH_ROOT" ] && [ -w "$SCRATCH_ROOT" ] || SCRATCH_ROOT="${TMPDIR:-/tmp}/steven-stack-$(id -u)";
+SCRATCH_ROOT=$(python3 -c 'import runpy, sys; print(runpy.run_path(sys.argv[1])["jobs_root_base"]())' "$SKILL_DIR/scripts/peer-job-runner.py") || exit 1;
 if [ -L "$SCRATCH_ROOT" ]; then echo "unsafe scratch root symlink: $SCRATCH_ROOT" >&2; exit 1; fi;
 (umask 077; mkdir -p "$SCRATCH_ROOT") || exit 1;
 if [ -L "$SCRATCH_ROOT" ] || [ ! -O "$SCRATCH_ROOT" ]; then echo "scratch root is not owned by the current user: $SCRATCH_ROOT" >&2; exit 1; fi;
@@ -123,6 +122,11 @@ RUN_DIR="$SCRATCH_ROOT/ss-code-review/$RUN_ID";
 (umask 077; mkdir -p "$RUN_DIR") || exit 1; chmod 700 "$RUN_DIR" || exit 1;
 echo "$RUN_DIR";
 ```
+
+Resolve `SKILL_DIR` from the installed skill before the snippet. Keep the
+runner's root resolution and ownership checks; it is separate from the task
+archive. Assign `<report-dir>` as `<task-archive>/reviews/<run-id>/`. Only final
+report files belong there, not job state or per-reviewer intermediates.
 
 When adversarial was selected and scope is `local-aligned` or standalone, read `references/cross-model-review.md` from this skill's directory in full, attest the host, resolve and sanction one fixed route, and make its required egress announcement. Before start, write both orchestrator-owned inputs the reference defines: the dedicated host-vetted constraints file, and the separate untrusted semantic brief containing intent plus material risk divisions inferred from the current file inventory and diff. Do not embed the diff, mechanically copy every path, or combine the two files. Then start the detached peer job using the reference's exact invocation and persist its job ID, target, requested model/reasoning, and start epoch in working state.
 

@@ -41,7 +41,7 @@ Append the access arguments to the model arguments at launch. A prompt alone doe
 
 Keep read-only workers in that mode for the whole task. Do not approve a switch to write access. Claude plan mode restricts tools through its permission system. It is not an OS sandbox. Disable mutating MCP tools and other write-capable extensions for either kind. If the available controls cannot enforce the required access, treat the route as unavailable.
 
-For write delegates, put the report in a unique scratch directory that the launch policy permits. Keep source edits in the assigned worktree. Do not grant broader access just to save a report.
+For write delegates, assign a unique subdirectory of the task owner's scratch under [Task files and cleanup](../playbooks/task-artifacts.md). Pass the archive and scratch paths as runtime inputs. Keep source edits in the assigned worktree. Do not grant broader access just to save a report. Children return results without deleting shared task files; the parent condenses important results into the task record and owns cleanup.
 
 ## Build the child prompt
 

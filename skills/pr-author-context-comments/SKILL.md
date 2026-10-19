@@ -60,18 +60,18 @@ Before publishing, show the exact body and location for every comment unless the
 
 Use the bundled helper from a checkout of the target repository. It resolves the PR from the current branch unless `--pr` is supplied, verifies that the authenticated GitHub user authored the PR, rejects stale heads and invalid diff lines, and detects exact duplicates.
 
-Preview without writes:
+Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for the runtime scratch path. Keep unpublished manifests until the owning workflow has saved or delivered their content. Preview without writes:
 
 ```bash
 python3 <skill-dir>/scripts/post_author_context_comments.py \
-  --comments /tmp/pr-author-context-comments.json
+  --comments "$TASK_SCRATCH/pr-author-context-comments.json"
 ```
 
 After explicit publication authorization, use the same validated manifest:
 
 ```bash
 python3 <skill-dir>/scripts/post_author_context_comments.py \
-  --comments /tmp/pr-author-context-comments.json \
+  --comments "$TASK_SCRATCH/pr-author-context-comments.json" \
   --publish
 ```
 

@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 Help the user understand the current topic of conversation visually. Skip the preamble and keep prose brief. Pick the smallest view that makes the key point clear.
 
+For a saved HTML or image deliverable, use [Task files and cleanup](../staff/playbooks/task-artifacts.md). Keep the final requested view in the task archive and intermediate rendering files in scratch. Inline-only explanations need no archive.
+
 - Show logic or an algorithm as pseudocode:
 
 ```text

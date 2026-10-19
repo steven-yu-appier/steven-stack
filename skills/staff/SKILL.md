@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Read [Scoped checks](references/scoped-checks.md) before starting any playbook. It governs type-check, lint, and test execution in every stage, including delegated work.
 
+Read [Task files and cleanup](playbooks/task-artifacts.md) before producing local artifacts. Reuse its task paths across playbooks and delegates, and run its finish or pause steps before every handoff, including investigation, local-only work, failure, and cancellation. Keep machine-specific paths in runtime state, outside skills.
+
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
 For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
@@ -29,7 +31,7 @@ Remaining triggers:
 - Before commit → the `deslop` skill
 - Before delivery review of your authorized code changes → the **no-comments** skill (/no-comments), scoped to that diff. A read-only review inspects comments and reports findings without running cleanup.
 - Shipping UI / IDE / CLI → the matching control skill. Use `control-cli` (CLIs and TUIs) or `control-ui` (browser / Electron / web UIs). For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
-- Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **show-me-your-work** skill. Commit it when stakes need an auditable record. Keep it local otherwise.
+- Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **show-me-your-work** skill. Keep the working trail in task scratch; condense durable decisions into the archived task record before cleanup. Commit the full trail only when explicitly requested.
 
 ## Principles
 
@@ -83,6 +85,8 @@ Explicit delivery limits override the default: `local only` omits commit, push, 
 
 **Always pause for irreversible writes:** force-push to shared branches, deploys, data deletion, customer messages.
 
+Routine cleanup of this task's owned, consumed logs and intermediate files follows [Task files and cleanup](playbooks/task-artifacts.md) without another approval once its worker and archive checks pass. The data-deletion gate above applies to retained, user-owned or shared data, including source, archives and canonical Jira snapshots. Legacy cleanup still requires explicit scope and deletion authorization; it is not routine scratch cleanup.
+
 **Session overrides:** "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" → keep going.
 
 **No is an acceptable answer.** Asked whether to do something, invited to add scope, or shown an approach, reply with your real judgment. Decline, push back, or say "this doesn't earn its place" when true. A recommendation is a judgment, not a validation. Agreement is not the default, candor over sycophancy.
@@ -134,3 +138,4 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Session pickup.** Resuming or taking over a prior agent's in-flight work from a Claude Code or Codex transcript, or a pushed branch. `playbooks/session-pickup.md`.
 - **Worktree and simulator cleanup.** Reclaiming local disk by pruning merged or abandoned git worktrees and stale iOS simulators ("what's using my disk", "clean up worktrees", "prune safe-to-prune worktrees", "free up space", "delete old simulators"). `playbooks/worktree-cleanup.md`.
 - **Opening a PR.** Invoked at the end of every other playbook. `playbooks/opening-a-pr.md`.
+- **Task files and cleanup.** Shared setup and finish steps for every playbook and standalone artifact producer. `playbooks/task-artifacts.md`.

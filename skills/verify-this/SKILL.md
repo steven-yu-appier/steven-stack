@@ -37,10 +37,10 @@ Do not use this for vague claims like "the code is cleaner". Ask for a measurabl
 
 ## Artifact Layout
 
-When safe to write artifacts:
+Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before writing artifacts, including standalone use. Capture raw baseline, treatment and comparison output in scratch:
 
 ```text
-/tmp/verify-this/<claim-slug>/
+<task-scratch>/verify-this/<claim-slug>/
 ├── claim.md
 ├── timeline.md
 ├── baseline/
@@ -50,6 +50,8 @@ When safe to write artifacts:
 ```
 
 If artifacts may contain sensitive code, prompts, screenshots, HTTP bodies, or heap data, keep only the minimal inline evidence unless the user agrees to disk storage.
+
+Before cleanup, put the claim, measured result and limitations in the archived task record and useful screenshots in its screenshot directory. Preserve additional raw artifacts only when they are necessary deliverables. The task owner finishes cleanup after consuming this verdict.
 
 ## Verdict Rules
 

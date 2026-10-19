@@ -1,6 +1,6 @@
 ---
 name: show-me-your-work
-description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Local by default; commit it when a reviewer needs the trail to trust the result. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
+description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Working log in task scratch; preserve a concise decision summary at handoff. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
 disable-model-invocation: true
 ---
 
@@ -41,9 +41,9 @@ Log decision points and checkpoints, not every action: a fork chosen, a unit com
 
 ## Where it lives
 
-By default the log is a working artifact, not committed. Keep it at `decisions.tsv` in the work dir, or `.audit/<task-slug>.tsv` when several efforts run at once, and leave it out of git.
+Read [Task files and cleanup](../staff/playbooks/task-artifacts.md). By default the log is a working artifact in task scratch, not committed. Before cleanup, condense significant decisions and durable evidence pointers into the archived task record. Delete the consumed TSV after its audit; retain it only when it is an explicit deliverable.
 
-Commit it only when the work is ambitious enough that a reviewer needs the trail to trust the result.
+Commit it only when explicitly requested; committed documentation remains owned by the project.
 
 ## Rules
 
@@ -72,6 +72,9 @@ Before handing back, spawn a subagent on a different model family from the one t
 - Gaps the user would otherwise miss on a casual skim.
 
 Every reply for a run that produced a trail ends with an "Attention" section. Lead with the reviewer's model on its own line (`reviewed by <model>`), then list each flag pointing to specific rows or moments. "No flags" is a valid value. The model name is not.
+
+Carry any material flags into the archived task record before scratch cleanup.
+At handoff, link that durable summary rather than the deleted working TSV.
 
 ## Reviewing the trail
 

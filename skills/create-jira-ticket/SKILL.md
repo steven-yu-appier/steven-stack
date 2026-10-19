@@ -54,7 +54,7 @@ description: Use when you need to create or update concise implementation tasks,
 - Use exact file paths, persisted values, legal strings, identifiers, and command names where relevant.
 - Preserve evidence links for decisions from Jira comments, Slack, PRs, or screenshots.
 - Put an uncertain dependency in `Assumptions` only when it could invalidate the ticket; otherwise omit it.
-- Avoid local-only paths such as `~/work/...`; use repo names or repo-relative paths.
+- Use repo names or repo-relative paths rather than machine-specific paths.
 - Do not include unrelated sections unless the user asks for them.
 - Before publishing, compress the draft: remove restatements, speculative edge cases, unnecessary qualifiers, and sentences that do not affect implementation, acceptance, or scope.
 

@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Use a repeatable local harness to exercise an interactive CLI instead of poking at it manually. First reuse the repo's own test/demo harness if it exists; otherwise assemble a temporary harness from standard local tools.
 
+Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before saving output, including standalone use. Reuse the caller's archive and scratch paths. Keep raw transcripts and profiles in scratch; record useful results in the task record and retain a demo only when it is a deliverable.
+
 ## What It Is Used For
 
 - Reproducing CLI/TUI bugs with deterministic input.
@@ -105,6 +107,6 @@ If the CLI needs richer terminal control, use `pty.fork()` or an existing PTY li
 
 - Prefer deterministic waits over sleeps. If you must sleep, explain why.
 - Do not send credentials or destructive commands into a controlled session.
-- Keep the harness in `/tmp` unless the repo already has a testing/demo harness.
+- Keep a temporary harness in task scratch unless the repo already has a testing/demo harness.
 - Do not hard-code paths from another repository. Adapt commands to the current repo's scripts and runtime.
 - Clean up tmux sessions, temp dirs, inspector processes, and demo artifacts unless the user asks to keep them.

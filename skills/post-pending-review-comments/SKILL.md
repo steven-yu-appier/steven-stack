@@ -68,11 +68,11 @@ Infer the PR from the current branch with `gh pr view --json number,url,headRefO
 
 ## Helper Script
 
-Use `scripts/post_pending_review_threads.py` when possible:
+Use `scripts/post_pending_review_threads.py` when possible. Resolve `SKILL_DIR` from this installed skill and use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for the runtime scratch path. Keep unpublished manifests until the owning workflow has saved or delivered their content:
 
 ```bash
-python3 $HOME/.agents/skills/post-pending-review-comments/scripts/post_pending_review_threads.py \
-  --comments /tmp/review-comments.json
+python3 "$SKILL_DIR/scripts/post_pending_review_threads.py" \
+  --comments "$TASK_SCRATCH/review-comments.json"
 ```
 
 Optional flags:

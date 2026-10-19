@@ -12,10 +12,7 @@ Keep it tight and on-topic. Read only what the in-scope threads need, then stop.
 
 Your context lives in two records. Your own chat history holds what you did and decided. The shared record holds everything that happened around the same code under other names: the symptoms users keep reporting, the fixes that shipped and got reverted, the errors still firing in prod. That second record is what the **why** skill searches, across source control, the issue tracker, chat and issue channels, long-form docs, and error tracking. A feature with a long bug tail keeps most of its story there, so don't reconstruct it from your transcripts alone.
 
-Your chat history lives in two transcript stores, and every line in them is one JSON record:
-
-- Claude Code writes `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the workspace path with each `/` and `.` turned into `-` (so `/Users/you/my.proj` becomes `-Users-you-my-proj`).
-- Codex writes `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`. The first `session_meta` record in each file names its `session_id` and `cwd`, so match `cwd` against the workspace.
+Resolve transcript stores from the active host or user-supplied session metadata at runtime. Claude Code and Codex use JSONL transcripts; Codex session metadata records the session identifier and working directory. Match the recorded working directory against the scoped workspace. Keep concrete store paths out of skill instructions.
 
 Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md).
 

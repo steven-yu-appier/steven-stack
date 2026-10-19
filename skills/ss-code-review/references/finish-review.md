@@ -152,11 +152,14 @@ Do not include time estimates.
 
 **Final check before delivering (default only).** Verify the hard constraints, not a layout: no box-drawing / per-item horizontal-rule separators (`────`), no Unicode arrows or middot (`·`) anywhere; stable `#`s consistent across sections; literal `|` escaped (`\|`) in any table cell; and **the closing stands alone** — a reader seeing only the last screen gets the verdict and the prioritized actionable list, each item carrying its severity, `file:line`, terse what, and response-type. Re-render anything that fails. Skip when `mode:agent` is active.
 
-After the final artifact write returns, emit the final response immediately. The artifact write is the last tool call; never use `true`, `echo`, a placeholder transition, or any other tool call to create another turn before the final response.
+Finish with one tool call that persists and reads back the final report files,
+then performs the review-run cleanup below. Finish task scratch in that call
+only when this review owns the standalone task. Return immediately afterward;
+do not use a no-op or placeholder tool call to create another turn.
 
 ### JSON output format (`mode:agent` only)
 
-Emit **one raw JSON object** as the primary response — a single bare JSON value, **no markdown code fence**. A leading ```` ```json ```` fence makes the response start with backticks and breaks naive `JSON.parse` consumers, so never wrap it. Also write `review.json` under the resolved `<run-dir>` with the same payload.
+Emit **one raw JSON object** as the primary response — a single bare JSON value, **no markdown code fence**. A leading ```` ```json ```` fence makes the response start with backticks and breaks naive `JSON.parse` consumers, so never wrap it. Also write `review.json` under the resolved `<report-dir>` with the same payload.
 
 `mode:agent` does not apply fixes — the caller does — so there is no `applied_fixes` field; the handoff is `actionable_findings`. Applied work surfaces only in explicitly authorized local-apply markdown runs (Stage 5c/6).
 
@@ -187,7 +190,7 @@ Minimum shape:
   "residual_risks": [],
   "testing_gaps": [],
   "coverage": {},
-  "artifact_path": "<resolved-run-dir>",
+  "artifact_path": "<resolved-report-dir>",
   "run_id": "<run-id>"
 }
 ```
@@ -232,7 +235,7 @@ After Stage 6, stop. When local apply was explicitly authorized, Stage 5c may al
 After Stage 6 **in default mode**, emit a compact **Actionable Findings** summary for callers:
 
 - List each actionable finding (`gated_auto` or `manual` with `downstream-resolver`) with stable `#`, severity, file:line, title, `autofix_class`, whether `suggested_fix` is present, and `confidence`.
-- Include the resolved run-artifact path when one was written.
+- Include the resolved archived report path when one was written; do not return a scratch path that cleanup removes.
 - When the actionable queue is empty, state `Actionable findings: none.` explicitly.
 
 In `mode:agent` do **not** emit this markdown summary — the actionable findings are carried solely by the `actionable_findings` field of the JSON object. Emit nothing after the JSON object, so the response stays a single parseable JSON value.
@@ -244,13 +247,13 @@ Do not run post-review triage (no per-finding walk-through, bulk ticket filing, 
 | Mode | After Stage 6 + actionable summary |
 |------|-----------------------------------|
 | **Default** | Markdown tables + Actionable Findings summary. |
-| **`mode:agent`** | JSON object + `review.json` in run artifact dir. |
+| **`mode:agent`** | JSON object + `review.json` in archived report dir. |
 
 Do not offer push/PR/create-branch next steps from this skill.
 
 #### Run artifacts
 
-Always write run artifacts under the resolved `<run-dir>`:
+Write intermediate artifacts under the resolved scratch `<run-dir>`:
 
 - synthesized findings
 - actionable findings list
@@ -258,7 +261,17 @@ Always write run artifacts under the resolved `<run-dir>`:
 - per-agent `{reviewer_name}.json` from Stage 4
 - `adversarial-review-constraints.md` when the cross-model route starts — the host-vetted project review criteria, separate from review data
 - `adversarial-review-brief.md` when the cross-model route starts — the orchestrator's compact semantic divisions, never a copied diff
-- `report.md` — the rendered markdown report exactly as presented to the user (default mode only), so format and numbering stay auditable after the run
+
+Persist `report.md` (default mode) or `review.json` (`mode:agent`) and
+`metadata.json` under `<report-dir>` in the task archive. The markdown report
+matches the report presented to the user. Read back the final files and verify
+their evidence pointers remain useful after cleanup. Once all review workers
+and peer jobs are terminal and consumed, run their owning cleanup and remove
+only this review's verified, owner-controlled `<run-dir>`, including raw output,
+constraints, briefs and per-reviewer JSON. Do not delete sibling runs or the
+shared runner root. If persistence fails, retain scratch; if a worker remains
+active or cleanup fails, record the exact pending cleanup in Coverage and the
+task handoff rather than claiming it completed.
 
 `metadata.json` minimum fields:
 

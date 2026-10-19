@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Use local browser automation to verify UI behavior with evidence. First reuse the repo's own Playwright, browser, or Electron harness if it exists; otherwise assemble a temporary local harness around the app's dev server or Chromium debug port.
 
+Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before saving output, including standalone use. Reuse the caller's task paths. Create the archive's screenshot directory and export its runtime path as `TASK_SCREENSHOTS` before running the examples. Keep console/network logs, profiles, and temporary browser data in task scratch; retain extra evidence only under that playbook's rules.
+
 ## What It Is Used For
 
 - Reproducing UI bugs that depend on real browser focus, keyboard input, scrolling, resizing, or rendering.
@@ -32,11 +34,13 @@ Use the repo's installed browser tooling when possible. If the repo already has 
 ```javascript
 import { chromium } from "playwright";
 
+const screenshotDir = process.env.TASK_SCREENSHOTS;
+if (!screenshotDir) throw new Error("Missing task screenshot directory");
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 await page.goto("http://127.0.0.1:<port>");
 await page.getByRole("button", { name: /submit/i }).click();
-await page.screenshot({ path: "/tmp/ui-harness-after.png", fullPage: true });
+await page.screenshot({ path: `${screenshotDir}/ui-after.png`, fullPage: true });
 await browser.close();
 ```
 
@@ -49,6 +53,8 @@ For Electron or a Chromium app launched with `--remote-debugging-port=<port>`, c
 ```javascript
 import { chromium } from "playwright";
 
+const screenshotDir = process.env.TASK_SCREENSHOTS;
+if (!screenshotDir) throw new Error("Missing task screenshot directory");
 const browser = await chromium.connectOverCDP("http://127.0.0.1:<debug-port>");
 const pages = browser.contexts().flatMap((context) => context.pages());
 let page;
@@ -67,7 +73,7 @@ if (!page) {
   throw new Error("No matching app page found");
 }
 
-await page.screenshot({ path: "/tmp/ui-harness-cdp.png", fullPage: true });
+await page.screenshot({ path: `${screenshotDir}/ui-cdp.png`, fullPage: true });
 await browser.close();
 ```
 

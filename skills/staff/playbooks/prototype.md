@@ -2,6 +2,8 @@
 
 **You own the design decision, not the code. The prototype is a throwaway instrument. The real build follows Feature.**
 
+Use [Task files and cleanup](task-artifacts.md). Keep candidates in task scratch; retain useful screenshots and the selected decision in the archive. If the prototype itself is the requested deliverable, retain that final artifact before cleanup and return its archive path rather than a deleted scratch path.
+
 The one playbook where the Laziness Protocol's "smallest change" and the verification bar invert. Speed over polish, code quality does not matter, no planning. The rigor is in picking the right design cheaply. Propose variations the user didn't ask for, throw an approach away and try another.
 
 1. Scope the decision the prototype exists to make: which layout, which interaction, which density, or for an empirical fork which behavior, timing, or approach. No decision means no prototype. Route to Feature.

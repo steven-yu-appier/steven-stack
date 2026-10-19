@@ -61,7 +61,7 @@ Capture this as seed context (file paths, symbols, commits, PR numbers, linked t
 
 ### Discovery
 
-Before spawning investigators, list the MCP servers available to this session. In Claude Code, read the `mcp__<server>__<tool>` tools in your tool list, or run `claude mcp list`. In Codex, run `codex mcp list` or read `[mcp_servers]` in `~/.codex/config.toml`. Treat a server that only exposes an authenticate tool as unavailable.
+Before spawning investigators, list the MCP servers available to this session. In Claude Code, read the `mcp__<server>__<tool>` tools in your tool list, or run `claude mcp list`. In Codex, run `codex mcp list` or read `[mcp_servers]` from the active Codex configuration located through runtime metadata. Treat a server that only exposes an authenticate tool as unavailable.
 
 Map each available MCP to one evidence category:
 

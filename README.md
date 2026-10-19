@@ -243,11 +243,40 @@ resolver also accepts optional `packs:` rule sources without requiring another
 plugin. Existing `.compound-engineering/` configuration is not read; copy any
 settings you want to keep into `.steven-stack/` yourself.
 
-Review artifacts use a private `steven-stack-<uid>` temporary directory.
+Intermediate review artifacts use an owner-checked private runner directory.
+Final review reports use the task archive; consumed logs and intermediate files
+are removed at handoff under the shared task-files playbook.
 The upstream `CE_PEER_*`, `CE_PACKS_CACHE_ROOT`, and `CROSS_MODEL_*` environment
 variable names and `ce-unified-plan/v1` input contract remain compatible.
 Upstream attribution and the MIT license are in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+### Task files and cleanup
+
+[Task files and cleanup](skills/staff/playbooks/task-artifacts.md) is shared by
+Staff playbooks and standalone artifact producers. Its bundled Python 3 helper
+derives the current account's `plans` directory under local-share data and a
+unique system scratch directory at runtime. Skills contain no machine-specific
+archive paths.
+
+Each archive uses `<JIRA-KEY>/<run-id>/`, or
+`_adhoc/<task-slug>/<run-id>/` without an unambiguous ticket. Preserve only the
+needed plan, task record and useful screenshots by default. Final review reports
+and other explicit deliverables stay in the archive. Execution logs, raw reviewer
+output, temporary harnesses and consumed decision trails stay in scratch and are
+removed at handoff after workers stop and durable evidence is checked. A pause
+records any scratch still needed for diagnosis; it is not a completed cleanup.
+External PR workflow skills retain their own archive policy.
+
+The helper's `finish` command removes only a named, marked scratch directory;
+it never sweeps a shared temporary root. Legacy agent leftovers require a
+separate scoped inventory and explicit deletion authorization. The playbook is
+agent guidance, not a host-wide filesystem hook, and writes still require the
+host's normal permissions. Run the focused helper checks with:
+
+```sh
+python3 -B -m unittest discover -s skills/staff/scripts -p test_task_artifacts.py -v
+```
 
 ### Principles
 

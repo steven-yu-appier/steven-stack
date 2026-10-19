@@ -36,7 +36,7 @@ Revised Verification draft:
 Browser checks on the current source verified all ten menu labels, the selected value, and the condition summary. The supplied evidence does not identify the source revision or browser environment; record those before a readiness handoff. Staging runtime cap resolution was not exercised and remains outside this FE copy coverage.
 ```
 
-The draft excerpt normalizes quote typography and omits its redundant screenshot sentence. Full raw outputs remain at `/private/tmp/staff-ac-eval.793vwi_n/before-results.md` and `/private/tmp/staff-ac-eval.793vwi_n/after-results.md`.
+The draft excerpt normalizes quote typography and omits its redundant screenshot sentence. The raw evaluation outputs were temporary working files; the observations above are the durable record.
 
 ## Structural validation
 

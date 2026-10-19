@@ -98,6 +98,8 @@ The first non-empty line of every PR body must be exactly `- [ ] QA`, including 
 
 **Body file.** Use a task-specific temporary file for the forge command. Do not retain one file per PR by default. When the user requests a retained copy, save it separately, keep it synchronized with the reviewed draft after every refresh, and still use a temporary forge input. Remove only the temporary file after publication. For a preview-only request, show the body without creating or updating the PR.
 
+**Task files.** Apply [Task files and cleanup](task-artifacts.md) at handoff, including local-only delivery and blocked publication. Keep plans, task progress and useful screenshots in the task archive; consume forge inputs and execution logs from scratch. Confirm retained evidence links survive cleanup before declaring the handoff complete.
+
 **Publish and read back.** Create or update the PR, then read its title, body, and head from the forge. Confirm that the title and body reflect the confirmed backend, the published body matches the reviewed draft, the selected template's headings appear once and in order, fenced blocks and links survived escaping, and the PR head still equals `draftHead`. If the head changed, refresh and publish again. Remove the temporary file after successful readback.
 
 Attach videos when they prove a claim. Do not paste full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, metric tables, or "CLEAN" verdicts. Put these details in a linked artifact. Do not use `## Summary` or `## Test plan` boilerplate. A commit body does not restate its subject.

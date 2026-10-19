@@ -41,7 +41,7 @@ Emit a one-line failure reason. In `mode:agent`, return JSON: `{"status":"failed
 |------------|-------------|
 | **Default** | Report-only markdown (pipe-delimited finding tables) + Actionable Findings summary |
 | **Explicit local apply** | The same markdown report plus verified local fixes and an Applied section |
-| **`mode:agent`** | One JSON object (see ### JSON output format below) + the same `/tmp/.../ss-code-review/<run-id>/` artifacts |
+| **`mode:agent`** | One JSON object (see ### JSON output format below) + final report files in `<report-dir>` under the task archive |
 
 Default and `mode:agent` are **report-only**. `mode:agent` changes only the serialization from markdown to JSON for programmatic callers; it does not change reviewer selection, merge logic, or scope rules. `apply:local` is separate mutation authority, not an output mode. The default markdown is the human view; keep it ASCII-safe (pipe tables, `->` not middot `·`, no box-drawing) so it degrades gracefully across terminals.
 

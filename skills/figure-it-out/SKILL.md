@@ -7,6 +7,8 @@ disable-model-invocation: true
 
 When the task matches no playbook, design one. The deliverable before any code is the workflow itself: a sequence of phases that scales rigor to the task, runs the scientific method, and leaves a decision trail a human can audit after stepping away. Bias toward more rigor. The cost of building the wrong thing dwarfs the cost of being careful.
 
+Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for the designed plan, current task record, scratch trail and handoff. Save the phase list as the archived plan; keep raw loop output in scratch.
+
 ## Start
 
 Open a todolist whose first item is to read the Principles section of the **staff** skill. Then add the phases below as todos.
@@ -36,9 +38,9 @@ Apply the **sequence-verifiable-units** principle skill, verifying each unit bef
 - A verdict is VERIFIED, NOT VERIFIED, or INCONCLUSIVE. Inconclusive is not a pass. Don't hide a negative.
 ## Phase D: Keep the audit trail
 
-Log the run via the **show-me-your-work** skill, one canonical TSV with a row per decision and per unit, evidence as links. figure-it-out's work is usually ambitious enough to commit the trail so the reviewer can read it in the PR. Commit it when confidence has to be shown. Prefer evidence produced by committed scripts. The trail plus the diff is what lets the human come back and trust the work.
+Log the run via the **show-me-your-work** skill, one canonical TSV with a row per decision and per unit, evidence as links. Keep the working trail in task scratch and summarize durable decisions in the archived task record. Retain or commit the full trail only when explicitly requested. Prefer evidence produced by committed scripts. The trail plus the diff is what lets the human come back and trust the work.
 ## Phase E: Verify and hand back
 
 Check the whole against the Phase A predicate on the real product, not just the harness. Encode any recurring correction as a gate, a lint rule, a check, or a script (the **encode-lessons-in-structure** principle skill).
 
-**Reply:** the playbook you designed, the rigor level and why, the decision-trail path, what's verified against the predicate, and what's still open.
+**Reply:** the playbook you designed, the rigor level and why, the archived task record with its decision summary, what's verified against the predicate, and what's still open. Link a full decision trail only when it was explicitly retained.
