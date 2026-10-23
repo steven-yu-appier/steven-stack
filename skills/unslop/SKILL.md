@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Must always apply.
+description: Removes AI writing patterns. Applies to all writing.
 ---
 
 # Unslop

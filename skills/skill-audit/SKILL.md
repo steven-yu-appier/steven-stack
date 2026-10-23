@@ -1,9 +1,9 @@
 ---
 name: skill-audit
-description: Review a skill’s triggering, environment compatibility, and instructions for its intended model. Use to diagnose skipped skills, audit behavior, or assess simplification and portability. Produces evidence-backed recommendations; leaves the target unchanged.
+description: Review a skill's triggering, environment compatibility, and instructions for its intended model. Use to diagnose skipped skills, audit behavior, or assess simplification and portability. Produces evidence-backed recommendations; leaves the target unchanged.
 ---
 
-# Skill Audit
+# Skill audit
 
 Answer two questions:
 

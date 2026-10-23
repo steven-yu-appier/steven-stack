@@ -4,13 +4,13 @@ description: "Apply when context is filling up: large outputs, long files, repea
 disable-model-invocation: true
 ---
 
-# Guard the Context Window
+# Guard the context window
 
-The context window is finite and non-renewable within a session. Every token should be worth its cost.
+Keep only the material needed for current decisions in the main context.
 
-**Why:** Context overflow degrades reasoning quality, creates compression artifacts, and halts progress.
+Context overflow degrades reasoning quality, creates compression artifacts, and halts progress.
 
-**Pattern:**
+## Pattern
 - **Isolate large payloads.** Route verbose outputs, screenshots, and large documents to subagents. The main context gets summaries, not raw data.
 - **Don't read what you won't use.** Read selectively based on relevance. If a file isn't needed for the current task, skip it.
 - **Keep frequently used content inline.** Templates and references used on every invocation belong in the skill file, not in separate files that cost a read each time.

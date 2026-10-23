@@ -4,13 +4,13 @@ description: "Apply when debugging. Trace each symptom to its root cause and fix
 disable-model-invocation: true
 ---
 
-# Fix Root Causes
+# Fix root causes
 
 When debugging, do not fix symptoms. Trace every problem to its root cause and fix it there.
 
-**Why:** Symptom fixes accumulate. Each workaround makes the system harder to reason about, and the real bug remains. Root-cause fixes are slower upfront but reduce total debugging time.
+Symptom fixes accumulate. Each workaround makes the system harder to reason about, and the real bug remains. Root-cause fixes are slower upfront but reduce total debugging time.
 
-**Pattern:**
+## Pattern
 - Reproduce first
 - Ask "why" until you hit the root cause
 - Do not add guards (adding a nil check to silence a crash is a symptom fix)

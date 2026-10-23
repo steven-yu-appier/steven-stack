@@ -12,7 +12,7 @@ The deliverable is a synthesized verdict. Do NOT auto-apply changes.
 
 Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md). Interrogate requires both routes. If either route is unavailable, stop and report it.
 
-## Step 1, Determine Scope
+## Step 1, Determine scope
 
 Identify what to review from context:
 
@@ -22,7 +22,7 @@ Identify what to review from context:
 
 Package the diff (or file contents) plus any surrounding context files the reviewers need to understand the code.
 
-## Step 2, State the Intent
+## Step 2, State the intent
 
 Before spawning reviewers, state the intent explicitly. Derive this from:
 
@@ -33,7 +33,7 @@ Before spawning reviewers, state the intent explicitly. Derive this from:
 
 Write one clear paragraph. If you're unsure about the intent, ask the user before proceeding.
 
-## Step 3, Spawn Reviewers
+## Step 3, Spawn reviewers
 
 Launch both reviewers before waiting for either reviewer. Use the Reviewer A/B labels and routes below.
 
@@ -63,7 +63,7 @@ As results come back, build a unified picture:
 4. **Deduplicate**. Different models may describe the same issue differently. Merge these and note which models raised it.
 5. **Note disagreements**. If one model flags something and another explicitly says the opposite, that's useful context for the verdict.
 
-## Step 5, Lead Judgment
+## Step 5, Lead judgment
 
 You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator.
 
@@ -81,7 +81,7 @@ For each finding, include:
 - The category (act on / consider / noted / dismissed)
 - A one-line rationale for the categorization
 
-## Output Format
+## Output format
 
 Present the verdict in this structure:
 
@@ -91,7 +91,7 @@ Present the verdict in this structure:
 ### Reviewers
 - Reviewer [label]: [model name], [N findings] (one bullet per reviewer)
 
-### Act On
+### Act on
 [Findings that should be addressed. For each: description, which models raised it, why it matters.]
 
 ### Consider
@@ -103,5 +103,5 @@ Present the verdict in this structure:
 ### Dismissed
 [Rejected findings with brief rationale.]
 
-### Agreement Map
+### Agreement map
 [Where did models agree, where did they diverge, and what does the pattern of agreement/disagreement tell us?]

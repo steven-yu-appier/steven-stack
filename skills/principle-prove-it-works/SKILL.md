@@ -4,15 +4,15 @@ description: "Apply after completing a task, before declaring done. Verify again
 disable-model-invocation: true
 ---
 
-# Prove It Works
+# Prove it works
 
 Before running type-check, lint, or tests, read and follow [Scoped checks](../staff/references/scoped-checks.md).
 
 Verify every task output by checking the real thing directly. Do not infer from proxies, self-reports, or "it compiles."
 
-**Why:** Unverified work has unknown correctness. Indirect verification (file mtimes, output freshness, agent self-reports, cached screenshots) feels cheaper than direct observation. Acting on a wrong inference costs far more than checking the source.
+Unverified work has unknown correctness. Indirect verification (file mtimes, output freshness, agent self-reports, cached screenshots) feels cheaper than direct observation. Acting on a wrong inference costs far more than checking the source.
 
-**Pattern:** After completing any task, ask: "how do I prove this actually works?"
+After completing any task, ask: "how do I prove this actually works?"
 
 Check the real thing, not a proxy:
 - Check process liveness directly, not indirectly through derived state
@@ -30,6 +30,6 @@ When verifying delegated work, inspect the actual output artifact (git diff, fil
 
 ## Script the check when you can
 
-The strongest proof is a deterministic script that re-runs the same comparison, not a one-time eyeball. Write the script, run it, and keep its output as an artifact a reviewer can re-run instead of trusting your word.
+Write and run a deterministic comparison script when practical. Keep its output so a reviewer can repeat the check.
 
 Keep the artifact visible for the human. Commit it only for large or complex work where the trail has to be auditable later, like a big port or migration (the **show-me-your-work** skill).

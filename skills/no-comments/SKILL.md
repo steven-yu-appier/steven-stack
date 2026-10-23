@@ -1,6 +1,6 @@
 ---
 name: no-comments
-description: "Spawn Comment Sicko, fix accepted findings, and offer encodings for claimed constraints."
+description: Removes unnecessary comments and addresses accepted comment-review findings. Use for /no-comments or a comment cleanup request.
 disable-model-invocation: true
 ---
 

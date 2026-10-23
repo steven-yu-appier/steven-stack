@@ -10,7 +10,7 @@ Use local browser automation to verify UI behavior with evidence. First reuse th
 
 Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before saving output, including standalone use. Reuse the caller's task paths. Create the archive's screenshot directory and export its runtime path as `TASK_SCREENSHOTS` before running the examples. Keep console/network logs, profiles, and temporary browser data in task scratch; retain extra evidence only under that playbook's rules.
 
-## What It Is Used For
+## What it is used for
 
 - Reproducing UI bugs that depend on real browser focus, keyboard input, scrolling, resizing, or rendering.
 - Verifying visual or accessibility changes with screenshots and snapshots.
@@ -18,7 +18,7 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 - Capturing console logs, network logs, CPU profiles, traces, or heap snapshots.
 - Creating before/after evidence for `verify-this`.
 
-## Setup Pattern
+## Setup pattern
 
 1. Start the app locally using the repo's documented dev command.
 2. Discover existing local harnesses: Playwright tests, Cypress specs, Storybook, browser scripts, Electron launch scripts, or snapshot tools.
@@ -27,7 +27,7 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 5. Select the correct page by stable app markers, not by tab order alone.
 6. Prefer accessibility roles, labels, and stable `data-*` selectors over coordinates.
 
-## Generic Web Harness
+## Generic web harness
 
 Use the repo's installed browser tooling when possible. If the repo already has Playwright, a minimal one-off probe looks like:
 
@@ -46,7 +46,7 @@ await browser.close();
 
 Do not add Playwright as a project dependency just for this probe unless the user asks. Prefer existing dev dependencies or external browser tools already available in the environment.
 
-## Generic CDP Harness
+## Generic CDP harness
 
 For Electron or a Chromium app launched with `--remote-debugging-port=<port>`, connect over CDP:
 
@@ -79,7 +79,7 @@ await browser.close();
 
 Replace `<app-root-selector>` with a stable marker from the current repo, such as a root app node, landmark, or product-specific `data-*` attribute.
 
-## Interaction Loop
+## Interaction loop
 
 1. Capture a page snapshot or screenshot before acting.
 2. Choose a target from the latest page structure.
@@ -88,7 +88,7 @@ Replace `<app-root-selector>` with a stable marker from the current repo, such a
 5. Verify the expected state change.
 6. Save artifacts for before/after comparisons when the user asked for proof.
 
-## CDP Capabilities
+## CDP capabilities
 
 Use raw CDP only when higher-level browser APIs are insufficient:
 
@@ -98,12 +98,12 @@ Use raw CDP only when higher-level browser APIs are insufficient:
 - Rendering: viewport changes, color scheme emulation, reduced motion, accessibility checks.
 - Debugging: console streaming, exception capture, DOM snapshots.
 
-## Page Selection
+## Page selection
 
 When multiple app windows/tabs share a debug port:
 
-- Prefer a positive marker for the surface under test, such as an app root selector.
-- Use a negative marker to avoid the wrong surface when necessary.
+- Prefer a positive marker for the UI under test, such as an app root selector.
+- Use a negative marker to avoid the wrong UI when necessary.
 - If no page matches, list available page titles and URLs instead of guessing.
 
 ## Guardrails

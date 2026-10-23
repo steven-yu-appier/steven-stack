@@ -1,5 +1,14 @@
 # Epistemics
 
+## Contents
+
+- [Confidence Tiers](#confidence-tiers)
+- [Phrasing Guide](#phrasing-guide)
+- [The Sycophancy Trap](#the-sycophancy-trap)
+- [When Evidence Contradicts](#when-evidence-contradicts)
+- [When Evidence Is Missing](#when-evidence-is-missing)
+- [Calibration Check Before Finalizing](#calibration-check-before-finalizing)
+
 How to reason about confidence when evidence is historical, fragmentary, and sometimes contradictory, and how to communicate it without flattening it into false certainty.
 
 Code doesn't carry its own motivation. You can read what code does. You can't read *why it exists*. That lives in commits, PRs, tickets, docs, and conversations, all incomplete, biased, and sometimes missing entirely. Pretending otherwise produces confident-sounding guesses that mislead the user.

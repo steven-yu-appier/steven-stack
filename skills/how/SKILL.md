@@ -1,16 +1,16 @@
 ---
 name: how
-description: "Use for \"how does X work\", code walkthroughs before changing something, and placement / ownership / layering questions (\"where should this live\", \"which package owns this\", \"is this the right layer\"). Explains subsystem architecture, runtime flow, onboarding mental models. Use why for motivation."
+description: Explains subsystem architecture, runtime flow, and code ownership. Use for how questions, code walkthroughs, or deciding which package or layer owns a change. Use why for motivation.
 disable-model-invocation: true
 ---
 
 # How
 
-Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
+Explore the codebase to answer "how does X work?" questions. Explain the architecture so a senior engineer new to the subsystem can trace its behavior. Include the relevant files and functions without annotating every line.
 
 The parent handles simple explanations directly. Delegation below is optional for complex exploration and synthesis; if a route or enforced read-only access is unavailable, perform that work in the parent under the same inspection-only scope. Route every delegate through [`../staff/references/subagent-routing.md`](../staff/references/subagent-routing.md).
 
-## Step 1. Assess Complexity
+## Step 1. Assess complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
 
@@ -28,7 +28,7 @@ Decompose the question into 2 to 4 exploration angles, each a distinct slice of 
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
 
-## Step 2b. Direct Explain (simple questions)
+## Step 2b. Direct explain (simple questions)
 
 Inspect the code without modifying files and explain it in the parent. Use the **[Direct]** sections of `references/explainer-prompt.md` as the output guide. Go to Step 4.
 
@@ -45,6 +45,6 @@ Build its prompt from `references/explainer-prompt.md`, keeping the **[Synthesis
 
 Present the resulting explanation to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
 
-## Output Format
+## Output format
 
 The explanation uses the sections defined in `references/explainer-prompt.md`, dropping any that do not apply: Overview, Key Concepts, How It Works, Where Things Live, Gotchas.

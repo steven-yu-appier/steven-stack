@@ -16,8 +16,8 @@ from urllib.parse import urlparse
 FINDING_TITLE = re.compile(r"^\[(P[0-3])\] (.+)$")
 
 
-def run_json(args: list[str]) -> Any:
-    result = run(args)
+def run_json(args: list[str], *, input_text: str | None = None) -> Any:
+    result = run(args, input_text=input_text)
     return json.loads(result.stdout)
 
 
@@ -26,8 +26,8 @@ def run_text(args: list[str]) -> str:
     return result.stdout.strip()
 
 
-def run(args: list[str]) -> subprocess.CompletedProcess[str]:
-    result = subprocess.run(args, text=True, capture_output=True)
+def run(args: list[str], *, input_text: str | None = None) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(args, input=input_text, text=True, capture_output=True)
     if result.returncode != 0:
         command = " ".join(args)
         message = result.stderr.strip() or result.stdout.strip() or "command failed"
@@ -153,8 +153,6 @@ query($owner:String!, $name:String!, $number:Int!) {
 
 def create_pending_review(repo: str, number: int, commit_id: str, comments: list[dict[str, Any]]) -> dict[str, Any]:
     payload = {"commit_id": commit_id, "threads": comments}
-    temp_path = Path("/tmp/post-pending-review-comments.json")
-    temp_path.write_text(json.dumps(payload))
     return run_json(
         [
             "gh",
@@ -163,8 +161,9 @@ def create_pending_review(repo: str, number: int, commit_id: str, comments: list
             "-X",
             "POST",
             "--input",
-            str(temp_path),
-        ]
+            "-",
+        ],
+        input_text=json.dumps(payload),
     )
 
 

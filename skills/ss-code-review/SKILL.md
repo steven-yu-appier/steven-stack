@@ -3,7 +3,7 @@ name: ss-code-review
 description: "Structured code review for bugs, regressions, tests, and standards. Use before PRs or when asked to review code. Use when the user asks to apply this review's findings locally. Not for resolving feedback already left on a PR."
 ---
 
-# Code Review
+# Code review
 
 Read [Scoped checks](../staff/references/scoped-checks.md) before starting the review. It governs every stage, including reviewers, validators, and local apply; pass its absolute path and the check scope to every delegate.
 
@@ -13,7 +13,7 @@ Help the caller deliver a correct change within the agreed scope. Find defects a
 
 **Done when:** required review and validation are complete, retained findings are supported by the source, and the caller has a clear result with any remaining coverage limits. Apply only when the invocation authorizes it, under the rules below.
 
-## Artifact Root
+## Artifact root
 
 <!-- ce-docs-root:start -->
 **Resolve the repository documentation root `<root>` before composing repository plan or solution paths.** Runtime scratch and final review reports follow Task files and cleanup instead.
@@ -25,7 +25,7 @@ Help the caller deliver a correct change within the agreed scope. Find defects a
 
 **Agent lifecycle.** Collect terminal outcomes, including failures, before cleanup. Close or release review-owned agents when the harness provides caller-owned cleanup, before refilling slots, advancing stages, or returning. Do not message completed agents with no remaining work. Do not infer released capacity from completion or interruption, or invent cleanup operations.
 
-## Execution spine
+## Review sequence
 
 Follow these steps in order; the references supply the detail but never change the order. Each reference named below is a required read for its step: load it before doing that step's work.
 
@@ -40,11 +40,11 @@ Follow these steps in order; the references supply the detail but never change t
 ## Operating principles
 
 - **Report-only by default; never push.** A bare `ss-code-review` invocation produces findings and does not apply them. Entering the apply stage requires `apply:local`, or an explicit user request in the invoking prompt to apply or fix this review's findings; a deprecated `mode:autofix` token is neither. `mode:agent` never mutates the tree, even when nested inside a workflow that later applies findings. Never push, open PRs, or file tickets in any mode.
-- **No blocking prompts.** Never use `AskUserQuestion`, `request_user_input`, `ask_user`, or other blocking question tools. Infer intent, plan, and scope from explicit tokens, git state, PR metadata, and conversation. Note uncertainty in Coverage or the verdict — do not stop to ask.
+- **No blocking prompts.** Never use `AskUserQuestion`, `request_user_input`, `ask_user`, or other blocking question tools. Infer intent, plan, and scope from explicit tokens, git state, PR metadata, and conversation. Note uncertainty in Coverage or the verdict. Do not stop to ask.
 - **Explicit mutations only.** Never run `gh pr checkout`, `git checkout`, `git switch`, or similar branch-switch commands. Passing a PR number, URL, or branch name selects **review scope**, not permission to mutate the working tree. Uncommitted work can only be reviewed from the checkout that holds it, so to review it on a feature branch, stay on that branch (or check it out yourself) and pass `base:` or no target.
-- **Report outcomes, not machinery.** What you show the user is about the review: what is being examined, which coverage is included and the one-line reason for each conditional lens, the independent cross-model pass, and the findings. Name what the user would recognize — a PR number, a reviewer's concern, a peer model — rather than this skill's plumbing, whose internal labels, dispatch bookkeeping, and setup narration stay out of user-facing text. Never claim more about the peer than its receipt attests. This governs *what* you surface and suppress, not the wording; use your own voice.
+- **Report outcomes, not machinery.** What you show the user is about the review: what is being examined, which coverage is included and the one-line reason for each conditional lens, the independent cross-model pass, and the findings. Use recognizable names such as the PR number, the reviewer's concern, and the peer model. Keep dispatch bookkeeping and setup details out of user-facing text. Never claim more about the peer than its receipt attests. This governs *what* you surface and suppress, not the wording; use your own voice.
 
-## Task Visibility
+## Task visibility
 
 Use the platform's task-tracking capability after resolving scope, as described in `references/scope.md`.
 

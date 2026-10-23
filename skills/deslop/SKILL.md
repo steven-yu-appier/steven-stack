@@ -7,7 +7,7 @@ description: Remove AI-generated code slop and clean up code style
 
 Check the diff against main and remove AI-generated slop introduced in the branch.
 
-## Focus Areas
+## Focus areas
 
 - Extra comments that are unnecessary or inconsistent with local style
 - Defensive checks or try/catch blocks that are abnormal for trusted code paths

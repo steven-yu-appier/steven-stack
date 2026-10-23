@@ -4,23 +4,23 @@ description: "Apply when wiring validation, error handling, or framework adapter
 disable-model-invocation: true
 ---
 
-# Boundary Discipline
+# Boundary discipline
 
-Place validation, type narrowing, and error handling at system boundaries. Trust internal code unconditionally. Business logic lives in pure functions. The shell is thin and mechanical.
+Place validation, type narrowing, and error handling at system boundaries. Trust internal code unconditionally. Business logic lives in pure functions. Framework adapters only parse input, call domain functions, and format output.
 
-**Why:** Scattered validation is noisy, redundant, and gives a false sense of safety. Keep logic out of framework wiring so it can be tested without the framework.
+Scattered validation is noisy, redundant, and gives a false sense of safety. Keep logic out of framework wiring so it can be tested without the framework.
 
-**The pattern:**
+## The pattern
 - **At boundaries** (CLI args, config files, external APIs, network protocols): validate, return errors, handle defensively.
 - **Inside the system:** typed data, error propagation, no re-validation. Trust the types.
 - **Across the boundary.** Expose domain concepts, not the boundary's private representation. Keep general-purpose mechanism inside and special-purpose policy at the edge.
 
-**Applications:**
+## Applications
 
 Validation and error handling:
 - Validate config at parse time (the boundary), not inside business logic
 - Parse raw data into domain types at the boundary
-- Do not re-export transport, storage, framework, or wire types through the public surface
+- Do not re-export transport, storage, framework, or wire types through the public API
 - No redundant nil checks deep in call chains if the boundary already validated
 
 Code organization:
@@ -29,6 +29,6 @@ Code organization:
 - Prompt construction: structured state in, string out
 - Scoring and assessment: pure transforms from state to results
 
-**The tests:**
+## The tests
 - "Is this data crossing a system boundary right now?" If not, validation is redundant.
 - "Can this be a pure function that the shell just calls?" If yes, extract it.

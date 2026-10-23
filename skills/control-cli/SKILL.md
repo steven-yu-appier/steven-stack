@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # Control CLI
 
-Use a repeatable local harness to exercise an interactive CLI instead of poking at it manually. First reuse the repo's own test/demo harness if it exists; otherwise assemble a temporary harness from standard local tools.
+Exercise the interactive CLI with deterministic inputs through a local harness. First reuse the repo's own test/demo harness if it exists; otherwise assemble a temporary harness from standard local tools.
 
 Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before saving output, including standalone use. Reuse the caller's archive and scratch paths. Keep raw transcripts and profiles in scratch; record useful results in the task record and retain a demo only when it is a deliverable.
 
-## What It Is Used For
+## What it is used for
 
 - Reproducing CLI/TUI bugs with deterministic input.
 - Verifying keyboard flows, prompts, interrupts, resize behavior, and terminal layout.
@@ -18,7 +18,7 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 - Profiling startup time, slow operations, hangs, or memory growth.
 - Recording a short terminal demo when output is easier to show than explain.
 
-## Harness Loop
+## Harness loop
 
 1. Identify the command under test and the smallest reproducible workspace.
 2. Discover existing local harnesses: package scripts, e2e tests, demo recorders, expect scripts, or PTY helpers.
@@ -29,7 +29,7 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 7. Save the transcript and any profile artifacts.
 8. Kill the session cleanly.
 
-## Harness Options
+## Harness options
 
 - Repo-native harness: prefer checked-in scripts because they know the app's startup, env, and prompts.
 - `tmux`: managed sessions, `capture-pane`, `send-keys`, attach/detach.
@@ -37,7 +37,7 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 - Runtime inspector: use Node or Bun inspector for CPU profiles, heap snapshots, and live evaluation.
 - Terminal recorder: use repo-local demo tools or asciinema-compatible tools when the user asks for a demo.
 
-## Minimal tmux Harness
+## Minimal tmux harness
 
 ```bash
 SESSION="cli-harness-$(date +%s)"
@@ -56,7 +56,7 @@ NODE_OPTIONS="--inspect=127.0.0.1:0" tmux new-session -d -s "$SESSION" -- <node-
 
 Read the terminal output to find the inspector URL, then use Chrome DevTools-compatible tooling if profiling is needed.
 
-## Minimal PTY Harness
+## Minimal PTY harness
 
 Use a PTY script when you need deterministic waits in a repo that does not have tmux or a demo harness. Keep it temporary unless the user asks to add a reusable test.
 
@@ -96,7 +96,7 @@ os.close(master_fd)
 
 If the CLI needs richer terminal control, use `pty.fork()` or an existing PTY library.
 
-## Profiling Recipes
+## Profiling recipes
 
 - Startup regression: capture baseline and treatment startup timings under the same machine, env, and command.
 - Slow operation: start a CPU profile, perform the operation, stop the profile, and compare top self-time functions.

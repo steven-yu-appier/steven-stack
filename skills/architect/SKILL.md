@@ -1,6 +1,6 @@
 ---
 name: architect
-description: "Sketch types, signatures, and module structure before code, then stay in the loop while implementation fills in. Use for /architect, 'architect this', 'design this', or non-trivial work where jumping to code would lock in the wrong shape."
+description: Designs types, signatures, and module boundaries for a change. Use for /architect or architecture decisions that need alternatives before implementation.
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Design before implementing. Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple model perspectives, then fill in code against the chosen sketch. If implementation proves the sketch wrong, throw it out and redesign.
 
-Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for plans and design evidence, including standalone use. Keep candidate reports in scratch and the selected design in the archived plan, except source scaffolding or documentation that belongs in the project.
+Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for plans and design evidence, including standalone use. Keep candidate reports in scratch and the selected design in the archived plan, except source skeletons or documentation that belongs in the project.
 
 ## Start
 
@@ -22,11 +22,11 @@ Open a todolist with one entry per phase before starting.
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run the **how** skill over the relevant subsystems.
+Run the **how** skill to trace every subsystem the new code touches.
 
-Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
+Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
 
-Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
+Skip Phase A only when the work is greenfield with no surrounding system to integrate.
 
 ## Phase B: Sketch
 
@@ -34,11 +34,11 @@ Run the **arena** skill with the design-sketch task and the Phase A grounding ar
 
 Use your configured architect routes (defaults `gpt-6.1-sol-high` and `claude-opus-5.5-high`).
 
-Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
+Require at least two structurally distinct candidates before synthesis, per **exhaust-the-design-space**. Variations within one design do not count.
 
 Screen every candidate against references/design-red-flags.md before synthesis. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
 
-Compare viable candidates on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public surface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
+Compare viable candidates on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public interface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
 
 Arena returns one synthesized design package. The synthesis decision populates the rationale's "Synthesis decision" section.
 
@@ -46,7 +46,7 @@ Arena returns one synthesized design package. The synthesis decision populates t
 
 Default: proceed directly to implementation with the synthesized design. No human checkpoint.
 
-Opt in to a checkpoint when the invoker explicitly asks: "/architect with checkpoint," "stop and show me before implementing," or similar. Then surface the synthesized design and pause for sign-off.
+Opt in to a checkpoint when the invoker explicitly asks: "/architect with checkpoint," "stop and show me before implementing," or similar. Present the synthesized design and wait for approval.
 
 The synthesis can ship as its own commit either way, as the "scaffold first" mode of the **foundational-thinking** principle skill. Planned and scoped breakage during fill-in is fine, per the **outcome-oriented-execution** principle skill. For adversarial pressure on the design before implementing, run the **interrogate** skill on the synthesized sketch.
 
@@ -56,11 +56,11 @@ If the human pushes back on the shape (in a checkpoint or after the fact), treat
 
 Replace `not implemented` bodies with code, pseudocode with logic. The synthesized sketch is the contract.
 
-Deviations from the sketch are signal worth surfacing, not friction to absorb silently. If a function needs a parameter the sketch didn't anticipate, ask whether the sketch was wrong, the requirement was missed, or the implementation is overreaching.
+Report deviations from the sketch. If a function needs a parameter the sketch didn't anticipate, ask whether the sketch was wrong, the requirement was missed, or the implementation is overreaching.
 
 ## Phase E: Scrap when the architecture is wrong
 
-If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design, per the **redesign-from-first-principles** and **fix-root-causes** principle skills.
+If implementation repeatedly needs workarounds the sketch cannot support, redesign it per **redesign-from-first-principles** and **fix-root-causes**.
 
 The signal is a *pattern*, not single instances. Tells:
 
@@ -71,7 +71,7 @@ The signal is a *pattern*, not single instances. Tells:
 - Callers having to know the abstraction's internal rules to use it.
 - Two or more independent Phase D deviations of the same shape across the implementation.
 
-Use judgment. A few edge cases don't condemn an architecture. Some problems are legitimately complex. Complexity in the data is not complexity in the design.
+Distinguish isolated edge cases and domain complexity from repeated design failures.
 
 When you scrap:
 

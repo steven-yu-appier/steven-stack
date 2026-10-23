@@ -1,6 +1,6 @@
 ---
 name: show-me-your-work
-description: "Keep a reviewable decision trail for long-running or unattended work: a TSV log with one row per decision (what, why, evidence, result). Working log in task scratch; preserve a concise decision summary at handoff. Use for /show-me-your-work, autonomous or multi-phase runs, or work a human reviews after stepping away."
+description: Keeps a TSV decision log for long-running, autonomous, or multi-phase work. Use for /show-me-your-work or work reviewed after the user steps away.
 disable-model-invocation: true
 ---
 
@@ -37,7 +37,7 @@ Write each entry the way you'd tell a teammate what you did. Plain words, concre
 
 Use the helper `scripts/log.sh <logfile> <phase> <decision> <why> <evidence> <result>`. It stamps `ts`, writes the header on first use, strips stray tabs/newlines, and prefixes any cell starting with `=`, `+`, `-`, or `@` with a single quote. A bare `printf` appending a row works too, but mind those same bytes if cells come from generated or user-supplied text.
 
-Log decision points and checkpoints, not every action: a fork chosen, a unit completed with its verification result, a pivot or revert with its trigger, a blocker surfaced, a gate fixed. For loop runs, one row per iteration. Skip the trivial and self-evident.
+Log decision points and checkpoints, not every action: a fork chosen, a unit completed with its verification result, a pivot or revert with its trigger, a blocker found, a gate fixed. For loop runs, one row per iteration. Skip the trivial and self-evident.
 
 ## Where it lives
 
@@ -55,16 +55,16 @@ Commit it only when explicitly requested; committed documentation remains owned 
 
 At the end of the run, before handing back, check the log told the truth. Locate only this run's transcript from the active host's explicit transcript path or session metadata, then read that transcript. Do not search across any agent's global project or session directories. A broad search can read unrelated private chats. Walk the log against what actually happened:
 
-- Every row maps to a real action. Cut invented or aspirational entries.
+- Every row maps to a real action. If an existing row invents an action or describes a plan as completed, append a correction that identifies the row and states what happened.
 - Each row's evidence resolves and shows what the row claims.
 - A fork, pivot, or abandoned approach that shaped the work but isn't logged is a gap. Add it.
-- Drop padding.
+- Omit padding from new entries and the handoff summary.
 
-Fix the log, not the story. If the work diverged from what a row claims, the row is wrong.
+Append corrections for rows that disagree with the transcript. Keep the original rows and make clear which corrections supersede them. The handoff summary uses the corrected account.
 
 ## Cross-model review of the trail
 
-Before handing back, spawn a subagent on a different model family from the one that did the work. Self-review is not a substitute. The subagent reads the audit trail and the run's transcript, then flags what the user should pay attention to. Not a redo of the work, a scan for what's suboptimal or risky.
+Before handing back, spawn a subagent on a different model family from the one that did the work. Self-review is not a substitute. The subagent reads the audit trail and the run's transcript, then flags what the user should pay attention to. Ask it to identify weak evidence, missed checks, and risky decisions.
 
 - Decisions logged with weak or absent evidence.
 - Verification steps skipped or claimed without proof in the transcript.

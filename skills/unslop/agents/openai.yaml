@@ -3,4 +3,4 @@ interface:
   short_description: "Remove AI writing patterns"
   default_prompt: "Use $unslop to remove AI writing patterns while preserving the meaning and tone."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

@@ -4,17 +4,17 @@ description: "Apply when sequencing an addition, refactor, or rewrite. Remove de
 disable-model-invocation: true
 ---
 
-# Subtract Before You Add
+# Subtract before you add
 
 When evolving a system, remove complexity first, then build.
 
-**Why:** Adding to a complex system compounds complexity. Removing first leaves less code, reveals the essential structure, and usually makes the next design obvious. Default to subtraction.
+Adding to a complex system compounds complexity. Removing first leaves less code, reveals the essential structure, and usually makes the next design obvious. Default to subtraction.
 
-Make simplification a continual investment. Leave the design slightly simpler and more capable behind the same or smaller surface than you found it.
+Make simplification a continual investment. Leave the design slightly simpler and more capable behind the same or smaller interface than you found it.
 
-**The pattern:**
+## The pattern
 - Sequence removal before construction
-- Cut before you polish (get to the minimum before investing in quality)
+- Remove unnecessary parts before polishing what remains
 - Design for observed usage, not speculative edge cases
 - No speculative validators, parsers, or guards beyond what the spec demands
 - Simplify prompts (remove redundant instructions, excessive templates)

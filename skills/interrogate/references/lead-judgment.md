@@ -8,7 +8,7 @@ Adversarial reviewers are useful because they're aggressive. But aggression with
 
 - What was already tried and rejected
 - What constraints exist outside the code (timeline, dependencies, migration plans)
-- Which parts of the code are temporary scaffolding vs. permanent architecture
+- Which parts of the code are temporary setup code vs. permanent architecture
 - What the next PR in the stack will address
 
 You have the full conversation context. Use it.
@@ -47,7 +47,7 @@ Don't dismiss findings just because they're uncomfortable. The whole point of ad
 - Multiple models flag the same issue independently (consensus signal)
 - The finding identifies a concrete execution path, not a hypothetical
 - The finding reveals a gap in your mental model of the code
-- You read the finding and think "...yeah, actually"
+- You can confirm the finding against the code
 
 Be especially careful about dismissing security findings and correctness bugs. These deserve more scrutiny even when they come from a single model.
 

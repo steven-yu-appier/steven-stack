@@ -16,7 +16,7 @@ This addon owns two remaining opportunities: replacing newly duplicated implemen
 | [deslop](../deslop/SKILL.md) | Style, abnormal defensive checks, type-bypass casts, and nested-condition cleanup |
 | [no-comments](../no-comments/SKILL.md) | Comment removal, suppression analysis, and refactors prompted by comment findings |
 | [architect](../architect/SKILL.md) and [Refactoring](../staff/playbooks/refactoring.md) | State, parameter, type, module, and abstraction redesign; wrapper/dead-code removal; caller migrations and compatibility cleanup |
-| [test-audit](../test-audit/SKILL.md) | Test-quality audits and test-only production seam removal |
+| [test-audit](../test-audit/SKILL.md) | Test-quality audits and removal of production interfaces used only by tests |
 | [Perf issue](../staff/playbooks/perf-issue.md) and [Hillclimb](../staff/playbooks/hillclimb.md) | Performance diagnosis, profiling, tuning, concurrency changes, caching policy, and optimization experiments |
 | The caller's verification phase | Final typecheck, lint, tests, runtime proof, and measurement |
 

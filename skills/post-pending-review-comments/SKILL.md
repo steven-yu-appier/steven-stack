@@ -3,7 +3,7 @@ name: post-pending-review-comments
 description: Post GitHub PR review findings as pending draft review threads at code locations, including Start Review comments, batched unsubmitted comments, or adding more comments to an existing pending review.
 ---
 
-# Post Pending Review Comments
+# Post pending review comments
 
 Use this workflow when the user wants review findings posted to GitHub PR code locations as draft review comments, without submitting the review.
 
@@ -16,7 +16,7 @@ Use this workflow when the user wants review findings posted to GitHub PR code l
 - Prefer the bundled helper script over hand-built nested `gh api -f threads[][path]=...` flags.
 - Refuse an empty comment list; never create an empty pending review.
 
-## Finding Format
+## Finding format
 
 Start every comment with a severity-prefixed title, followed by one blank line
 and self-contained actionable feedback:
@@ -66,7 +66,7 @@ Infer the PR from the current branch with `gh pr view --json number,url,headRefO
    - `GET /repos/{owner}/{repo}/pulls/{number}/reviews/{review_id}/comments`
 6. Report the PR, pending review id, added locations, and that the review remains unsubmitted.
 
-## Helper Script
+## Helper script
 
 Use `scripts/post_pending_review_threads.py` when possible. Resolve `SKILL_DIR` from this installed skill and use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for the runtime scratch path. Keep unpublished manifests until the owning workflow has saved or delivered their content:
 
@@ -85,7 +85,7 @@ The script accepts either a JSON array of comments or an object with a `comments
 
 For a handoff from another validated review workflow, pass its internal manifest directly. It may additionally contain `pr` and `head_sha`; use `--pr` or the manifest PR and require `head_sha` to match the current PR head before posting. Do not reconstruct comments from a human-readable review brief.
 
-## API Notes
+## API notes
 
 REST pending review creation:
 
@@ -119,7 +119,7 @@ mutation($reviewId: ID!, $path: String!, $line: Int!, $side: DiffSide!, $body: S
 }
 ```
 
-## Failure Handling
+## Failure handling
 
 - If REST creation fails with `User can only have one pending review per pull request`, query pending reviews and append with GraphQL.
 - If GitHub rejects a `line`, fetch PR file patches and verify the line is in the diff.

@@ -1,16 +1,14 @@
 ---
 name: recall
-description: "Reconstruct your recent working context from your own chat history, live state, and the shared record (user reports, prior fixes, incidents), then hand back a tight current-state brief. Use for 'recall my work on X', 'catch me up', 'what have I been working on', 'where did I leave off', before starting or resuming work."
+description: Reconstructs recent working context from chat history and shared records. Use for recall requests, a current-state brief, or resuming work across several chats.
 disable-model-invocation: true
 ---
 
 # Recall
 
-**Before you start or resume work, you rebuild the user's recent working context and hand back a tight capsule of where things stand now and what to do next.**
+Rebuild the user's recent working context before starting or resuming work. Report the current state and next action. Read only the relevant regions of in-scope chats.
 
-Keep it tight and on-topic. Read only what the in-scope threads need, then stop.
-
-Your context lives in two records. Your own chat history holds what you did and decided. The shared record holds everything that happened around the same code under other names: the symptoms users keep reporting, the fixes that shipped and got reverted, the errors still firing in prod. That second record is what the **why** skill searches, across source control, the issue tracker, chat and issue channels, long-form docs, and error tracking. A feature with a long bug tail keeps most of its story there, so don't reconstruct it from your transcripts alone.
+Your context lives in two records. Your own chat history holds what you did and decided. The shared record holds everything that happened around the same code under other names: the symptoms users keep reporting, the fixes that shipped and got reverted, the errors still firing in prod. That second record is what the **why** skill searches, across source control, the issue tracker, chat and issue channels, long-form docs, and error tracking. For features with recurring bugs, include those shared records.
 
 Resolve transcript stores from the active host or user-supplied session metadata at runtime. Claude Code and Codex use JSONL transcripts; Codex session metadata records the session identifier and working directory. Match the recorded working directory against the scoped workspace. Keep concrete store paths out of skill instructions.
 
@@ -20,7 +18,7 @@ Route every delegate through [`../staff/references/subagent-routing.md`](../staf
 2. Lock the scope before searching. Pin the window ("recent" is a real range, default the last 7 days), the topic if named, and the workspace (default the active one. Never read another project's transcripts without being asked). State the scope back. Never quietly turn "all" into "recent N".
 3. Fan out across your chat history. Launch parallel subagents on the `gpt-6.1-sol-medium` route, each taking a slice of the corpus. Tell every subagent to order candidates by real modification time (`ls -t`) and never by UUID name, grep the topic first and then read only the matching chats and only their relevant regions, and skip the current session, the session that launched it, plus obvious noise (subagent, eval, and test chats). Each returns the same schema, one block per chat: topic, the user's goal, decisions, open threads, struggles and corrections, and artifacts (PRs, tickets, branches), each citing the session ID. For one or two chats, skip the fan-out and search directly. The raw transcripts stay in the subagents. The main thread gets only their findings. If a transcript read is refused or a store is missing, do not work around it. Name the unread sessions or store in the brief as a coverage gap, and build the brief from live state and the shared record.
 4. Sweep the shared record whenever the topic names a feature, file, subsystem, area, or bug. This is the default, not a judgment call, and "my work on X" does not exempt it. Hand it to the **why** skill's source investigators, but steer their question from "why was this built this way" to "what's the current state, what's been tried and didn't hold, and what are users still reporting". Reuse its per-source playbooks, run the investigators in parallel with the chat-history mining, and inherit its posture: one investigator per source, null results are findings, skip an unavailable MCP and say so. Fold what comes back into the brief. Skip this step only for pure activity recall with no named target ("what did I do this week"), where your own history and live state are the entire answer.
-5. Verify against live state. Take the PRs, branches, and tickets that the mining and the sweep surfaced and check them with `git` and `gh`. When the answer hinges on what an agent actually did (the tools it ran, files it read, errors it hit), read the full transcript, not just a trimmed local copy.
+5. Verify against live state. Take the PRs, branches, and tickets that the chat and shared-record searches found and check them with `git` and `gh`. When the answer hinges on what an agent actually did (the tools it ran, files it read, errors it hit), read the full transcript, not just a trimmed local copy.
 6. Write the brief to the contract below. Group by thread. Stay on the named topic.
 
 ## Output contract

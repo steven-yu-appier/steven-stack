@@ -3,7 +3,7 @@ name: test-audit
 description: "Use when writing, changing, reviewing, or sweeping tests, or when asked to audit, prune, or clean up low-value, duplicative, or implementation-coupled tests and the test-only production seams they keep alive."
 ---
 
-# Test Audit
+# Test audit
 
 Three modes, one value bar. Authoring mode gates every new or changed test at
 write time. Audit mode runs focused sweeps of tests that re-assert source,

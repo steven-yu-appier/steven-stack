@@ -4,7 +4,7 @@ description: "Apply when integrating a new requirement into an existing design. 
 disable-model-invocation: true
 ---
 
-# Redesign From First Principles
+# Redesign from first principles
 
 When integrating a change, don't bolt it onto the existing design. Redesign as if the requirement had been there from the start.
 
@@ -13,4 +13,4 @@ When integrating a change, don't bolt it onto the existing design. Redesign as i
 - Propagate the change through every reference: types, docs, examples, rationale sections
 - Think about the whole redesign, then deliver it incrementally
 
-This is the method for preserving option value when integrating changes into an existing design.
+Use the redesigned target to guide each incremental change.

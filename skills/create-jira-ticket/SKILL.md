@@ -3,7 +3,7 @@ name: create-jira-ticket
 description: Use when you need to create or update concise implementation tasks, feature or story tickets, direction-setting surveys, or cleanup tickets from specs, related Jira issues, pull requests, or user notes under Appier Jira conventions.
 ---
 
-# Create Jira Ticket
+# Create Jira ticket
 
 ## Workflow
 
@@ -43,7 +43,7 @@ description: Use when you need to create or update concise implementation tasks,
 
 6. When Jira issue links are requested, read [references/issue-linking.md](references/issue-linking.md) before creating them. Verify the resulting direction because the available connector may not expose deletion.
 
-## Writing Rules
+## Writing rules
 
 - Keep tickets outcome-oriented and acceptance-criteria driven, not a full spec dump.
 - Write the goal as one sentence. Prefer one-line bullets and plain user-facing language.

@@ -1,5 +1,16 @@
 # Test-pruning campaign
 
+## Contents
+
+- [1. Baseline](#1-baseline)
+- [2. Lanes and inventory](#2-lanes-and-inventory)
+- [3. Read-only ledger per lane](#3-read-only-ledger-per-lane)
+- [4. Layer plan per lane](#4-layer-plan-per-lane)
+- [5. Cutover](#5-cutover)
+- [6. Preservation review](#6-preservation-review)
+- [7. Product defects](#7-product-defects)
+- [8. Reconcile and hand off](#8-reconcile-and-hand-off)
+
 Campaign mode prunes one subsystem's whole test surface in one PR: one
 package, plugin, or core area. The value bar, retention bar,
 candidate evidence, and validation in [SKILL.md](SKILL.md) apply to every

@@ -1,5 +1,16 @@
 # Investigator Prompt Template
 
+## Contents
+
+- [Operating Posture](#operating-posture)
+- [The Question](#the-question)
+- [The Code Anchor](#the-code-anchor)
+- [Your Assigned Source](#your-assigned-source)
+- [Investigation Instructions](#investigation-instructions)
+- [Epistemic Discipline](#epistemic-discipline)
+- [Output Format](#output-format)
+- [What You're Not Doing](#what-youre-not-doing)
+
 Build each investigator's prompt from this template. Fill in the placeholders. Append the single category playbook `sources/<source>.md` matching this investigator's evidence category (see `source-playbook.md` for the index). If the target code looks defensive (null checks, retry logic, timeout handling, rate limiting, feature flags, egress guards, OOM handlers), also append `sources/incident-postmortem.md` for the incident-flavored queries to run inside its own source.
 
 ---

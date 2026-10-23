@@ -1,5 +1,17 @@
 # Synthesizer Prompt Template
 
+## Contents
+
+- [The Question](#the-question)
+- [The Code Anchor](#the-code-anchor)
+- [Investigator Findings](#investigator-findings)
+- [Sources That Weren't Searched](#sources-that-werent-searched)
+- [Epistemics Framework](#epistemics-framework)
+- [Instructions](#instructions)
+- [Output Format](#output-format)
+- [Quality Check Before Returning](#quality-check-before-returning)
+- [A Final Note](#a-final-note)
+
 Build the synthesizer's prompt from this template. Fill in the placeholders.
 
 ---
