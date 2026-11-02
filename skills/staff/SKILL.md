@@ -21,7 +21,7 @@ Remaining triggers:
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
-- Material architectural uncertainty across ownership, state, or API boundaries → the **architect** skill before implementing. Routine changes follow the existing structure in the parent.
+- Material architectural uncertainty across ownership, state, or API boundaries → the **architect** skill before implementing. Routine changes follow the existing structure.
 - Genuinely competing designs needing experiments, or an explicit bakeoff request → **arena**. Ordinary parallel work does not require a bakeoff.
 - Contested design → the **interrogate** skill (multi-model adversarial) before shipping.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
@@ -93,7 +93,7 @@ Routine cleanup of this task's owned, consumed logs and intermediate files follo
 
 ## Subagents
 
-Complete ordinary, well-scoped work in the parent. Delegate when independent slices or an explicitly required second opinion justify it, subject to the host's capabilities and higher-priority restrictions. Route every delegate through [`references/subagent-routing.md`](references/subagent-routing.md). That file selects the available control method and maps each role to a model. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
+When coordinating development, delegate implementation and test work through [`references/subagent-routing.md`](references/subagent-routing.md). Use one child for coupled work and split independent slices when useful. The parent scopes the task, assigns work, reviews results, and owns acceptance and delivery. An assigned implementation child completes its scope directly; this rule does not require it to delegate again. Preserve required second opinions and host restrictions. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
 
 Every child prompt opens with the staff invocation, `$staff` for Codex and `/staff` for Claude Code. It gives the child its role and model route, its access mode, the working directory or worktree, file pointers, success criteria, and the output contract. The routing file owns how that prompt reaches each host.
 

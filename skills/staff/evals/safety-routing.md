@@ -33,7 +33,7 @@ These are manual checks of the instruction paths, not independent model executio
 
 | Request and host condition | Required outcome | Baseline conflict |
 | --- | --- | --- |
-| “Fix this confirmed two-function copy change.” Native workers cannot enforce read-only access. | Parent explores and implements the existing structure. No architecture bakeoff solely because a function boundary is crossed. | Staff and Feature required architect and delegated implementation; How required a delegated explainer. |
+| “Fix this confirmed two-function copy change.” Native workers cannot enforce read-only access. | Parent may explore. Delegate implementation and tests through the routing contract, or report the required delegation pending. No architecture bakeoff solely because a function boundary is crossed. | Staff and Feature required architect and delegated implementation; How required a delegated explainer. |
 | “Explain this subsystem without changing files.” Optional exploration route is unavailable. | Parent inspects and explains. No source or comment cleanup. | How and Why required helper routes; Staff triggered no-comments before every review. |
 | “Run arena to compare these designs.” A required model family is absent. | Report the missing route and pending independent gate. Continue only unrelated work; no substitute model, invented review, or delivery through the pending gate. | The route table omitted high routes referenced by Arena and Architect. |
 | “Review this patch only.” It has verbose comments. | Report findings without editing comments, committing, or publishing. | Staff's blanket no-comments trigger conflicted with review-only scope. |
@@ -42,6 +42,16 @@ These are manual checks of the instruction paths, not independent model executio
 | “Prune merged worktrees.” Inventory cannot establish usage, or local data exists. | Hold candidates and report missing evidence. Propose exact eligible paths before irreversible deletion; never force removal or recursively delete after a refusal. | Cleanup called untracked files throwaway, suggested global transcript scans, and prescribed forced removal followed by recursive deletion. |
 
 The native tool schema in this session has no enforced child access-mode or working-directory controls and no required Claude route. No independent Staff worker or cross-model gate was executed. These walkthroughs do not claim otherwise.
+
+## Implementation delegation walkthroughs
+
+These are static instruction-path checks, not live subagent executions.
+
+| Request and host condition | Required observable result |
+| --- | --- |
+| “Implement this small fix and its regression test,” or a follow-up fix. The user does not mention agents. | The coordinating parent assigns implementation and test work to a child through the existing routing contract and reviews the returned diff and verification. A comment-review child alone does not satisfy the assignment. |
+| An implementation child receives an assigned scope and the Staff invocation. | Complete that scope and return the result. No further delegation solely to satisfy the coordinating parent's rule. |
+| Required implementation delegation cannot run on the host. | Report the missing route or control and keep implementation pending. Continue independent work without substituting parent implementation. |
 
 ## Preserved delivery rules
 

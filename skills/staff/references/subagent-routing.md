@@ -1,6 +1,6 @@
 # Subagent routing
 
-Use this contract whenever a skill delegates work. The workflow chooses the role and route. This file chooses the control method. Optional helper delegation must not block work the parent can complete. Explicit independence or model-diversity gates remain required.
+Use this contract whenever a skill delegates work. The workflow chooses the role, route, and whether delegation is required. This file chooses the control method. Explicit independence or model-diversity gates remain required.
 
 ## Contents
 
@@ -67,4 +67,4 @@ Do not assume that a child inherits active skills. For a native Claude Code Agen
 
 ## Handle unavailable routes
 
-For optional helper work, continue in the parent and state that delegation was unavailable. For required independent or diverse judgment, including **architect**, **arena**, and **interrogate**, mark the affected gate pending and name the missing model or access control. Continue only work that does not depend on that gate; do not ship while a required gate is pending. Never replace independent review with the parent's opinion, silently downgrade a route, or label a write-capable child read-only because its prompt asks it not to edit.
+For optional helper work, continue in the parent and state that delegation was unavailable. For required delegation or independent judgment, including **architect**, **arena**, and **interrogate**, mark the affected step pending and name the missing model or access control. Continue only work that does not depend on that step; do not ship while required work is pending. Never replace independent review with the parent's opinion, silently downgrade a route, or label a write-capable child read-only because its prompt asks it not to edit.

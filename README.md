@@ -401,7 +401,7 @@ prompt.
 flowchart LR
     Lead[Lead agent] -->|role + route| Routing{"subagent-routing.md"}
     Routing -->|"native tool honors model + access"| Native["Native subagent tool"]
-    Routing -->|unavailable| Fallback["Optional work: the lead does it<br/>arena / interrogate: stop and name the missing route"]
+    Routing -->|unavailable| Fallback["Optional helpers: the lead does it<br/>Required delegation: pending; name the missing route"]
 ```
 
 Delegation requires a native subagent tool that supports the requested model,
