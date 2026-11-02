@@ -12,6 +12,8 @@ compatibility invariant. Preserve the Story's exact domain terms.
 Render as Jira's native checklist in ADF. For an existing checklist, retain
 unchanged task-item identities and completion states. Added items start open.
 Do not mark an outcome complete based only on a plan or passing developer checks.
+For Staff's evidence-based self-verification updates, use
+[checklist synchronization](../../staff/references/ac-self-verification.md#4-publish-and-synchronize-checklist-state).
 
 Keep goal paragraphs, Story summaries, implementation steps, file registrations,
 and branch details out of the description. Put the Story relationship in Jira

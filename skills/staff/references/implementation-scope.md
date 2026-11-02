@@ -25,6 +25,8 @@ If sources still allow different observable outcomes or contain an unresolved `[
 
 This gate passes when every affected result has a requirement source or recorded owner decision. Calling a plan "confirmed" is insufficient. Re-enter the gate whenever new ambiguity or conflicting evidence appears.
 
+For a Jira task checklist, [freeze the Before evidence](ac-self-verification.md#1-freeze-the-before-evidence) before source changes.
+
 ## Implement the confirmed scope
 
 Give implementers and reviewers the acceptance record and original source pointers, not only a paraphrased plan. Implement the smallest change that satisfies it. Add behavior, including fallbacks or keyboard handling, only for a confirmed AC or explicit repository contract. Keep unrelated refactoring out of scope.
@@ -44,3 +46,5 @@ Record observed results with the tested source revision and environment. Separat
 Acceptance passes when every applicable result has a confirmed source and current behavioral evidence, including the required visual comparison. Report unresolved, failed, blocked, or unexecuted checks and their reasons as pending. Verified slices may be published in an authorized draft with those gaps; publication is not QA readiness. Claim readiness only for the scope whose acceptance passed, and name unmet integration prerequisites.
 
 Opening a PR formats this record into reviewer targets. Refresh affected acceptance after requirement or source changes and rebuild the handoff claims from the current results.
+
+For a Jira task checklist, run [AC self-verification](ac-self-verification.md) at delivery to record the engineer's evidence and synchronize checklist states.

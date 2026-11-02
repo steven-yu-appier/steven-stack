@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {"type": "paragraph", "content": [{"type": "text", "text": "Self-verification | {{TIME_WITH_OFFSET}} | Commit: {{COMMIT_SHORT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Environment: {{APP_URL_AND_BACKEND}}"}]},
+    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[{{VISUAL_RESULT}}] AC {{VISUAL_NUMBER}} - {{VISUAL_AC_TEXT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Observed: {{OBSERVED_RESULT}}"}]},
+    {"type": "table", "content": [
+      {"type": "tableRow", "content": [
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Before - {{BASE_SHORT}}"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "After - {{COMMIT_SHORT}}"}]}]}
+      ]},
+      {"type": "tableRow", "content": [
+        {"type": "tableCell", "content": [
+          {"type": "mediaSingle", "attrs": {"layout": "center"}, "content": [
+            {"type": "media", "attrs": {"id": "{{BEFORE_MEDIA_ID}}", "type": "file", "collection": "{{BEFORE_COLLECTION}}", "alt": "{{BEFORE_FILENAME}}", "width": 1280, "height": 800}}
+          ]},
+          {"type": "paragraph", "content": []}
+        ]},
+        {"type": "tableCell", "content": [
+          {"type": "mediaSingle", "attrs": {"layout": "center"}, "content": [
+            {"type": "media", "attrs": {"id": "{{AFTER_MEDIA_ID}}", "type": "file", "collection": "{{AFTER_COLLECTION}}", "alt": "{{AFTER_FILENAME}}", "width": 1280, "height": 800}}
+          ]},
+          {"type": "paragraph", "content": []}
+        ]}
+      ]}
+    ]},
+    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[BLOCK] AC {{MANUAL_NUMBER}} - {{MANUAL_AC_TEXT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Reason: {{BLOCK_REASON}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Test steps"}]},
+    {"type": "orderedList", "attrs": {"order": 1}, "content": [
+      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{PRECONDITION_AND_ENTRY}}"}]}]},
+      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{ACTION_AND_EXPECTED_RESULT}}"}]}]}
+    ]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Test data/cases"}]},
+    {"type": "table", "content": [
+      {"type": "tableRow", "content": [
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Case"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Role / data"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "API evidence"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Expected"}]}]}
+      ]},
+      {"type": "tableRow", "content": [
+        {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{CASE_NAME}}"}]}]},
+        {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{ROLE_AND_DATA_IDENTIFIERS}}"}]}]},
+        {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{METHOD_ENDPOINT_AND_RESPONSE_FIELDS}}"}]}]},
+        {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{EXPECTED_RESULT}}"}]}]}
+      ]}
+    ]}
+  ]
+}
