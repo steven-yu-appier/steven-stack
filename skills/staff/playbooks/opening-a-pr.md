@@ -1,6 +1,7 @@
 ### Opening a PR
 
-Invoked at the end of every other playbook.
+Use for authorized code delivery. Investigation, Story breakdown and planning,
+and Jira-only workflows stop at their own outputs and do not invoke this playbook.
 
 ## Contents
 

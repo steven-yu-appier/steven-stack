@@ -1,4 +1,15 @@
-# Jira Issue Linking
+# Jira issue linking
+
+Discover the project's available link types and the relationship used by related
+tasks through `acli` outside the sandbox. Read related task content through
+jarkdown. Do not assume `Relates` or a custom `Parent-Child` type applies everywhere.
+
+True Jira hierarchy and issue links are different. Use a parent field only when
+the chosen issue types permit that hierarchy. A linked Task is not a Sub-task.
+
+Inspect `jira workitem link create --help` before creating a link. Confirm which
+issue is the source and how each side will read. The example below documents the
+known relationship semantics, not a CLI input schema.
 
 For Jira `Parent-Child`, ticket B should be a child of ticket A:
 
@@ -22,4 +33,6 @@ Do not reverse the issues:
 }
 ```
 
-Resolve the intended parent and child explicitly, verify direction before mutation, and read the created link back afterward.
+Resolve the intended parent and child explicitly. Verify the rendered relationship
+from both issues after mutation. Preserve existing links and avoid duplicates on
+retry. Do not change or delete a relationship outside the authorized scope.

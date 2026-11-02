@@ -116,10 +116,10 @@ subagent tool.
 ```mermaid
 flowchart TD
     U(["/staff task"]) --> S[staff]
-    S --> P["Playbooks<br/>investigation · bug-fix · perf-issue · hillclimb<br/>runtime-forensics · trace-forensics · feature · refactoring<br/>prototype · autonomous-run · session-pickup · worktree-cleanup · opening-a-pr"]
+    S --> P["Playbooks<br/>investigation · story-breakdown · jira-task · bug-fix · perf-issue · hillclimb<br/>runtime-forensics · trace-forensics · feature · refactoring<br/>prototype · autonomous-run · session-pickup · worktree-cleanup · opening-a-pr"]
     S -. large or unusual task .-> F[figure-it-out]
     S --> PR["principle-* skills<br/>one rule each"]
-    P --> W["Workflows<br/>how · why · architect · arena · interrogate · tdd"]
+    P --> W["Workflows<br/>jira-dev-task-from-story · create-jira-ticket<br/>how · why · architect · arena · interrogate · tdd"]
     P --> Q["Cleanup<br/>unslop · technical-writing · deslop · no-comments"]
     P --> A["Delivery addon<br/>ss-simplify-code"]
     P --> V["Verification<br/>control-ui · control-cli · verify-this"]
@@ -149,7 +149,7 @@ the context window until a task needs them.
 | Invoked by                             | Skills                                                                                                                                                                                         |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | You or another skill only              | Every skill not listed in the next row                                                                                                                                                         |
-| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
+| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `jira-dev-task-from-story`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
 
 ## Skills
 
@@ -158,6 +158,8 @@ the context window until a task needs them.
 - [`staff`](skills/staff/) applies the catalog's `principle-*` skills and routes work
   through the bundled
   [investigation](skills/staff/playbooks/investigation.md),
+  [Story breakdown and planning](skills/staff/playbooks/story-breakdown.md),
+  [Jira task creation and updates](skills/staff/playbooks/jira-task.md),
   [bug fix](skills/staff/playbooks/bug-fix.md),
   [perf issue](skills/staff/playbooks/perf-issue.md),
   [hillclimb](skills/staff/playbooks/hillclimb.md),
@@ -175,6 +177,9 @@ the context window until a task needs them.
 
 Staff playbooks call these skills. You can also invoke them directly.
 
+- [`jira-dev-task-from-story`](skills/jira-dev-task-from-story/) clarifies Story
+  requirements against the repositories and existing tickets, then drafts AC
+  coverage, task checklists, and implementation plans for approval.
 - [`architect`](skills/architect/) sketches types and module boundaries before
   implementation, then keeps the design in the implementation loop.
 - [`arena`](skills/arena/) runs parallel candidates, selects a base, and combines the
@@ -374,7 +379,9 @@ surface that users see. You can also invoke these skills directly.
 
 - [`bro`](skills/bro/) restates the last message in simpler language without jargon.
 - [`create-jira-ticket`](skills/create-jira-ticket/) creates or updates concise Jira
-  tickets from specs, related issues, pull requests, or user notes.
+  tickets from specs, related issues, pull requests, or user notes. Engineering
+  tasks keep functional checklists in descriptions and implementation plans in
+  comments. Formats live in its `references/` directory.
 - [`post-pending-review-comments`](skills/post-pending-review-comments/) writes
   validated findings to an unsubmitted GitHub review and verifies the result.
 - [`pr-author-context-comments`](skills/pr-author-context-comments/) explains

@@ -18,6 +18,7 @@ The Principles section below grounds every trigger. In your reply, name each pri
 
 Remaining triggers:
 
+- Jira Story grooming, grilling, breakdown, or planning → **Story breakdown and planning**. Creating or updating Jira engineering tasks and plan comments → **Jira task creation and updates**. These routes take precedence over Feature for planning or ticket-only requests, and stop at their requested artifacts.
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
@@ -81,6 +82,13 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 Read-only and review-only requests authorize inspection and reporting, not source edits, comment cleanup, commits, or runtime changes. A playbook or delegated skill cannot expand that authorization. This is a workflow constraint, not a claim that the host enforces a read-only sandbox.
 
+Story planning permits inspection, clarification, draft artifacts, and isolated
+prototypes needed to answer planning questions. Jira-only work permits the
+requested ticket changes. These requests do not authorize feature implementation,
+commits, pushes, or PRs. The Story breakdown playbook owns its publication approval
+gate. Pass the authorized scope and stopping point to every workflow and delegate,
+including those that normally continue into implementation.
+
 Explicit delivery limits override the default: `local only` omits commit, push, and PR writes; `no push` omits push and PR publication; `no PR` omits PR work; `push only` pushes existing commits without staging uncommitted changes or editing a PR. Respect named approval gates and tool, hook, or remote rejection. Missing or ambiguous inputs block only dependent actions; continue independent work and report concrete pending steps. Delegated implementation and review leaves return their artifacts to the delivery owner rather than publishing independently unless publication is assigned explicitly.
 
 **Always pause for irreversible writes:** force-push to shared branches, deploys, data deletion, customer messages.
@@ -125,7 +133,13 @@ Open a todolist whose first items are the matched playbook's steps, copied in ve
 
 A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
 
+Story planning retains its Story breakdown route for large efforts as well.
+Invoke **figure-it-out** within that route only for bounded workflow design under
+the planning scope.
+
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y. `playbooks/investigation.md`.
+- **Story breakdown and planning.** A Jira Story to clarify, grill, decompose, or plan against the actual repositories. Invokes **jira-dev-task-from-story** and conditionally uses existing planning workflows. `playbooks/story-breakdown.md`.
+- **Jira task creation and updates.** Publish authorized task checklists, implementation plan comments, metadata, and relationships through **create-jira-ticket**. `playbooks/jira-task.md`.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence. `playbooks/bug-fix.md`.
 - **Perf issue.** A measured slowness to trace and improve against a baseline. `playbooks/perf-issue.md`.
 - **Hillclimb.** Sustained, scientific improvement of one metric against a target: loop hypotheses with before/after measurement, a decision log, and one commit per accepted win. Distinct from Perf issue, which is a one-off fix. `playbooks/hillclimb.md`.
@@ -137,5 +151,5 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Autonomous run.** A long task to drive to completion without stopping ("run until done", "/loop until X"). `playbooks/autonomous-run.md`.
 - **Session pickup.** Resuming or taking over a prior agent's in-flight work from a Claude Code or Codex transcript, or a pushed branch. `playbooks/session-pickup.md`.
 - **Worktree and simulator cleanup.** Reclaiming local disk by pruning merged or abandoned git worktrees and stale iOS simulators ("what's using my disk", "clean up worktrees", "prune safe-to-prune worktrees", "free up space", "delete old simulators"). `playbooks/worktree-cleanup.md`.
-- **Opening a PR.** Invoked at the end of every other playbook. `playbooks/opening-a-pr.md`.
+- **Opening a PR.** Delivery for playbooks that produce authorized code changes. Investigation, Story planning, and Jira-only work stop at their own outputs. `playbooks/opening-a-pr.md`.
 - **Task files and cleanup.** Shared setup and finish steps for every playbook and standalone artifact producer. `playbooks/task-artifacts.md`.

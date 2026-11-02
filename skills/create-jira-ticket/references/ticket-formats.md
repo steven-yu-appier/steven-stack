@@ -1,32 +1,16 @@
-# Ticket Formats
+# Other ticket formats
 
-Read only the section matching the current ticket. These are section menus, not mandatory outlines. Default to `Goal` and `Acceptance Criteria`; add another section only when it carries a confirmed decision, material boundary, or required evidence. Prefer a referenced Jira example's density as well as its section order.
+Engineering tasks use [Task description](task-description.md) and put their
+implementation plans in comments. The formats below apply to product Stories,
+surveys, and other non-engineering-task tickets. Read only the matching section.
+These are section menus, not mandatory outlines. Default to `Goal` and
+`Acceptance Criteria`; add a section only when it preserves a confirmed decision,
+material boundary, or required evidence.
 
 ## Contents
 
-- [Narrow task](#narrow-task)
 - [Feature or story](#feature-or-story)
 - [Survey or direction-setting ticket](#survey-or-direction-setting-ticket)
-
-## Narrow Task
-
-Use for one owner, one bounded outcome, and no substantial unresolved product or UX design.
-
-```markdown
-## Goal
-
-One concise outcome statement describing what must be true and for whom.
-
-## Acceptance Criteria
-
-- Non-overlapping, observable completion conditions. Include only as many as the task needs.
-
-Sources: Include only when they materially explain or trace the requirement.
-```
-
-Optional sections:
-
-- `Out of Scope`: Use only when a plausible adjacent task or source requirement would otherwise create ambiguity.
 
 ## Feature or Story
 

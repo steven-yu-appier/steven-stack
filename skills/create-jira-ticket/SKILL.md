@@ -3,67 +3,63 @@ name: create-jira-ticket
 description: Use when you need to create or update concise implementation tasks, feature or story tickets, direction-setting surveys, or cleanup tickets from specs, related Jira issues, pull requests, or user notes under Appier Jira conventions.
 ---
 
-# Create Jira ticket
+# Create or update Jira tickets
 
-## Workflow
+Draft or publish the requested Jira changes. Staff coordinates engineering-task
+publication through [Jira task creation and updates](../staff/playbooks/jira-task.md).
+For an unresolved Story breakdown, use **jira-dev-task-from-story** before drafting
+publication-ready tasks.
 
-1. Gather source material before writing:
-   - Read the provided spec, comments, PR links, screenshots, and related Jira issues.
-   - If the user references an existing Jira ticket as the format example, fetch it and mirror its section style.
-   - Confirm assignee/project only when not provided and not inferable from context.
+Use [Task files and cleanup](../staff/playbooks/task-artifacts.md) for local drafts
+and payloads. Reuse the caller's task archive and scratch paths when supplied.
 
-2. Scope the ticket tightly:
-   - Identify which repos/apps are in scope, but state them only when doing so materially clarifies ownership or boundaries.
-   - State related repos/apps as out of scope only when the source spec is broader or scope leakage is likely.
-   - Group implementation bullets by repo/app when ownership is split.
+## Prepare a reviewable change
 
-3. Choose the smallest ticket structure that preserves the decisions needed to execute and accept the work:
-   - Default to `Goal` and `Acceptance Criteria`, including for stories and surveys when those sections are sufficient.
-   - Treat every other section as optional. Add one only when it preserves a confirmed decision, material boundary, or required evidence.
-   - Add `Out of Scope` only when plausible adjacent work would otherwise create ambiguity.
-   - Add sources only when they materially explain or trace a requirement.
-   - Prefer the section style and density of a related Jira example when one is provided; do not copy headings that carry no decision for the new ticket.
-   - For a substantial feature, story, or survey ticket, read [references/ticket-formats.md](references/ticket-formats.md) and use only the relevant format.
+1. Gather the spec, acceptance record, owner decisions, code findings, and related
+   issues. Read Jira content through
+   [Jira read policy](../staff/references/jira-read-policy.md). Resolve project,
+   issue type, title, assignee, labels, sprint, and relationships from the request
+   and observed conventions. A breakdown task stays a Task unless another type
+   was requested or verified as the team's convention.
+2. Load the formats for the requested output:
+   - Engineering-task descriptions: [Task description](references/task-description.md).
+   - Implementation plan comments: [Implementation plan](references/implementation-plan.md).
+   - Checklist or plan revisions: [Dated updates](references/dated-updates.md).
+   - Product Stories, surveys, and other ticket types: [Other ticket formats](references/ticket-formats.md).
+   - Story links or hierarchy changes: [Issue linking](references/issue-linking.md).
+3. Apply **technical-writing** and **unslop**. Preserve requirement sources, exact
+   identifiers, confirmed constraints, and the distinction between decisions and
+   assumptions. Put repo-relative paths in published plans.
+4. Present the complete proposed text, plan comment, and metadata for review.
+   Publish only the user-authorized issue set and changes. Reuse approval of a
+   reviewed breakdown without asking again. Exploratory or draft-only requests
+   stop with the draft. A named reference ticket is a formatting source, not a
+   target to update.
 
-4. Rewrite the ticket by content.
-   - For tickets with technical requirements, constraints, or validation instructions, use the **technical-writing** skill. Treat the ticket as reference documentation.
-   - For titles, goals, product context, and other non-technical prose, drop the jargon and write simply and concisely, like one human talking to another.
-   - For mixed content, let technical precision win. Preserve exact technical names, identifiers, paths, commands, persisted values, legal strings, and evidence links. Preserve the distinction between confirmed decisions and assumptions.
+## Publish and verify
 
-5. Create or update the Jira issue:
-   - Use issue type `Task` unless the user requests another type.
-   - Use issue type `Story` for feature/user-facing delivery tickets when the referenced example uses `Story` or the requested scope is clearly a product story.
-   - Use the requested project key, or infer it from the referenced ticket key.
-   - Assign the ticket when the user names an assignee; look up the account ID if needed.
-   - Before updating an existing description, inspect it for images, videos, attachments, and other embedded media. Treat every existing media item as protected content.
-   - Do not edit, remove, replace, re-upload, relink, reorder, resize, or convert protected media unless the user explicitly approves that media change. Approval to edit ticket text does not approve media changes.
-   - Make a text-only update only when the operation preserves every media node unchanged. If the available tool rewrites the full description, converts its format, cannot round-trip the media, or cannot guarantee preservation, stop and ask for approval or provide the proposed text without publishing it.
-   - After updating a description that contains media, verify that the media count, order, identity, and placement are unchanged. Treat truncation, missing content, transformed media URLs, and lost embeds as a failed update. Do not retry through another lossy representation.
-   - Return the created Jira key and link.
+Follow [Jira CLI operations](references/jira-cli.md). Use `acli` outside the
+sandbox for metadata and writes, and canonical jarkdown content for reads.
 
-6. When Jira issue links are requested, read [references/issue-linking.md](references/issue-linking.md) before creating them. Verify the resulting direction because the available connector may not expose deletion.
+Before replacing a description or comment, inspect its current content and
+required rich-text representation. Preserve unrelated text, checklist state,
+links, existing date styling, and media outside the authorized changes.
+Every existing image, video, attachment, and embed is protected. Text approval
+does not authorize moving, converting, removing, or replacing media. If the
+available representation cannot preserve protected content, leave that write
+pending and provide the proposed text. Do not retry through a lossy format.
 
-## Writing rules
+Select an implementation plan comment by an explicit comment ID or an
+unambiguous matching plan owned by the relevant author. Reuse that comment
+instead of creating duplicates. If several candidates exist, resolve the target
+before editing. Preserve other comments and the plan's visibility.
 
-- Keep tickets outcome-oriented and acceptance-criteria driven, not a full spec dump.
-- Write the goal as one sentence. Prefer one-line bullets and plain user-facing language.
-- State what must be true when the ticket is complete. Let the owning team choose architecture, schemas, endpoints, storage, internal components, and other implementation details unless the user confirmed them as requirements.
-- Prefer user-observable behavior over exhaustive implementation coverage. Include internal details only when they constrain delivery, ownership, compatibility, or acceptance.
-- Keep one completion condition per acceptance-criteria bullet. Remove bullets that repeat the goal or another criterion; do not enforce a minimum number of criteria.
-- Express security, permissions, and compatibility as observable invariants rather than solution suggestions when the implementation is intentionally delegated.
-- Use exact file paths, persisted values, legal strings, identifiers, and command names where relevant.
-- Preserve evidence links for decisions from Jira comments, Slack, PRs, or screenshots.
-- Put an uncertain dependency in `Assumptions` only when it could invalidate the ticket; otherwise omit it.
-- Use repo names or repo-relative paths rather than machine-specific paths.
-- Do not include unrelated sections unless the user asks for them.
-- Before publishing, compress the draft: remove restatements, speculative edge cases, unnecessary qualifiers, and sentences that do not affect implementation, acceptance, or scope.
+After writes, refresh the canonical snapshot and verify descriptions and plan
+content there. Verify comment IDs, metadata, and link direction through `acli`.
+Check rich-text date marks and checklist state in canonical ADF when available.
+For media-bearing updates, require verification of media count, identity, order,
+and placement. Missing or transformed media is a failed update.
 
-Before creating or updating a ticket, check:
-
-1. Can any section be removed without losing a decision?
-2. Does every acceptance criterion affect whether the ticket can be accepted?
-3. Does any bullet prescribe implementation when only the outcome matters?
-4. Is the same requirement repeated across the goal, scope, and acceptance criteria?
-5. Is `Out of Scope` limited to plausible adjacent work?
-6. Can any sentence or heading be removed without changing implementation, acceptance, scope, or traceability?
-7. Does the issue contain protected media, and can this exact update preserve every media item without changing it?
+Report issue links, plan comment IDs, verified changes, and any pending operation.
+If only part succeeds, retain the created keys and completed operations so a
+retry resumes without duplicating tickets, comments, or links.
