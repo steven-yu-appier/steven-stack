@@ -2,13 +2,12 @@
   "version": 1,
   "type": "doc",
   "content": [
-    {"type": "paragraph", "content": [{"type": "text", "text": "Self-verification | {{TIME_WITH_OFFSET}} | Commit: {{COMMIT_SHORT}}"}]},
-    {"type": "paragraph", "content": [{"type": "text", "text": "Environment: {{APP_URL_AND_BACKEND}}"}]},
-    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[{{VISUAL_RESULT}}] AC {{VISUAL_NUMBER}} - {{VISUAL_AC_TEXT}}"}]},
-    {"type": "paragraph", "content": [{"type": "text", "text": "Observed: {{OBSERVED_RESULT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "自我驗證 | {{TIME_WITH_OFFSET}} | Commit: {{COMMIT_SHORT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "環境：{{APP_URL_AND_BACKEND}}"}]},
+    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[PASS] AC {{VISUAL_NUMBER}} - {{VISUAL_AC_TEXT}}"}]},
     {"type": "table", "content": [
       {"type": "tableRow", "content": [
-        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Before - {{BASE_SHORT}}"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Before - {{BASE_BRANCH}} @ {{BASE_SHORT}}"}]}]},
         {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "After - {{COMMIT_SHORT}}"}]}]}
       ]},
       {"type": "tableRow", "content": [
@@ -27,19 +26,18 @@
       ]}
     ]},
     {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[BLOCK] AC {{MANUAL_NUMBER}} - {{MANUAL_AC_TEXT}}"}]},
-    {"type": "paragraph", "content": [{"type": "text", "text": "Reason: {{BLOCK_REASON}}"}]},
-    {"type": "paragraph", "content": [{"type": "text", "text": "Test steps"}]},
-    {"type": "orderedList", "attrs": {"order": 1}, "content": [
-      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{PRECONDITION_AND_ENTRY}}"}]}]},
-      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{ACTION_AND_EXPECTED_RESULT}}"}]}]}
+    {"type": "paragraph", "content": [{"type": "text", "text": "阻擋原因：{{BLOCK_REASON}}"}]},
+    {"type": "paragraph", "content": [
+      {"type": "text", "text": "測試帳號："},
+      {"type": "text", "text": "{{TEST_ACCOUNT_ID}}", "marks": [{"type": "link", "attrs": {"href": "{{TEST_ACCOUNT_URL}}"}}]}
     ]},
-    {"type": "paragraph", "content": [{"type": "text", "text": "Test data/cases"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "測試資料"}]},
     {"type": "table", "content": [
       {"type": "tableRow", "content": [
-        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Case"}]}]},
-        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Role / data"}]}]},
-        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "API evidence"}]}]},
-        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Expected"}]}]}
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "案例"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "角色與資料"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "API 已確認資料"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "預期結果"}]}]}
       ]},
       {"type": "tableRow", "content": [
         {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{CASE_NAME}}"}]}]},
@@ -47,6 +45,11 @@
         {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{METHOD_ENDPOINT_AND_RESPONSE_FIELDS}}"}]}]},
         {"type": "tableCell", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{EXPECTED_RESULT}}"}]}]}
       ]}
+    ]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "驗證步驟"}]},
+    {"type": "orderedList", "attrs": {"order": 1}, "content": [
+      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{PRECONDITION_AND_ENTRY}}"}]}]},
+      {"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "{{ACTION_AND_EXPECTED_RESULT}}"}]}]}
     ]}
   ]
 }

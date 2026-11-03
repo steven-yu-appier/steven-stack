@@ -12,7 +12,7 @@ Read [Task files and cleanup](playbooks/task-artifacts.md) before producing loca
 
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
-For implementation or fix work with a Jira task AC checklist, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the fixed Before evidence, separate verifier, Jira evidence comment, and checklist updates, including local-only publication limits.
+For implementation or fix work with a Jira task AC checklist, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the Before/After sources, separate verifier, Jira evidence comment, and checklist updates, including local-only publication limits.
 
 For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
 

@@ -241,13 +241,13 @@ standalone; this integration does not add it to delivery workflows.
 
 For Jira task checklists, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
-A separate child collects evidence against the task branch's fixed original
-base. Staff records PASS, FAIL, or BLOCK in a task comment and updates checklist
-states after evidence readback. Human verification cases stay BLOCK with manual
-steps and available API evidence. Chrome image uploads follow the active Jira
-write policy. Comments and checklist updates use acli. The reusable
-[ADF template](skills/staff/assets/ac-self-verification.adf.json) records engineer
-self-verification, not QA acceptance.
+A separate child compares the current base branch with the self-verification
+commit. PASS sections contain only Before/After screenshots. BLOCK sections use
+short Traditional Chinese instructions with test links and verified API data.
+Staff updates checklist states after evidence readback. Chrome image uploads
+follow the active Jira write policy. Comments and checklist updates use acli.
+The reusable [ADF template](skills/staff/assets/ac-self-verification.adf.json)
+records engineer self-verification, not QA acceptance.
 
 Optional repository settings live in `.steven-stack/config.yaml` and
 `.steven-stack/config.local.yaml`; neither file is required. `docs_root` defaults

@@ -25,7 +25,7 @@ If sources still allow different observable outcomes or contain an unresolved `[
 
 This gate passes when every affected result has a requirement source or recorded owner decision. Calling a plan "confirmed" is insufficient. Re-enter the gate whenever new ambiguity or conflicting evidence appears.
 
-For a Jira task checklist, [freeze the Before evidence](ac-self-verification.md#1-freeze-the-before-evidence) before source changes.
+For a Jira task checklist, [resolve the Before source](ac-self-verification.md#1-resolve-the-before-source) before source changes and confirm it again at verification.
 
 ## Implement the confirmed scope
 
