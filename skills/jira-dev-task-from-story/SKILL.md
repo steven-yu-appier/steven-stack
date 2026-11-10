@@ -2,7 +2,7 @@
 name: jira-dev-task-from-story
 description: >-
   Clarifies a Jira Story against the actual repositories and existing tickets,
-  and drafts engineering task breakdowns with acceptance checklists and implementation
+  and drafts engineering task breakdowns with numbered acceptance criteria and implementation
   plans. Use for Story grooming, grilling, breakdown, or planning before Jira publication.
 ---
 
@@ -20,9 +20,9 @@ planning artifacts, reusing the caller's archive and scratch paths when supplied
 
 1. Resolve the Story key, target repositories, and requested scope. Start with the
    current repository and verify any other repository named by the Story.
-2. Read the Story and required comments, attachments, and related task content
-   through [Jira read policy](../staff/references/jira-read-policy.md). Use `acli`
-   outside the sandbox for metadata discovery. Follow
+2. Read the source Story and its required comments and attachments with jarkdown
+   under [Jira read policy](../staff/references/jira-read-policy.md). Use `acli`
+   outside the sandbox or Jira REST API for metadata and related-task reads. Follow
    [Appier conventions](references/appier-jarvis.md) when the work belongs to Jarvis.
 3. Build the acceptance record using
    [Confirm requirements](../staff/references/implementation-scope.md#confirm-requirements).

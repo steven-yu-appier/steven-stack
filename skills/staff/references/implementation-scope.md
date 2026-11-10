@@ -25,7 +25,7 @@ If sources still allow different observable outcomes or contain an unresolved `[
 
 This gate passes when every affected result has a requirement source or recorded owner decision. Calling a plan "confirmed" is insufficient. Re-enter the gate whenever new ambiguity or conflicting evidence appears.
 
-For a Jira task checklist, [resolve the Before source](ac-self-verification.md#1-resolve-the-before-source) before source changes and confirm it again at verification.
+For Jira task numbered AC, [resolve the Before source](ac-self-verification.md#1-resolve-the-before-source) before source changes and confirm it again at verification.
 
 ## Implement the confirmed scope
 
@@ -47,4 +47,4 @@ Acceptance passes when every applicable result has a confirmed source and curren
 
 Opening a PR formats this record into reviewer targets. Refresh affected acceptance after requirement or source changes and rebuild the handoff claims from the current results.
 
-For a Jira task checklist, run [AC self-verification](ac-self-verification.md) at delivery to record the engineer's evidence and synchronize checklist states.
+For Jira task numbered AC, run [AC self-verification](ac-self-verification.md) at delivery to record the engineer's evidence and results in the verification comment.

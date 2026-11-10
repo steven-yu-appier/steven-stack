@@ -179,7 +179,7 @@ Staff playbooks call these skills. You can also invoke them directly.
 
 - [`jira-dev-task-from-story`](skills/jira-dev-task-from-story/) clarifies Story
   requirements against the repositories and existing tickets, then drafts AC
-  coverage, task checklists, and implementation plans for approval.
+  coverage, numbered task AC, and implementation plans for approval.
 - [`architect`](skills/architect/) sketches types and module boundaries before
   implementation, then keeps the design in the implementation loop.
 - [`arena`](skills/arena/) runs parallel candidates, selects a base, and combines the
@@ -239,13 +239,16 @@ existing skills. The addon and the final verification are not repeated when
 their relevant source and constraints are unchanged. Code review remains
 standalone; this integration does not add it to delivery workflows.
 
-For Jira task checklists, Staff also runs
+For Jira task numbered AC, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
 A separate child compares the current base branch with the self-verification
 commit. PASS sections contain only Before/After screenshots. BLOCK sections use
 short Traditional Chinese instructions with test links and verified API data.
-Staff updates checklist states after evidence readback. Chrome image uploads
-follow the active Jira write policy. Comments and checklist updates use acli.
+Staff records verification results in the comment and keeps descriptions as numbered AC. All Jira attachments use
+[REST API uploads](skills/create-jira-ticket/references/jira-attachments.md),
+with returned `content` URLs available for file links. Inline images require
+verified media references. Other Jira object operations use acli or Jira REST API. Only source Story reads
+during breakdown and planning use jarkdown.
 The reusable [ADF template](skills/staff/assets/ac-self-verification.adf.json)
 records engineer self-verification, not QA acceptance.
 
@@ -390,7 +393,7 @@ surface that users see. You can also invoke these skills directly.
 - [`bro`](skills/bro/) restates the last message in simpler language without jargon.
 - [`create-jira-ticket`](skills/create-jira-ticket/) creates or updates concise Jira
   tickets from specs, related issues, pull requests, or user notes. Engineering
-  tasks keep functional checklists in descriptions and implementation plans in
+  tasks keep numbered functional AC in descriptions and implementation plans in
   comments. Formats live in its `references/` directory.
 - [`post-pending-review-comments`](skills/post-pending-review-comments/) writes
   validated findings to an unsubmitted GitHub review and verifies the result.

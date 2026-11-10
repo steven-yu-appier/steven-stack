@@ -17,7 +17,7 @@ Confirmed outcomes, material boundaries, clarifications, and source pointers.
 ## Proposed tasks
 
 For each task: title, owner or role, proposed Jira metadata and Story
-relationship, functional description checklist, and implementation plan comment.
+relationship, numbered functional AC in the description, and implementation plan comment.
 
 ## Side effects and ordering
 

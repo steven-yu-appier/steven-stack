@@ -7,7 +7,8 @@ user instructions and observed project conventions take precedence.
   belongs to Jarvis, not merely because its key starts with CAMD.
 - Infer issue type, title prefix, sprint, and Story relationship from related
   tasks. Discover metadata through the installed `acli` outside the sandbox.
-  Read descriptions and comments only through the canonical jarkdown snapshot.
+  Read the source Story through jarkdown during breakdown and planning. Use acli
+  or Jira REST API for other Jira object reads and writes.
 - The ready-to-groom sprint has used names like `Jarvis- Ready to groom today`.
   Resolve the intended sprint and its current numeric ID. Do not reuse a saved
   sprint or custom-field ID without verification.

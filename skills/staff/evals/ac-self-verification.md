@@ -10,7 +10,7 @@ or changing source. Neither case establishes QA acceptance or adds a code-review
 
 ### Input
 
-Continue delivery for DEMO-101 on branch demo-101. AC 1 is unchecked item-1:
+Continue delivery for DEMO-101 on branch demo-101. AC 1 is the first numbered description item:
 Empty search results display "No results".
 
 The previous task record used base `1111111111111111111111111111111111111111`
@@ -33,8 +33,8 @@ with backend dev. Verification time is 2026-11-02 16:00:00 +08:00.
 
 The designated comment is 9812 and still contains the old Before and intermediate
 After. All supplied media is already uploaded. Current
-canonical ADF and metadata permit preserving the comment, checklist identities,
-and unrelated description media. Assume publication and readback will succeed.
+ADF and metadata from acli or REST API permit preserving the comment and its
+unrelated media. Assume publication and readback will succeed.
 
 ### Expected
 
@@ -45,14 +45,15 @@ and unrelated description media. Assume publication and readback will succeed.
   heading followed only by the Before/After image table. Use media IDs beginning
   `33333333` and `bbbbbbbb`, with no Observed paragraph or other PASS commentary.
 - Update comment 9812 and replace its old comparison. Leave no old Before,
-  intermediate image, or stale result in the comment. Check only item-1 after
-  evidence readback. Preserve unrelated content, attachments, and completion states.
+  intermediate image, or stale result in the comment. Preserve unrelated content
+  and attachments. After evidence readback, record the verified result without
+  changing the numbered description.
 
 ## Human verification and partial publication
 
 ### Input
 
-Prepare DEMO-102 evidence. AC 1 is unchecked item role-1:
+Prepare DEMO-102 evidence. AC 1 is the first numbered description item:
 Client Viewer cannot edit accounts whose backend editable field is false.
 
 The current base branch is `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa` and the clean
@@ -66,17 +67,19 @@ The response contained acct-7 with editable=false and acct-8 with editable=true.
 The Admin's edit button for acct-7 was disabled and automated tests passed.
 Client Viewer requires a human with that role. The child proposes marking PASS.
 
-Comment 9813 was created, but readback timed out. The snapshot contains only
-Markdown. Canonical ADF needed to preserve description media and checklist IDs
-is unavailable. No Client Viewer capture exists.
+Comment 9813 was created, but readback timed out. Only Markdown from an earlier
+planning snapshot is available. Current comment ADF has not yet been fetched
+through acli or REST API. No Client Viewer capture exists.
 
 ### Expected
 
-- Reject the child's PASS proposal and keep role-1 unchecked with status BLOCK.
+- Reject the child's PASS proposal and record AC 1 as BLOCK.
 - Write the BLOCK section in concise Traditional Chinese with one reason,
   the test-account link, and a short table of API-confirmed data. Include
   Client Viewer steps with expected results. Retain the endpoint, both observed
   account values, and the Admin role limit. Invent no capture or media reference.
 - Retain comment ID 9813 and inspect its current state before retrying.
-- Track comment readback and checklist synchronization separately. Leave checklist
-  writes pending until a representation can preserve item IDs and description media.
+- Fetch the current comment ADF through acli or REST API before reconciling any
+  update. A lossy planning snapshot does not block that read or require jarkdown.
+- Track upload and comment readback separately. Keep the numbered task description
+  unchanged; verification publishes no checklist or description update.

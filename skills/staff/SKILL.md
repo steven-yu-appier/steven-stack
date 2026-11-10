@@ -12,9 +12,11 @@ Read [Task files and cleanup](playbooks/task-artifacts.md) before producing loca
 
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
-For implementation or fix work with a Jira task AC checklist, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the Before/After sources, separate verifier, Jira evidence comment, and checklist updates, including local-only publication limits.
+For implementation or fix work with a Jira task numbered AC, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the Before/After sources, separate verifier, Jira evidence comment, and verification results, including local-only publication limits.
 
-For Jira ticket or comment content, read [Jira content through jarkdown](references/jira-read-policy.md). Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
+For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
+
+For any Jira attachment upload, read [Jira attachment uploads](../create-jira-ticket/references/jira-attachments.md). Upload through REST API and use the returned `content` URL for file links.
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 
@@ -141,7 +143,7 @@ the planning scope.
 
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y. `playbooks/investigation.md`.
 - **Story breakdown and planning.** A Jira Story to clarify, grill, decompose, or plan against the actual repositories. Invokes **jira-dev-task-from-story** and conditionally uses existing planning workflows. `playbooks/story-breakdown.md`.
-- **Jira task creation and updates.** Publish authorized task checklists, implementation plan comments, metadata, and relationships through **create-jira-ticket**. `playbooks/jira-task.md`.
+- **Jira task creation and updates.** Publish authorized numbered task AC, implementation plan comments, metadata, and relationships through **create-jira-ticket**. `playbooks/jira-task.md`.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence. `playbooks/bug-fix.md`.
 - **Perf issue.** A measured slowness to trace and improve against a baseline. `playbooks/perf-issue.md`.
 - **Hillclimb.** Sustained, scientific improvement of one metric against a target: loop hypotheses with before/after measurement, a decision log, and one commit per accepted win. Distinct from Perf issue, which is a one-off fix. `playbooks/hillclimb.md`.

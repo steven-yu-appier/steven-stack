@@ -1,9 +1,9 @@
 # Record AC self-verification
 
-Use for Staff implementation or fix work with a Jira task acceptance checklist.
+Use for Staff implementation or fix work with a Jira task numbered acceptance criteria.
 This engineer's record is separate from QA acceptance, the PR's reviewer targets,
 and the Story's preview comment. It adds no code-review gate. For investigations,
-Story planning, prototypes, or work without a resolved Jira task checklist,
+Story planning, prototypes, or work without a resolved Jira task AC,
 report it as not applicable. Follow active Jira write restrictions. Local-only
 work retains evidence and the payload without publishing to Jira.
 
@@ -37,8 +37,8 @@ For local-only work with uncommitted changes, record HEAD plus a diff fingerprin
 and label it as uncommitted. Keep it local until the verification commit exists.
 
 Assign a fresh AC verifier child, distinct from the implementation owner,
-through [Subagent routing](subagent-routing.md). Give it the task's canonical
-Jira pointers, acceptance record, current Before evidence, tested source and
+through [Subagent routing](subagent-routing.md). Give it the task's
+Jira source pointers, acceptance record, current Before evidence, tested source and
 environment, **control-ui**, and an assigned evidence/report path. It owns AC
 evidence, not source changes or Jira publication. Grant only the tools needed
 for those actions. If required delegation is unavailable, report that coverage
@@ -102,51 +102,51 @@ Keep the short form:
 #### [PASS] AC <編號> - <原始 AC>
 
 | Before - <base branch 與 SHA> | After - <驗證 commit> |
-| --- | --- |
-| <截圖> | <截圖> |
+| ----------------------------- | --------------------- |
+| <截圖>                        | <截圖>                |
 
 #### [BLOCK] AC <編號> - <原始 AC>
 
-阻擋原因：<一句話>
-測試帳號：[<帳號 ID>](<可直接開啟的連結>)
+**阻擋原因**：<一句話>
+**測試帳號**：[<帳號 ID>](可直接開啟的連結)
 
-| 案例 | 角色與資料 | API 已確認資料 | 預期結果 |
-| --- | --- | --- | --- |
+| 案例   | 角色與資料 | API 已確認資料          | 預期結果   |
+| ------ | ---------- | ----------------------- | ---------- |
 | <案例> | <識別資訊> | <endpoint 與實際欄位值> | <預期結果> |
 
-驗證步驟
+**驗證步驟**
 
 1. <前置條件與入口>
 2. <操作與預期結果>
 ```
 
-Upload new Jira image attachments through Chrome only when active Jira
-instructions permit browser attachment writes. Otherwise retain local evidence
-and report image publication pending. Reuse only media matching the current
-Before and After sources. Copy real Jira media references from the upload or
-editor response, including actual image dimensions. The template's 1280 by 800
-dimensions are examples. An attachment ID
-or local path is not a Media Services ID. If upload or reference resolution
-fails, leave image publication pending. Publish only resolved media, with no
-placeholder IDs or filename substitutes.
+Upload new Jira image attachments through REST API under
+[Jira attachment uploads](../../create-jira-ticket/references/jira-attachments.md).
+Retain the HTTP 200 response's attachment IDs and `content` URLs. Reuse only
+media matching the current Before and After sources. For the image table,
+use verified Media Services references and actual image dimensions. The
+template's 1280 by 800 dimensions are examples. Neither an attachment ID nor a
+`content` URL is a Media Services ID. If upload or inline reference resolution
+fails, retain successful attachment URLs and local evidence and leave image
+publication pending. A file link alone does not satisfy this image table.
 
 Validate the instantiated ADF, AC coverage, status values, and media identity
 and order. Resolve all template tokens before publishing. The formats follow
 [ADF structure](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/)
 and [media nodes](https://developer.atlassian.com/cloud/jira/platform/apis/document/nodes/media/).
 
-## 4. Publish and synchronize checklist state
+## 4. Publish verification results
 
-Use [Jira read policy](jira-read-policy.md) for content and
-[Jira CLI operations](../../create-jira-ticket/references/jira-cli.md) for acli
-commands, freshness, content preservation, readback, and retry handling.
+Use acli or Jira REST API under
+[Jira operations](../../create-jira-ticket/references/jira-cli.md) for current
+content, publication, readback, and retry handling. No jarkdown refresh is required.
 
 Use one designated self-verification comment per task and branch. In the task
 record, keep the branch, comment ID, base branch and SHA, uploaded media
-references, and checklist items this workflow checked. Reuse the ID on reruns.
-Without a recorded ID, match an unambiguous comment for this branch through metadata and canonical
-content. Resolve ambiguity before writing. Keep its visibility and preserve
-other authors' content and media.
+references, and AC numbers covered by this verification. Reuse the ID on reruns.
+Without a recorded ID, match an unambiguous comment for this branch through
+current metadata and content from acli or REST API. Resolve ambiguity before
+writing. Keep its visibility and preserve other authors' content and media.
 
 Write the complete ADF from a task-owned scratch file to the designated comment.
 Create a comment only when none exists. On reruns, replace its prior AC results
@@ -154,13 +154,11 @@ and images instead of appending history. Preserve unrelated content and attachme
 After readback, verify source labels and Before/After order, and confirm that
 no intermediate-version images or old results remain in the comment.
 
-Then synchronize the task description's checklist with acli, preserving item
-IDs, text, order, protected content, and unrelated or human-owned completion
-states. Check a PASS only after verifying its published evidence. FAIL and BLOCK
-add no check. Revoke this workflow's prior check when its evidence fails or
-becomes stale. If the canonical representation cannot preserve the description,
-leave synchronization pending rather than rebuilding it from lossy Markdown.
+Keep PASS, FAIL, and BLOCK results in the verification comment and local record.
+The task description remains numbered functional AC; verification does not add
+checkboxes, completion markers, or description writes. On reruns, replace stale
+results in the designated comment.
 
-Track upload, comment, and checklist outcomes separately. Retain successful IDs
+Track upload and comment outcomes separately. Retain successful IDs
 so partial failures do not repeat uploads or comments. Archive the result and
 evidence links under [Task files and cleanup](../playbooks/task-artifacts.md).

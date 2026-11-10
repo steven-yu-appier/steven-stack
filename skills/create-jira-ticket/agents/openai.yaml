@@ -1,4 +1,4 @@
 interface:
   display_name: "Create Jira Ticket"
-  short_description: "Draft Jira checklists and plan comments"
-  default_prompt: "Use $create-jira-ticket to draft or publish this Jira task with a functional checklist and an implementation plan comment."
+  short_description: "Create or update Jira issues, comments, and attachments"
+  default_prompt: "Use $create-jira-ticket to complete the requested Jira changes within the specified scope and publication authority."

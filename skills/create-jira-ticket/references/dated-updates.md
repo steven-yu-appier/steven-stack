@@ -1,25 +1,17 @@
-# Dated checklist and plan updates
+# Date AC and plan revisions
 
-Prefix each added or substantively changed item in an existing checklist or
-implementation plan with the update date. Put the prefix at the start of the
-item's visible text. A completion-state change also counts as an update. Leave
-untouched items, their dates, and their states unchanged. Initial drafts need
-no update prefix.
+| Change                                             | Date prefix                                                   |
+| -------------------------------------------------- | ------------------------------------------------------------- |
+| Initial draft                                      | None.                                                         |
+| Added or substantively revised AC/plan item | Add the current date at the start of the item's visible text. |
+| Previously dated item revised again                | Replace the leading prefix with the new date.                 |
+| Unchanged item                                     | Preserve its text, date, and order.                           |
 
-The default matches CAMD-28583:
+Use the user's date and timezone. The CAMD-28583 convention is
+`MM/DD updated: ` in bold `#ff5630`; include the year when needed to distinguish
+updates across years. Color only the prefix.
 
-- Text: `MM/DD updated: ` using the user's current date and timezone. Include the
-  year when needed to distinguish updates across years.
-- Color: `#ff5630`.
-- Weight: bold.
-- Scope: the date prefix is colored, not the whole item.
-
-For a second revision of the same item, replace its leading prefix with the new
-date. Keep the current instruction readable. If a removed requirement needs an
-explanation, record the dated decision in the plan rather than leaving a stale
-active instruction in the checklist.
-
-ADF text-node example:
+Insert this ADF node before the item's other text, substituting today's date:
 
 ```json
 {
@@ -32,8 +24,7 @@ ADF text-node example:
 }
 ```
 
-Insert this node before the item's other text. Date the changed instruction or
-decision itself rather than the comment heading or a separate update log.
-
-Color requires the ADF `textColor` mark. Follow
-[Jira CLI operations](jira-cli.md) for publication and formatting readback.
+Date the changed instruction itself, not the comment heading or a separate log.
+Replace obsolete instructions; retain a dated reason in the plan when a removed
+requirement needs explanation. Follow [Jira commands](jira-cli.md) for publication
+and formatting readback.

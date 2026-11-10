@@ -1,6 +1,10 @@
-# Jira content through jarkdown
+# Jira read routing
 
-Use this policy before reading a Jira ticket, Story, description, AC, specification, attachment, or comment body. Active repository or user Jira instructions take precedence, including any established sibling-lock naming convention. Resolve the absolute `acli` executable from active CLI instructions or the login-shell environment. Jira metadata and comment writes use it outside the sandbox; content is read only from the canonical jarkdown snapshot.
+Use jarkdown only to read the source Story, including its comments and attachments, during Story/task breakdown and planning. The cache and promotion procedure below applies only to those Story reads.
+
+For all other Jira object operations, including related-task reads, implementation-time reads, issue and comment creation or updates, relationships, attachments, and readback, use `acli` or Jira REST API under [Jira operations](../../create-jira-ticket/references/jira-cli.md). These operations do not require a jarkdown refresh.
+
+Active repository or user Jira instructions take precedence, including any established sibling-lock naming convention. Resolve the absolute CLI executables from active instructions or the login-shell environment.
 
 ## Cache-first reads
 
