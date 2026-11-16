@@ -22,8 +22,8 @@ capture Before at that exact base. Use an isolated worktree or an existing
 verified base deployment rather than switching the active checkout. Match the
 Before and After role, data, viewport, and UI state. Keep source and environment
 details in the task record. Reuse images only while the base SHA and comparison
-conditions match. If the source or matching capture is unavailable, mark the
-affected AC BLOCK.
+conditions match. If evidence is unavailable, follow the verification order
+in step 2 before assigning a status.
 
 ## 2. Delegate AC evidence collection
 
@@ -38,32 +38,29 @@ and label it as uncommitted. Keep it local until the verification commit exists.
 
 Assign a fresh AC verifier child, distinct from the implementation owner,
 through [Subagent routing](subagent-routing.md). Give it the task's
-Jira source pointers, acceptance record, current Before evidence, tested source and
-environment, **control-ui**, and an assigned evidence/report path. It owns AC
-evidence, not source changes or Jira publication. Grant only the tools needed
+Jira source pointers, acceptance record, existing development screenshots,
+current Before evidence, tested source and environment, **control-ui**, and an
+assigned evidence/report path. It owns AC evidence, not source changes or Jira publication. Grant only the tools needed
 for those actions. If required delegation is unavailable, report that coverage
 pending instead of presenting the parent's checks as an independent run.
 
 The child accounts for every task AC with its original wording, numbering, and
-item identity. Number unnumbered items in source order. Classify each AC:
+item identity. Number unnumbered items in source order. Verify each AC in order:
 
-- **PASS.** The child exercised the relevant flow and observed the expected
-  result. Include matching Before and After screenshots from the recorded sources.
-  Passing tests or reading source alone does not establish PASS.
-- **PASS(FIXTURE).** When the live preview cannot connect to the real backend,
-  fixture verification that passes can use existing development screenshots
-  matching the recorded sources and AC as evidence.
-- **FAIL.** The child exercised the flow and observed a mismatch. State the
-  expected and actual result. Return the defect to the implementation owner
-  for a fix, then refresh affected After evidence at the new commit.
-- **BLOCK.** The AC needs human verification with a particular role or backend
-  data. Use **control-ui** to operate Chrome and inspect actual API responses
-  to find usable cases. Record the role, stable data identifiers, endpoint,
-  relevant response fields, steps, and expected results. Finding the data or
-  exercising one example does not turn this manual case into PASS. Also use
-  BLOCK for missing access, data, environment, or required evidence when
-  PASS(FIXTURE) does not apply. State the reason and distinguish observed
-  response values from proposed cases.
+1. Use the real backend. Mark **PASS** when the exercised flow meets the AC,
+   with matching Before and After screenshots from the recorded sources.
+2. If the live preview cannot connect to the backend, first search the task's
+   existing development screenshots for fixture evidence. Mark **PASS(FIXTURE)**
+   when that evidence matches the recorded sources and demonstrates the AC.
+3. Mark **BLOCK** only after checking the available evidence above and finding
+   it insufficient. State the missing access, data, environment, or evidence.
+   For human verification, include the role, API-confirmed cases where available,
+   and steps with expected results. Distinguish observed data from proposed cases.
+
+If an exercised flow mismatches the AC, mark **FAIL**, record the expected and
+actual results, and return the defect to the implementation owner. Refresh
+affected After evidence after the fix.
+Passing tests or reading source alone does not establish a passing result.
 
 Use the authorized test environment. Limit data changes to authorized test
 records. Retain relevant response fields, not credentials or whole network

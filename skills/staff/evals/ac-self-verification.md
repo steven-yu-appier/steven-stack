@@ -89,10 +89,12 @@ through acli or REST API. No Client Viewer capture exists.
 ### Input
 
 The live preview cannot connect to the real backend. Existing fixture development
-screenshots show AC 1's expected behavior and match the recorded Before and After
-sources. The separate verifier confirms that the screenshots cover AC 1.
+screenshots are in the task's evidence directory but have not been reviewed.
+They show AC 1's expected behavior and match the recorded Before and After sources.
 
 ### Expected
 
+- Search and review the existing fixture screenshots before assigning a status.
 - Mark AC 1 PASS(FIXTURE) and reuse the screenshots in the existing image table.
+- If the screenshots are absent or insufficient, mark BLOCK after that check.
 - Set `{{PASS_STATUS}}` to `PASS(FIXTURE)` in the ADF template.
