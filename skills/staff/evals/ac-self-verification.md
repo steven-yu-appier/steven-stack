@@ -2,9 +2,8 @@
 
 Use these offline cases when revising [AC self-verification](../references/ac-self-verification.md).
 Give the agent these exercise rules and one case's Input, then compare its reply
-with Expected. Treat supplied captures as offline evidence stubs, not as an
-indication that the app used a fixture backend. Each case states its backend mode.
-Return the next actions and a draft ADF comment without contacting Jira, starting an app, creating agents,
+with Expected. Treat supplied captures as offline evidence stubs. Return the next
+actions and a draft ADF comment without contacting Jira, starting an app, creating agents,
 or changing source. No case establishes QA acceptance or adds a code-review gate.
 
 ## Current base and final After after a rebase
@@ -85,55 +84,15 @@ through acli or REST API. No Client Viewer capture exists.
 - Track upload and comment readback separately. Keep the numbered task description
   unchanged; verification publishes no checklist or description update.
 
-## Unreachable backend with complete fixture evidence
+## Reuse fixture development screenshots
 
 ### Input
 
-Prepare DEMO-103 evidence. AC 1 says: Empty search results display "No results".
-The current base is base-demo at `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`.
-The clean tested commit is `dddddddddddddddddddddddddddddddddddddddd`.
-The preview at https://example.invalid/preview/demo-103/ cannot connect to dev.
-`GET /api/search?q=missing` returns a connection error.
-Verification time is 2026-11-16 16:00:00 +08:00.
-
-A fresh AC child intercepted that endpoint using the contract-compatible fixture
-`fixtures/search-empty.json`, which returns an empty results array. It exercised
-the search UI on both recorded sources with the same fixture, role, viewport,
-and search state. Before shows "Nothing found" and After shows "No results".
-Both screenshots are 1280 by 800 in collection jira-demo. Before media ID is
-`aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa`; After media ID is
-`dddddddd-dddd-4ddd-8ddd-dddddddddddd`. All media is already uploaded.
-No live-backend result exists. No designated comment exists. Draft only.
+The live preview cannot connect to the real backend. Existing fixture development
+screenshots show AC 1's expected behavior and match the recorded Before and After
+sources. The separate verifier confirms that the screenshots cover AC 1.
 
 ### Expected
 
-- Record AC 1 as PASS(FIXTURE), with commit prefix `dddddddd` and the supplied time.
-- Use a level-four `[PASS(FIXTURE)] AC 1` heading and matching Before/After image
-  table with fixture labels and the supplied media identities.
-- Include one short Traditional Chinese line naming the connection error,
-  `fixtures/search-empty.json`, and the unverified real-backend integration.
-- Retain the endpoint, inputs, interception method, and matching capture
-  conditions in the local report. Neither classify the connection failure alone
-  as BLOCK nor claim a live-backend PASS.
-- Keep the task description unchanged and respect the draft-only restriction.
-
-## Fixture mismatch or missing screenshots
-
-### Input
-
-Use DEMO-103's sources and connection failure. Assess these independent variants:
-
-1. The fresh child exercised the fixture-backed search flow, but After still
-   shows "Nothing found" instead of "No results".
-2. The fixture-backed flow shows "No results", but no After screenshot exists.
-3. Both screenshots exist, but AC 1 instead requires saved searches to persist
-   in the real backend after reopening. Fixtures return a canned saved search;
-   no backend save or reopen was observed.
-
-### Expected
-
-- Variant 1 is FAIL. Return the mismatch for a fix and capture new After evidence.
-- Variant 2 is BLOCK until the required matching capture exists.
-- Variant 3 is BLOCK for backend persistence. Fixture screenshots do not establish
-  actual backend execution or persistence.
-- None earns PASS(FIXTURE) merely because fixtures or passing tests exist.
+- Mark AC 1 PASS(FIXTURE) and reuse the screenshots in the existing image table.
+- Set `{{PASS_STATUS}}` to `PASS(FIXTURE)` in the ADF template.

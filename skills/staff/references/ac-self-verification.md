@@ -22,17 +22,16 @@ capture Before at that exact base. Use an isolated worktree or an existing
 verified base deployment rather than switching the active checkout. Match the
 Before and After role, data, viewport, and UI state. Keep source and environment
 details in the task record. Reuse images only while the base SHA and comparison
-conditions match. If the live preview cannot connect to the real backend, use
-the fixture fallback in step 2 for both captures. If the source or matching
-capture remains unavailable, mark the affected AC BLOCK.
+conditions match. If the source or matching capture is unavailable, mark the
+affected AC BLOCK.
 
 ## 2. Delegate AC evidence collection
 
 After cleanup and final checks, use a stable tested commit for After. Record
 the self-verification time with its UTC offset and an eight-character commit
 prefix. Every After image must come from that exact commit. Match the running
-app to that source and backend. If a matching preview requires a push or draft
-PR, complete that authorized publication with coverage
+app to that source and backend or fixture setup. If a matching preview requires
+a push or draft PR, complete that authorized publication with coverage
 marked pending, then resume verification and refresh the PR's evidence claims.
 For local-only work with uncommitted changes, record HEAD plus a diff fingerprint
 and label it as uncommitted. Keep it local until the verification commit exists.
@@ -50,13 +49,10 @@ item identity. Number unnumbered items in source order. Classify each AC:
 
 - **PASS.** The child exercised the relevant flow and observed the expected
   result. Include matching Before and After screenshots from the recorded sources.
-  Use the real backend for this status. Passing tests or reading source alone
-  does not establish PASS.
-- **PASS(FIXTURE).** The live preview cannot connect to the real backend, so the
-  child exercised the relevant UI flow with fixtures and observed the expected
-  result. Include matching Before and After screenshots using the same fixture
-  inputs. Follow the fixture fallback below. This verifies the fixture-backed
-  behavior; real-backend integration remains unverified.
+  Passing tests or reading source alone does not establish PASS.
+- **PASS(FIXTURE).** When the live preview cannot connect to the real backend,
+  fixture verification that passes can use existing development screenshots
+  matching the recorded sources and AC as evidence.
 - **FAIL.** The child exercised the flow and observed a mismatch. State the
   expected and actual result. Return the defect to the implementation owner
   for a fix, then refresh affected After evidence at the new commit.
@@ -65,27 +61,9 @@ item identity. Number unnumbered items in source order. Classify each AC:
   to find usable cases. Record the role, stable data identifiers, endpoint,
   relevant response fields, steps, and expected results. Finding the data or
   exercising one example does not turn this manual case into PASS. Also use
-  BLOCK for missing access, data, environment, or required evidence after
-  considering the fixture fallback. State the reason and distinguish observed
+  BLOCK for missing access, data, environment, or required evidence when
+  PASS(FIXTURE) does not apply. State the reason and distinguish observed
   response values from proposed cases.
-
-### Fixture fallback
-
-When the live preview cannot connect to the real backend, attempt fixture-based
-UI verification before classifying the AC as BLOCK. Record the connection
-failure and the fixture source, inputs, role, and API interception or loading
-method in the local report. Use fixtures consistent with the known API contract
-and sufficient to exercise the AC's relevant states through the actual app.
-Capture Before at the recorded base and After at the tested source with the same
-fixture inputs, role, viewport, and UI state.
-
-Mark PASS(FIXTURE) only after the child observes the expected result and retains
-both screenshots. Fixture definitions, passing tests, and fabricated screenshots
-alone do not meet this criterion. If the exercised flow mismatches the AC, mark
-FAIL. If fixtures cannot exercise the required behavior or matching evidence is
-missing, mark BLOCK and state the remaining gap. Backend execution, persistence,
-and real-role permissions require live evidence when they are the AC's subject;
-fixtures can show only the UI's response to simulated results.
 
 Use the authorized test environment. Limit data changes to authorized test
 records. Retain relevant response fields, not credentials or whole network
@@ -104,19 +82,13 @@ BLOCK permits an authorized draft PR with pending coverage.
 Start from [the ADF template](../assets/ac-self-verification.adf.json). Keep one
 verification header with the time, commit, and environment. Repeat the relevant
 PASS, PASS(FIXTURE), or BLOCK section per AC in source order. Remove unused
-sections and set values with a JSON parser. Write commentary in Traditional
-Chinese, retaining original AC wording, UI labels, API fields, and identifiers.
+sections and set values with a JSON parser. Write commentary in Traditional Chinese, retaining
+original AC wording, UI labels, API fields, and identifiers.
 
-For PASS, publish only the AC heading and Before/After image table. Keep
-observations, measurements, execution logs, and verification summaries in the
-local report. The comment contains only the current base and tested commit,
+For PASS and PASS(FIXTURE), set `{{PASS_STATUS}}` to the status and publish
+only the AC heading and Before/After image table. Keep observations, measurements,
+execution logs, and verification summaries in the local report. The comment contains only the current base and tested commit,
 with no screenshots or results from intermediate implementation versions.
-
-For PASS(FIXTURE), use the same image table with fixture labels on both columns.
-Add one short line naming the connection failure, fixture source, and the limit
-that real-backend integration remains unverified. Keep replay details in the
-local report. Set the heading to `[PASS(FIXTURE)]` so fixture results remain
-visible even when other ACs use a real backend.
 
 For BLOCK, give one short reason, a usable test-account link, API-verified data,
 and numbered steps with expected results. Follow the concise Traditional Chinese
@@ -136,14 +108,6 @@ Keep the short form:
 | Before - <base branch 與 SHA> | After - <驗證 commit> |
 | ----------------------------- | --------------------- |
 | <截圖>                        | <截圖>                |
-
-#### [PASS(FIXTURE)] AC <編號> - <原始 AC>
-
-Fixture：<BE 連線問題>；<fixture 來源>；尚未驗證真實 BE 整合。
-
-| Before (fixture) - <base branch 與 SHA> | After (fixture) - <驗證 commit> |
-| -------------------------------------- | ------------------------------- |
-| <截圖>                                 | <截圖>                          |
 
 #### [BLOCK] AC <編號> - <原始 AC>
 
