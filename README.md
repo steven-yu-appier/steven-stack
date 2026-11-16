@@ -242,8 +242,10 @@ standalone; this integration does not add it to delivery workflows.
 For Jira task numbered AC, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
 A separate child compares the current base branch with the self-verification
-commit. PASS sections contain only Before/After screenshots. BLOCK sections use
-short Traditional Chinese instructions with test links and verified API data.
+commit. PASS sections contain only Before/After screenshots. When a preview
+cannot connect to the real backend, fixture UI verification with matching
+screenshots can earn PASS(FIXTURE), with its fixture source and coverage limit.
+BLOCK sections use short Traditional Chinese instructions with test links and verified API data.
 Staff records verification results in the comment and keeps descriptions as numbered AC. All Jira attachments use
 [REST API uploads](skills/create-jira-ticket/references/jira-attachments.md),
 with returned `content` URLs available for file links. Inline images require

@@ -25,6 +25,28 @@
         ]}
       ]}
     ]},
+    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[PASS(FIXTURE)] AC {{FIXTURE_NUMBER}} - {{FIXTURE_AC_TEXT}}"}]},
+    {"type": "paragraph", "content": [{"type": "text", "text": "Fixture：{{BACKEND_CONNECTION_FAILURE}}；{{FIXTURE_SOURCE}}；尚未驗證真實 BE 整合。"}]},
+    {"type": "table", "content": [
+      {"type": "tableRow", "content": [
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Before (fixture) - {{BASE_BRANCH}} @ {{BASE_SHORT}}"}]}]},
+        {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "After (fixture) - {{COMMIT_SHORT}}"}]}]}
+      ]},
+      {"type": "tableRow", "content": [
+        {"type": "tableCell", "content": [
+          {"type": "mediaSingle", "attrs": {"layout": "center"}, "content": [
+            {"type": "media", "attrs": {"id": "{{FIXTURE_BEFORE_MEDIA_ID}}", "type": "file", "collection": "{{FIXTURE_BEFORE_COLLECTION}}", "alt": "{{FIXTURE_BEFORE_FILENAME}}", "width": 1280, "height": 800}}
+          ]},
+          {"type": "paragraph", "content": []}
+        ]},
+        {"type": "tableCell", "content": [
+          {"type": "mediaSingle", "attrs": {"layout": "center"}, "content": [
+            {"type": "media", "attrs": {"id": "{{FIXTURE_AFTER_MEDIA_ID}}", "type": "file", "collection": "{{FIXTURE_AFTER_COLLECTION}}", "alt": "{{FIXTURE_AFTER_FILENAME}}", "width": 1280, "height": 800}}
+          ]},
+          {"type": "paragraph", "content": []}
+        ]}
+      ]}
+    ]},
     {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[BLOCK] AC {{MANUAL_NUMBER}} - {{MANUAL_AC_TEXT}}"}]},
     {"type": "paragraph", "content": [{"type": "text", "text": "阻擋原因：{{BLOCK_REASON}}"}]},
     {"type": "paragraph", "content": [
