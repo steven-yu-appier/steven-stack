@@ -1,11 +1,21 @@
 # Record AC self-verification
 
-Use for Staff implementation or fix work with a Jira task numbered acceptance criteria.
+Use for Staff implementation or fix work with a Jira task numbered acceptance criteria,
+and for standalone drafting, publication, updates, image additions, or retries of
+that task's AC self-verification results. Standalone publication reuses valid
+evidence; collect only missing or stale evidence under steps 1 and 2.
 This engineer's record is separate from QA acceptance, the PR's reviewer targets,
 and the Story's preview comment. It adds no code-review gate. For investigations,
 Story planning, prototypes, or work without a resolved Jira task AC,
 report it as not applicable. Follow active Jira write restrictions. Local-only
 work retains evidence and the payload without publishing to Jira.
+
+## Contents
+
+- Resolve the Before source
+- Delegate AC evidence collection
+- Resolve the designated comment and build the payload
+- Publish verification results
 
 ## 1. Resolve the Before source
 
@@ -70,19 +80,45 @@ and disclose differences. A screenshot supports only what it actually shows.
 The child's local report includes every AC's status, observations, evidence
 paths, coverage limits, and any manual steps and cases. The owner checks it
 against the current source and AC before publication. Refresh affected evidence
-when source, requirements, or environment changes. Fix FAIL results before
-continuing delivery. Keep failure details in the local report until re-verification.
+when source, requirements, or environment changes. Publish the current results,
+including FAIL. Fix FAIL results before continuing delivery, then refresh affected
+evidence and replace the prior results in the designated comment.
 BLOCK permits an authorized draft PR with pending coverage.
 
-## 3. Build the comment payload
+## 3. Resolve the designated comment and build the payload
+
+Assign Jira operations to [using-jira](../../using-jira/SKILL.md) on
+`gpt-6.1-terra-medium`. This child owns comment selection, payload preparation,
+uploads, publication, and readback within the authorized scope. The separate AC
+verifier owns evidence collection, not Jira publication.
+
+Before building a publication payload, resolve one designated self-verification
+comment per task and branch:
+
+1. With a recorded or supplied comment ID, verify its task, branch association,
+   author, visibility, and current body. A mismatched ID leaves the write pending;
+   it does not authorize creating a replacement comment.
+2. Without an ID, inspect current comments for an unambiguous match to this
+   branch. Reuse that ID. If several candidates remain or branch association
+   cannot be established, resolve the ambiguity before writing.
+3. Create a comment only after confirming that no designated comment exists for
+   this task and branch. An unavailable lookup leaves creation pending. Keeping
+   history is not a reason to create another verification comment.
+
+Record the branch, comment ID, base branch and SHA, uploaded media references,
+and covered AC numbers in the task record. On reruns, update the same comment
+and replace prior verification results and images while preserving unrelated
+content, other authors' content, visibility, and attachments. Keep historical
+verification details in the task record. A draft-only request makes no Jira writes;
+if comment selection is unresolved, retain a draft with the target marked pending.
 
 Start from [the ADF template](../assets/ac-self-verification.adf.json). Keep one
 verification header with the time, commit, and environment. Repeat the relevant
-PASS, PASS(FIXTURE), or BLOCK section per AC in source order. Remove unused
+PASS, PASS(FIXTURE), FAIL, or BLOCK section per AC in source order. Remove unused
 sections and set values with a JSON parser. Write commentary in Traditional Chinese, retaining
 original AC wording, UI labels, API fields, and identifiers.
 
-For PASS and PASS(FIXTURE), set `{{PASS_STATUS}}` to the status and publish
+For PASS, PASS(FIXTURE), and FAIL, set `{{VISUAL_STATUS}}` to the status and publish
 only the AC heading and Before/After image table. Keep observations, measurements,
 execution logs, and verification summaries in the local report. The comment contains only the current base and tested commit,
 with no screenshots or results from intermediate implementation versions.
@@ -122,7 +158,7 @@ Keep the short form:
 ```
 
 Upload new Jira image attachments through REST API under
-[Jira attachment uploads](../../create-jira-ticket/references/jira-attachments.md).
+[Jira attachment uploads](../../using-jira/references/jira-attachments.md).
 Retain the HTTP 200 response's attachment IDs and `content` URLs. Reuse only
 media matching the current Before and After sources. For the image table,
 use verified Media Services references and actual image dimensions. The
@@ -138,25 +174,26 @@ and [media nodes](https://developer.atlassian.com/cloud/jira/platform/apis/docum
 
 ## 4. Publish verification results
 
-Use acli or Jira REST API under
-[Jira operations](../../create-jira-ticket/references/jira-cli.md) for current
-content, publication, readback, and retry handling. No jarkdown refresh is required.
-
-Use one designated self-verification comment per task and branch. In the task
-record, keep the branch, comment ID, base branch and SHA, uploaded media
-references, and AC numbers covered by this verification. Reuse the ID on reruns.
-Without a recorded ID, match an unambiguous comment for this branch through
-current metadata and content from acli or REST API. Resolve ambiguity before
-writing. Keep its visibility and preserve other authors' content and media.
+The assigned **using-jira** child uses the tools permitted by active Jira
+instructions under
+[Jira operations](../../using-jira/references/jira-cli.md) for current
+content, publication, readback, and retry handling. Follow active Jira cache and
+refresh requirements.
 
 Write the complete ADF from a task-owned scratch file to the designated comment.
 Create a comment only when none exists. On reruns, replace its prior AC results
 and images instead of appending history. Preserve unrelated content and attachments.
-After readback, verify source labels and Before/After order, and confirm that
-no intermediate-version images or old results remain in the comment.
+After readback, confirm the task and designated comment ID, original AC wording
+and order, status values, source labels, and Before/After media identity and
+order. Confirm that no intermediate-version images or old results remain in the
+verification sections. Text, attachment counts, file links, or hashes alone do
+not establish that the required image tables were published correctly. Keep
+successful IDs and report publication unverified if structured readback is missing.
 
-Keep PASS, PASS(FIXTURE), FAIL, and BLOCK results in the verification comment
-and local record.
+Publish PASS, PASS(FIXTURE), FAIL, and BLOCK results in the verification comment
+and keep them in the local record. Return FAIL defects to the implementation
+owner and re-verify after the fix before continuing delivery. A publication-only
+request does not authorize source changes.
 The task description remains numbered functional AC; verification does not add
 checkboxes, completion markers, or description writes. On reruns, replace stale
 results in the designated comment.

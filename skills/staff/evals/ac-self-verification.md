@@ -97,4 +97,4 @@ They show AC 1's expected behavior and match the recorded Before and After sourc
 - Search and review the existing fixture screenshots before assigning a status.
 - Mark AC 1 PASS(FIXTURE) and reuse the screenshots in the existing image table.
 - If the screenshots are absent or insufficient, mark BLOCK after that check.
-- Set `{{PASS_STATUS}}` to `PASS(FIXTURE)` in the ADF template.
+- Set `{{VISUAL_STATUS}}` to `PASS(FIXTURE)` in the ADF template.

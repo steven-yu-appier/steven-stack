@@ -14,7 +14,7 @@ user instructions and observed project conventions take precedence.
   sprint or custom-field ID without verification.
 - A `Task` and a `Story` may share a hierarchy level. A relationship link does
   not make the Task a true subtask. Use `parent` only for an allowed hierarchy.
-  Read [Issue linking](../../create-jira-ticket/references/issue-linking.md)
+  Read [Issue linking](../../using-jira/references/issue-linking.md)
   before choosing and publishing the relationship.
 - Backend campaign-rule work has lived under
   `services/rule_domain/app/rule_domain/` in `trading-desk-services`.

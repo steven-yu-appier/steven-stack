@@ -1,8 +1,12 @@
 # Jira read routing
 
+Assign Jira reads to the **using-jira** child on `gpt-6.1-terra-medium` under
+[Subagent routing](subagent-routing.md). The rules below choose the read tool;
+active repository and user instructions take precedence.
+
 Use jarkdown only to read the source Story, including its comments and attachments, during Story/task breakdown and planning. The cache and promotion procedure below applies only to those Story reads.
 
-For all other Jira object operations, including related-task reads, implementation-time reads, issue and comment creation or updates, relationships, attachments, and readback, use `acli` or Jira REST API under [Jira operations](../../create-jira-ticket/references/jira-cli.md). These operations do not require a jarkdown refresh.
+For all other Jira object operations, including related-task reads, implementation-time reads, issue and comment creation or updates, relationships, attachments, and readback, use `acli` or Jira REST API under [Jira operations](../../using-jira/references/jira-cli.md). These operations do not require a jarkdown refresh.
 
 Active repository or user Jira instructions take precedence, including any established sibling-lock naming convention. Resolve the absolute CLI executables from active instructions or the login-shell environment.
 

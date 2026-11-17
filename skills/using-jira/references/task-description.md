@@ -38,6 +38,6 @@ Screenshot: <url|string>
   development checks in the plan comment. Keep Story relationships in metadata.
 - When revising AC, preserve unchanged group names, wording, and order; apply
   [Dated updates](dated-updates.md) to changed items.
-- Record PASS, FAIL, and BLOCK in the
+- Record verification results under
   [self-verification comment](../../staff/references/ac-self-verification.md#4-publish-verification-results).
   Keep completion states out of the description.

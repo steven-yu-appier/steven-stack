@@ -1,9 +1,24 @@
 ---
-name: create-jira-ticket
-description: Create or update Jira issues, descriptions, comments, metadata, relationships, and attachments under Appier conventions. Use for drafting or publishing requested Jira changes. Route unresolved Story breakdown to jira-dev-task-from-story.
+name: using-jira
+description: Handles Jira reads, issues, descriptions, comments, metadata, relationships, and attachments under Appier conventions. Use for Jira operations, including drafting, publishing, updating, or retrying AC self-verification results. Route unresolved Story breakdown to jira-dev-task-from-story.
 ---
 
-# Create or update Jira tickets
+# Use Jira
+
+## Delegate Jira operations
+
+The coordinator delegates this workflow to a Jira operations child on the
+`gpt-6.1-terra-medium` route through
+[Subagent routing](../staff/references/subagent-routing.md). Pass the requested
+operation, targets, source pointers, task paths, publication authority, and any
+known comment or attachment IDs. Follow active user and repository Jira
+instructions for reads, writes, credentials, and cache handling.
+
+An assigned Jira operations child executes its scope directly without delegating
+this workflow again. An implementation child hands Jira operations back to its
+coordinator for routing. The coordinator reviews the result and owns delivery.
+If the required route or tool access is unavailable, leave Jira operations
+pending and report the missing capability. Do not substitute a parent-run operation.
 
 ## Scope and authorization
 
@@ -22,6 +37,7 @@ requested; a field update, description edit, or upload adds no plan comment.
 | Request | Route |
 | --- | --- |
 | Clarify a Story or break it into tasks | Use **jira-dev-task-from-story** before publication-ready task drafting. |
+| Draft, publish, update, add images to, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the comment. It owns comment selection, the ADF template, evidence, and readback. Use Jira commands only to execute that workflow. |
 | Create an engineering task | [Task description](references/task-description.md) for AC; [Implementation plan](references/implementation-plan.md) for its plan comment. |
 | Create a Story, survey, or other ticket type | [Ticket formats](references/ticket-formats.md). |
 | Add or revise an implementation-plan comment | [Implementation plan](references/implementation-plan.md). |
@@ -29,6 +45,11 @@ requested; a field update, description edit, or upload adds no plan comment.
 | Change fields, descriptions, or other comments | [Jira commands](references/jira-cli.md). Keep the change within the named fields or body. |
 | Upload or reference a file | [Attachment commands](references/jira-attachments.md). Upload-only requests stop after attachment readback. |
 | Add a relationship or hierarchy | [Relationship commands](references/issue-linking.md). |
+
+The AC self-verification route takes precedence over generic comment and file-link
+routes, including standalone publication with no implementation request. Reuse
+valid evidence and the designated comment; publication alone does not require
+repeating completed verification or authorize source changes.
 
 ## Prepare and execute
 

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: standalone-verification-publication
+expected_outcome: |
+  Routes standalone verification through AC self-verification and its ADF template. Assigns Jira operations to gpt-6.1-terra with medium reasoning, separately from the existing evidence verifier. Updates comment 9812 rather than creating a history comment. Replaces only prior verification sections, preserves unrelated content, and drafts the original AC heading with the paired Before/After media table. Plans structured readback of target, AC, source labels, and media order. Does not contact Jira or change source.

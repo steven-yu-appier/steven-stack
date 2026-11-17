@@ -1,5 +1,11 @@
 # Jira attachment commands
 
+Run this workflow in the assigned **using-jira** child on `gpt-6.1-terra-medium`.
+For task AC self-verification images, follow
+[AC self-verification](../../staff/references/ac-self-verification.md) for the
+designated comment and inline Before/After table. The generic file-link commands
+below do not satisfy that image table.
+
 Use only the requested operation. Run uploads and acli outside the sandbox
 through an interactive login zsh. Python 3, curl, and acli come from PATH.
 

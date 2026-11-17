@@ -10,5 +10,5 @@ Use to clarify a Jira Story and plan its engineering tasks. Apply
    including the proposed descriptions and plan comments. For a draft-only
    request, return the package and open questions here.
 3. To publish, obtain approval of the ready tasks and their full content. Run
-   [Jira task creation and updates](jira-task.md) with the approved subset,
+   [Jira operations](jira-task.md) with the approved subset,
    reviewed drafts, and recorded authorization. Keep other tasks as drafts.

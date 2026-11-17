@@ -28,7 +28,10 @@ Include the derived URLs in the PR body before creation. Synchronization starts 
 
 ## Synchronize the Story comment
 
-Use acli outside the sandbox or Jira REST API under [Jira operations](../../create-jira-ticket/references/jira-cli.md) for Story/comment reads, updates, and readback during preview synchronization. This is an object-update workflow, so no jarkdown refresh is required.
+Delegate preview synchronization to [using-jira](../../using-jira/SKILL.md) on
+`gpt-6.1-terra-medium`. Its assigned child performs Story/comment reads, updates,
+and readback under [Jira operations](../../using-jira/references/jira-cli.md),
+following active Jira tool and cache instructions.
 
 1. Read the preview URLs from the current remote PR body and use them exactly. For multiple iDash apps, preserve all app labels and URLs. Missing or ambiguous links block only synchronization; ask for the unresolved choice.
 2. Resolve the Jira Story from the conversation, branch, task documents, or PR. Validate keys against `^[A-Z][A-Z0-9]+-[0-9]+$` before use. Resolve a subtask's parent through acli or REST API. Ask only when the Story is unresolved or ambiguous.

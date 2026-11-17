@@ -14,15 +14,17 @@ Before changing behavior or writing acceptance tests, read [Implementation scope
 
 For implementation or fix work with a Jira task numbered AC, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the Before/After sources, separate verifier, Jira evidence comment, and verification results, including local-only publication limits.
 
+For standalone drafting, publication, updates, image additions, or retries of task AC self-verification results, read the same [AC self-verification](references/ac-self-verification.md) before preparing the comment. Route Jira operations through **using-jira**, even when no implementation or fix is requested.
+
 For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
 
-For any Jira attachment upload, read [Jira attachment uploads](../create-jira-ticket/references/jira-attachments.md). Upload through REST API and use the returned `content` URL for file links.
+For any Jira attachment upload, read [Jira attachment uploads](../using-jira/references/jira-attachments.md). Upload through REST API and use the returned `content` URL for file links.
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
 
 Remaining triggers:
 
-- Jira Story grooming, grilling, breakdown, or planning → **Story breakdown and planning**. Creating or updating Jira engineering tasks and plan comments → **Jira task creation and updates**. These routes take precedence over Feature for planning or ticket-only requests, and stop at their requested artifacts.
+- Jira Story grooming, grilling, breakdown, or planning → **Story breakdown and planning**. Jira reads, drafts, writes, attachments, and verification publication → **Jira operations**. These routes take precedence over Feature for planning or Jira-only requests, and stop at their requested artifacts.
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
@@ -107,6 +109,8 @@ Routine cleanup of this task's owned, consumed logs and intermediate files follo
 
 When coordinating development, delegate implementation and test work through [`references/subagent-routing.md`](references/subagent-routing.md). Use one child for coupled work and split independent slices when useful. The parent scopes the task, assigns work, reviews results, and owns acceptance and delivery. An assigned implementation child completes its scope directly; this rule does not require it to delegate again. Preserve required second opinions and host restrictions. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
 
+Delegate Jira operations through **using-jira** on `gpt-6.1-terra-medium`, including reads, drafts, writes, uploads, and readback. An assigned Jira operations child executes directly without recursive delegation. Other children return Jira work to the coordinator. This role does not replace the separate AC verifier or authorize implementation, Git delivery, or unrelated Jira writes.
+
 Every child prompt opens with the staff invocation, `$staff` for Codex and `/staff` for Claude Code. It gives the child its role and model route, its access mode, the working directory or worktree, file pointers, success criteria, and the output contract. The routing file owns how that prompt reaches each host.
 
 Launch independent workers before waiting for any worker. You own every result. Read each report or diff and write your own summary. Do not pass through a child summary. If no available control method can honor a required route, follow the routing file's fallback. Never claim that a model or independent worker ran when it did not.
@@ -143,7 +147,7 @@ the planning scope.
 
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y. `playbooks/investigation.md`.
 - **Story breakdown and planning.** A Jira Story to clarify, grill, decompose, or plan against the actual repositories. Invokes **jira-dev-task-from-story** and conditionally uses existing planning workflows. `playbooks/story-breakdown.md`.
-- **Jira task creation and updates.** Publish authorized numbered task AC, implementation plan comments, metadata, and relationships through **create-jira-ticket**. `playbooks/jira-task.md`.
+- **Jira operations.** Read or draft Jira content and publish authorized task AC, implementation plans, self-verification results, metadata, attachments, and relationships through **using-jira**. `playbooks/jira-task.md`.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence. `playbooks/bug-fix.md`.
 - **Perf issue.** A measured slowness to trace and improve against a baseline. `playbooks/perf-issue.md`.
 - **Hillclimb.** Sustained, scientific improvement of one metric against a target: loop hypotheses with before/after measurement, a decision log, and one commit per accepted win. Distinct from Perf issue, which is a one-off fix. `playbooks/hillclimb.md`.

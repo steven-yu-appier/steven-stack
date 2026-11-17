@@ -4,7 +4,7 @@
   "content": [
     {"type": "paragraph", "content": [{"type": "text", "text": "自我驗證 | {{TIME_WITH_OFFSET}} | Commit: {{COMMIT_SHORT}}"}]},
     {"type": "paragraph", "content": [{"type": "text", "text": "環境：{{APP_URL_AND_BACKEND}}"}]},
-    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[{{PASS_STATUS}}] AC {{VISUAL_NUMBER}} - {{VISUAL_AC_TEXT}}"}]},
+    {"type": "heading", "attrs": {"level": 4}, "content": [{"type": "text", "text": "[{{VISUAL_STATUS}}] AC {{VISUAL_NUMBER}} - {{VISUAL_AC_TEXT}}"}]},
     {"type": "table", "content": [
       {"type": "tableRow", "content": [
         {"type": "tableHeader", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Before - {{BASE_BRANCH}} @ {{BASE_SHORT}}"}]}]},

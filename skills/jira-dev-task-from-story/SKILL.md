@@ -59,9 +59,9 @@ evidence that the behavior is already satisfied. Explain deliberate exclusions
 and dependencies between tasks.
 
 Use [Breakdown format](references/breakdown-format.md) for the review package.
-Draft each task using [Task description](../create-jira-ticket/references/task-description.md)
-and [Implementation plan](../create-jira-ticket/references/implementation-plan.md).
-For revisions, apply [Dated updates](../create-jira-ticket/references/dated-updates.md).
+Draft each task using [Task description](../using-jira/references/task-description.md)
+and [Implementation plan](../using-jira/references/implementation-plan.md).
+For revisions, apply [Dated updates](../using-jira/references/dated-updates.md).
 Keep ticket text and plan detail in their respective destinations.
 
 Mark a task ready for publication review when its AC, code entry points, and

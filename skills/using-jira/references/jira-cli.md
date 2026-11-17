@@ -1,5 +1,12 @@
 # Jira operations
 
+Execute these commands within the assigned **using-jira** child on
+`gpt-6.1-terra-medium` under [Subagent routing](../../staff/references/subagent-routing.md).
+For task AC self-verification comments, follow
+[AC self-verification](../../staff/references/ac-self-verification.md) before
+selecting a comment or building a payload. Its comment reuse and image-table
+rules also apply to standalone publication and retries.
+
 Use acli or Jira REST API for Jira object reads, writes, and readback. Run acli
 outside the sandbox using the active CLI instructions. Only planning-time source
 Story reads use [jarkdown](../../staff/references/jira-read-policy.md).

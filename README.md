@@ -119,7 +119,7 @@ flowchart TD
     S --> P["Playbooks<br/>investigation · story-breakdown · jira-task · bug-fix · perf-issue · hillclimb<br/>runtime-forensics · trace-forensics · feature · refactoring<br/>prototype · autonomous-run · session-pickup · worktree-cleanup · opening-a-pr"]
     S -. large or unusual task .-> F[figure-it-out]
     S --> PR["principle-* skills<br/>one rule each"]
-    P --> W["Workflows<br/>jira-dev-task-from-story · create-jira-ticket<br/>how · why · architect · arena · interrogate · tdd"]
+    P --> W["Workflows<br/>jira-dev-task-from-story · using-jira<br/>how · why · architect · arena · interrogate · tdd"]
     P --> Q["Cleanup<br/>unslop · technical-writing · deslop · no-comments"]
     P --> A["Delivery addon<br/>ss-simplify-code"]
     P --> V["Verification<br/>control-ui · control-cli · verify-this"]
@@ -149,7 +149,7 @@ the context window until a task needs them.
 | Invoked by                             | Skills                                                                                                                                                                                         |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | You or another skill only              | Every skill not listed in the next row                                                                                                                                                         |
-| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `jira-dev-task-from-story`, `create-jira-ticket`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
+| Also chosen automatically by the model | `unslop`, `deslop`, `technical-writing`, `skill-audit`, `jira-dev-task-from-story`, `using-jira`, `post-pending-review-comments`, `pr-author-context-comments`, `test-audit`, `ss-code-review`, `ss-simplify-code` |
 
 ## Skills
 
@@ -159,7 +159,7 @@ the context window until a task needs them.
   through the bundled
   [investigation](skills/staff/playbooks/investigation.md),
   [Story breakdown and planning](skills/staff/playbooks/story-breakdown.md),
-  [Jira task creation and updates](skills/staff/playbooks/jira-task.md),
+  [Jira operations](skills/staff/playbooks/jira-task.md),
   [bug fix](skills/staff/playbooks/bug-fix.md),
   [perf issue](skills/staff/playbooks/perf-issue.md),
   [hillclimb](skills/staff/playbooks/hillclimb.md),
@@ -246,7 +246,7 @@ commit. When the real backend is unavailable, existing fixture verification
 screenshots can support PASS(FIXTURE). Passing sections contain only Before/After
 screenshots. BLOCK sections use short Traditional Chinese instructions with test links and verified API data.
 Staff records verification results in the comment and keeps descriptions as numbered AC. All Jira attachments use
-[REST API uploads](skills/create-jira-ticket/references/jira-attachments.md),
+[REST API uploads](skills/using-jira/references/jira-attachments.md),
 with returned `content` URLs available for file links. Inline images require
 verified media references. Other Jira object operations use acli or Jira REST API. Only source Story reads
 during breakdown and planning use jarkdown.
@@ -392,10 +392,12 @@ surface that users see. You can also invoke these skills directly.
 ### Standalone tools
 
 - [`bro`](skills/bro/) restates the last message in simpler language without jargon.
-- [`create-jira-ticket`](skills/create-jira-ticket/) creates or updates concise Jira
-  tickets from specs, related issues, pull requests, or user notes. Engineering
+- [`using-jira`](skills/using-jira/) handles Jira reads, drafts, writes,
+  attachments, and readback in a `gpt-6.1-terra-medium` child. Engineering
   tasks keep numbered functional AC in descriptions and implementation plans in
-  comments. Formats live in its `references/` directory.
+  comments. AC self-verification publication follows Staff's designated-comment
+  and Before/After image rules, including standalone requests and retries.
+  Formats live in its `references/` directory.
 - [`post-pending-review-comments`](skills/post-pending-review-comments/) writes
   validated findings to an unsubmitted GitHub review and verifies the result.
 - [`pr-author-context-comments`](skills/pr-author-context-comments/) explains
@@ -413,7 +415,7 @@ surface that users see. You can also invoke these skills directly.
 
 ## Delegation requirements
 
-`staff`, `how`, `why`, `arena`, and `interrogate` delegate work to other
+`staff`, `using-jira`, `how`, `why`, `arena`, and `interrogate` delegate work to other
 agents. The [staff routing contract](skills/staff/references/subagent-routing.md)
 selects the control method, the model route, the access mode, and the child
 prompt.
