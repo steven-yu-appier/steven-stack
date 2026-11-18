@@ -7,9 +7,10 @@ description: Handles Jira reads, issues, descriptions, comments, metadata, relat
 
 ## Delegate Jira operations
 
-The coordinator delegates this workflow to a Jira operations child on the
-`gpt-6.1-terra-medium` route through
-[Subagent routing](../staff/references/subagent-routing.md). Pass the requested
+The coordinator delegates this workflow to a Jira operations child using
+[Subagent routing](../staff/references/subagent-routing.md#model-routes).
+AC self-verification publication and retries use only `gpt-6-luna-high`;
+other Jira work uses the general Jira route. Pass the requested
 operation, targets, source pointers, task paths, publication authority, and any
 known comment or attachment IDs. Follow active user and repository Jira
 instructions for reads, writes, credentials, and cache handling.
@@ -37,7 +38,7 @@ requested; a field update, description edit, or upload adds no plan comment.
 | Request | Route |
 | --- | --- |
 | Clarify a Story or break it into tasks | Use **jira-dev-task-from-story** before publication-ready task drafting. |
-| Draft, publish, update, add images to, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the comment. It owns comment selection, the ADF template, evidence, and readback. Use Jira commands only to execute that workflow. |
+| Draft, publish, update, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the comment. It owns the verification/report workflow and designated comment. Publish only its summary and confirmed GCS report link; reuse completed evidence and uploads. |
 | Create an engineering task | [Task description](references/task-description.md) for AC; [Implementation plan](references/implementation-plan.md) for its plan comment. |
 | Create a Story, survey, or other ticket type | [Ticket formats](references/ticket-formats.md). |
 | Add or revise an implementation-plan comment | [Implementation plan](references/implementation-plan.md). |

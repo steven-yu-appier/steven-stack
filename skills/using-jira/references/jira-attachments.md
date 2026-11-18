@@ -1,10 +1,9 @@
 # Jira attachment commands
 
 Run this workflow in the assigned **using-jira** child on `gpt-6.1-terra-medium`.
-For task AC self-verification images, follow
-[AC self-verification](../../staff/references/ac-self-verification.md) for the
-designated comment and inline Before/After table. The generic file-link commands
-below do not satisfy that image table.
+Task AC self-verification uses a GCS HTML report and a Jira summary/link under
+[AC self-verification](../../staff/references/ac-self-verification.md). Use this
+reference only for separately requested Jira attachments.
 
 Use only the requested operation. Run uploads and acli outside the sandbox
 through an interactive login zsh. Python 3, curl, and acli come from PATH.
@@ -55,7 +54,8 @@ under [Jira CLI operations](jira-cli.md). If unavailable, leave that update pend
 Add `--index N` to the `adf` command for a requested top-level insertion position.
 Read back through acli or REST API after writes and verify the requested change.
 For uploads, verify attachment metadata and download the returned `content` URL
-to compare the attachment bytes with the source file. No jarkdown refresh is required.
+to compare the attachment bytes with the source file. Refresh and verify the
+canonical jarkdown snapshot when active Jira instructions require it.
 
 Uploads use REST API. On an uncertain upload result, inspect attachment metadata
 before retrying. These commands produce file links; inline images require verified

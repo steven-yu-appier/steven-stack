@@ -4,4 +4,6 @@ focus: trace
 weight: 1
 ---
 
-Selects gpt-6.1-terra with medium reasoning for Jira operations, separately from evidence verification.
+Selects only gpt-6-luna with high reasoning for self-verification Jira publication,
+separate from the evidence verifier. If that route is unavailable, leaves
+publication pending rather than using another model, effort or parent execution.

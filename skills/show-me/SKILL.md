@@ -124,3 +124,29 @@ function expandSkill(command: string): string {
 Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed to answer the user's current question or the options to resolve the current discussion point.
 
 Use only the views needed to explain the current question.
+
+### Evidence-report mode
+
+When a caller supplies verification results and requests a report, use those
+results as the source of truth. Preserve every supplied AC or claim, verdict,
+coverage mode, observation, evidence reference and limitation. Missing evidence
+stays visibly missing; layout does not establish a passing verdict.
+
+Honor the caller's required evidence format and per-AC mapping. For screenshot
+reports, embed the supplied actual captures beside their AC and scenario labels,
+retaining revision, role and coverage context. Mark missing, unreadable or
+mismatched captures `證據未完成` at the affected AC and in the summary. Keep the
+behavioral verdict separate from evidence completeness. Text, API responses,
+diagrams, recreated UI and screenshots of those substitutes cannot fill a
+required actual-app screenshot slot. Return missing capture requests to the
+verification owner; presentation must not fabricate or relabel evidence.
+
+Honor the caller's output path and format. For a GCS verification report, produce
+one self-contained `index.html`: inline CSS and any JavaScript, embed images as
+data URLs, and use in-page anchors for sections. Keep the summary easy to scan
+and place evidence beside its claim. Use text safely as text, not executable
+HTML. The report must render without external assets or local filesystem paths.
+
+Check the rendered result through **control-ui**, including embedded images and
+narrow layouts. Return the local file to the caller. The caller owns upload and
+Jira publication; this mode creates no separate verification or publishing flow.

@@ -1,203 +1,164 @@
 # Record AC self-verification
 
-Use for Staff implementation or fix work with a Jira task numbered acceptance criteria,
-and for standalone drafting, publication, updates, image additions, or retries of
-that task's AC self-verification results. Standalone publication reuses valid
-evidence; collect only missing or stale evidence under steps 1 and 2.
-This engineer's record is separate from QA acceptance, the PR's reviewer targets,
-and the Story's preview comment. It adds no code-review gate. For investigations,
-Story planning, prototypes, or work without a resolved Jira task AC,
-report it as not applicable. Follow active Jira write restrictions. Local-only
-work retains evidence and the payload without publishing to Jira.
+Use for implementation or fix work with a resolved Jira task's numbered AC,
+and standalone report drafts, publication, updates, and retries. This is the
+engineer's verification record, separate from QA acceptance and PR reviewer
+targets. Investigations and Story planning without resolved task AC are not
+applicable. Local-only or draft-only work retains the report without uploads
+or Jira writes.
+
+All delegated work in this workflow uses only `gpt-6-luna-high`, model
+`gpt-6-luna` with `high` reasoning, under
+[Subagent routing](subagent-routing.md#model-routes). This includes the verifier,
+report preparation and **using-jira** publication or retries. Keep their roles
+separate. If that route is unavailable, report the affected step pending rather
+than falling back to another model or effort.
 
 ## Contents
 
-- Resolve the Before source
-- Delegate AC evidence collection
-- Resolve the designated comment and build the payload
-- Publish verification results
+- Resolve the verification scope
+- Verify through existing skills
+- Present one HTML report
+- Upload the report to GCS
+- Publish a Jira summary and link
 
-## 1. Resolve the Before source
+## 1. Resolve the verification scope
 
-Before is the current version of the PR's base branch for this verification run.
-Use the verified parent branch for a stack. Record its branch name and full
-commit SHA in the task record. Resolve an ambiguous base before capture.
-The task branch's initial merge-base does not define Before.
+Reuse the acceptance record from [Implementation scope](implementation-scope.md).
+Keep every AC's original wording and numbering. Record the environment, role,
+backend and tested source. After uses the final stable tested commit; local
+uncommitted work records HEAD plus a diff fingerprint and stays local until
+that verification commit exists.
 
-Resolve the base again on each run and before publication. If it advanced or
-was rebased, capture Before at the new base SHA and replace the old comparison.
+Before is the PR's current base branch, or the verified parent for a stack.
+Record its full SHA and supply it to **verify-this** as the comparison source.
+Resolve it again before publication; source or requirement changes invalidate
+only affected evidence. An ambiguous base leaves comparisons pending.
 
-For every AC a screenshot can demonstrate, use **control-ui** with Chrome to
-capture Before at that exact base. Use an isolated worktree or an existing
-verified base deployment rather than switching the active checkout. Match the
-Before and After role, data, viewport, and UI state. Keep source and environment
-details in the task record. Reuse images only while the base SHA and comparison
-conditions match. If evidence is unavailable, follow the verification order
-in step 2 before assigning a status.
+## 2. Verify through existing skills
 
-## 2. Delegate AC evidence collection
+For publication-only requests, reuse completed verification whose AC, tested
+source and environment still match; collect only missing or stale evidence.
+When new verification is needed, assign a fresh verifier, distinct from the
+implementer, through [Subagent routing](subagent-routing.md). Pass the acceptance record, source
+pointers, Before/After revisions, environment, task paths and the screenshot
+contract below. The verifier uses
+[verify-this](../../verify-this/SKILL.md) for the AC claims and its applicable
+control skills for execution. Those skills own measurement, interaction and
+evidence collection; this reference owns AC coverage and delivery.
 
-After cleanup and final checks, use a stable tested commit for After. Record
-the self-verification time with its UTC offset and an eight-character commit
-prefix. Every After image must come from that exact commit. Match the running
-app to that source and backend or fixture setup. If a matching preview requires
-a push or draft PR, complete that authorized publication with coverage
-marked pending, then resume verification and refresh the PR's evidence claims.
-For local-only work with uncommitted changes, record HEAD plus a diff fingerprint
-and label it as uncommitted. Keep it local until the verification commit exists.
+When backend APIs are unreachable or have not deployed the required contract,
+use **control-ui**'s [API response interception](../../control-ui/references/api-response-interception.md)
+on the actual app or preview. Exercise the flow with contract-backed response
+changes instead of treating old fixture screenshots as a new verification run.
+If the contract or interception capability is unavailable, report that gap.
 
-Assign a fresh AC verifier child, distinct from the implementation owner,
-through [Subagent routing](subagent-routing.md). Give it the task's
-Jira source pointers, acceptance record, existing development screenshots,
-current Before evidence, tested source and environment, **control-ui**, and an
-assigned evidence/report path. It owns AC evidence, not source changes or Jira publication. Grant only the tools needed
-for those actions. If required delegation is unavailable, report that coverage
-pending instead of presenting the parent's checks as an independent run.
+Every AC requires actual screenshots of the exercised app or preview, mapped to
+its original AC number and the states/scenarios that establish the result. Capture
+Before/After for comparisons at the recorded revisions and comparable role, data
+and viewport. Intercepted scenarios require screenshots of the actual UI after
+it consumes the replacement response. Use **control-ui** for capture.
 
-The child accounts for every task AC with its original wording, numbering, and
-item identity. Number unnumbered items in source order. Verify each AC in order:
+Record screenshot paths and their source revision, role, scenario and coverage.
+Text, API responses, test output, diagrams, mockups and screenshots of those
+substitutes do not replace screenshots of the exercised app. They may supplement
+the explanation. Reuse a screenshot across ACs only when its actual contents
+establish each claim and each mapping is explicit.
 
-1. Use the real backend. Mark **PASS** when the exercised flow meets the AC,
-   with matching Before and After screenshots from the recorded sources.
-2. If the live preview cannot connect to the backend, first search the task's
-   existing development screenshots for fixture evidence. Mark **PASS(FIXTURE)**
-   when that evidence matches the recorded sources and demonstrates the AC.
-3. Mark **BLOCK** only after checking the available evidence above and finding
-   it insufficient. State the missing access, data, environment, or evidence.
-   For human verification, include the role, API-confirmed cases where available,
-   and steps with expected results. Distinguish observed data from proposed cases.
+Track screenshot evidence separately from the behavioral verdict: `complete`
+only when each required state has a matching actual screenshot, otherwise
+`incomplete` (display `證據未完成`) with the missing AC/state and reason.
+Missing, unreadable, stale or mismatched screenshots remain incomplete even if
+the verifier observed correct behavior. Capture the missing evidence when
+possible; otherwise retain the verdict and disclose the evidence gap. An
+unexercised AC remains BLOCK. Never claim AC verification is complete with an
+incomplete screenshot record.
 
-If an exercised flow mismatches the AC, mark **FAIL**, record the expected and
-actual results, and return the defect to the implementation owner. Refresh
-affected After evidence after the fix.
-Passing tests or reading source alone does not establish a passing result.
+Record each AC's verification verdict and coverage mode separately:
 
-Use the authorized test environment. Limit data changes to authorized test
-records. Retain relevant response fields, not credentials or whole network
-captures. For visual evidence, match the Before conditions where reproducible
-and disclose differences. A screenshot supports only what it actually shows.
+- `VERIFIED` becomes PASS, `NOT VERIFIED` becomes FAIL, and `INCONCLUSIVE`
+  becomes BLOCK with its concrete missing evidence or prerequisite.
+- Coverage is `live`, `intercepted`, or `mixed`. Name the API fields and scenarios
+  intercepted. An intercepted FE pass leaves real backend integration pending;
+  split FE and BE claims when the AC includes both.
 
-The child's local report includes every AC's status, observations, evidence
-paths, coverage limits, and any manual steps and cases. The owner checks it
-against the current source and AC before publication. Refresh affected evidence
-when source, requirements, or environment changes. Publish the current results,
-including FAIL. Fix FAIL results before continuing delivery, then refresh affected
-evidence and replace the prior results in the designated comment.
-BLOCK permits an authorized draft PR with pending coverage.
+The owner accounts for every AC and checks the verifier's evidence against the
+current source. Fix FAIL results and refresh affected verification before
+continuing delivery. BLOCK permits an authorized draft PR with pending coverage.
+If independent verification is unavailable, report it pending rather than
+presenting the implementer's checks as independent.
 
-## 3. Resolve the designated comment and build the payload
+## 3. Present one HTML report
 
-Assign Jira operations to [using-jira](../../using-jira/SKILL.md) on
-`gpt-6.1-terra-medium`. This child owns comment selection, payload preparation,
-uploads, publication, and readback within the authorized scope. The separate AC
-verifier owns evidence collection, not Jira publication.
+Use [show-me](../../show-me/SKILL.md) in evidence-report mode with the complete
+verified record. Request a self-contained `index.html` in the task archive,
+including embedded screenshots and styles. Pass the per-AC screenshot mapping
+and completeness record to **show-me** as required evidence. It owns presentation,
+not verdicts.
+The report contains the ticket and branch, verification time with UTC offset,
+Before/After SHAs, environment, every AC's status and coverage, observations,
+evidence and any remaining manual or backend integration checks. Write prose
+in Traditional Chinese, retaining original AC wording and UI/API identifiers.
 
-Before building a publication payload, resolve one designated self-verification
-comment per task and branch:
+Review the rendered report through **control-ui**. Confirm every AC is present,
+its mapped actual screenshots render beside its result, and missing evidence is
+labeled `證據未完成` beside the affected AC. Check screenshot provenance and
+scenario coverage, not just the presence of an image. Observations, verdicts and
+limitations must agree with the verifier's results.
+Apply [Task files and cleanup](../playbooks/task-artifacts.md) for retention.
 
-1. With a recorded or supplied comment ID, verify its task, branch association,
-   author, visibility, and current body. A mismatched ID leaves the write pending;
-   it does not authorize creating a replacement comment.
-2. Without an ID, inspect current comments for an unambiguous match to this
-   branch. Reuse that ID. If several candidates remain or branch association
-   cannot be established, resolve the ambiguity before writing.
-3. Create a comment only after confirming that no designated comment exists for
-   this task and branch. An unavailable lookup leaves creation pending. Keeping
-   history is not a reason to create another verification comment.
+## 4. Upload the report to GCS
 
-Record the branch, comment ID, base branch and SHA, uploaded media references,
-and covered AC numbers in the task record. On reruns, update the same comment
-and replace prior verification results and images while preserving unrelated
-content, other authors' content, visibility, and attachments. Keep historical
-verification details in the task record. A draft-only request makes no Jira writes;
-if comment selection is unresolved, retain a draft with the target marked pending.
+Read `upload-deletable-files --help`, then run `--status`. If the tool or gcloud
+is missing, or status is nonzero, retain the report and show the concrete setup
+steps. Install software only within the user's authorized scope. An upload
+failure does not change the verification verdict.
 
-Start from [the ADF template](../assets/ac-self-verification.adf.json). Keep one
-verification header with the time, commit, and environment. Repeat the relevant
-PASS, PASS(FIXTURE), FAIL, or BLOCK section per AC in source order. Remove unused
-sections and set values with a JSON parser. Write commentary in Traditional Chinese, retaining
-original AC wording, UI labels, API fields, and identifiers.
+For authorized publication, upload the report directory to a fresh
+`<ticket>/<run-id>/` sub-folder with `upload-deletable-files`. Upload only the
+report deliverable, not the whole task archive or scratch. Retain the returned
+GCS path, browser URL, report SHA-256 and upload time in the task record. On an
+uncertain outcome, inspect the exact object before retrying; reuse a confirmed
+upload when only Jira publication needs retrying.
 
-For PASS, PASS(FIXTURE), and FAIL, set `{{VISUAL_STATUS}}` to the status and publish
-only the AC heading and Before/After image table. Keep observations, measurements,
-execution logs, and verification summaries in the local report. The comment contains only the current base and tested commit,
-with no screenshots or results from intermediate implementation versions.
+Download the object using `gcloud storage cp` and compare its bytes with the
+local report. Open the returned browser URL in an authorized signed-in browser
+and check the report and embedded images. Track upload integrity and browser
+readability separately; a successful copy alone does not prove readers can open
+it. Keep publication pending when those checks are incomplete.
 
-For BLOCK, give one short reason, a usable test-account link, API-verified data,
-and numbered steps with expected results. Follow the concise Traditional Chinese
-style of [the BLOCK example](https://appier.atlassian.net/browse/CAMD-28516?focusedCommentId=2246714).
-Explain missing access or data directly. Omit unavailable links or data instead
-of inventing them. Keep browser-control failures and partial debug observations
-in the local report.
+The shared bucket requires reader access and its documented lifecycle is about
+30 days. Treat its URL as temporary. Preserve the report locally, record the
+retention limitation, and never claim the link is permanent.
 
-Keep the short form:
+## 5. Publish a Jira summary and link
 
-```markdown
-自我驗證 | <含時區的時間> | Commit: <short hash>
-環境：<app URL 與後端>
+Delegate Jira operations to [using-jira](../../using-jira/SKILL.md). Pass the
+confirmed report URL, counts by status, incomplete-evidence ACs, intercepted coverage, pending checks,
+tested commit and task record. This workflow uploads its report to GCS;
+Jira receives only a short summary and report link.
 
-#### [PASS] AC <編號> - <原始 AC>
+Reuse the task and branch's designated verification comment. Verify any recorded
+comment ID, author and visibility; without one, find an unambiguous match and
+create only after confirming none exists. Unavailable or ambiguous lookup
+leaves publication pending. Update the verification section in place, replacing
+its old results, image tables and report link while preserving unrelated content,
+visibility and existing attachments. The task description remains functional AC.
 
-| Before - <base branch 與 SHA> | After - <驗證 commit> |
-| ----------------------------- | --------------------- |
-| <截圖>                        | <截圖>                |
+Use ordinary text paragraphs and a link, for example:
 
-#### [BLOCK] AC <編號> - <原始 AC>
-
-**阻擋原因**：<一句話>
-**測試帳號**：[<帳號 ID>](可直接開啟的連結)
-
-| 案例   | 角色與資料 | API 已確認資料          | 預期結果   |
-| ------ | ---------- | ----------------------- | ---------- |
-| <案例> | <識別資訊> | <endpoint 與實際欄位值> | <預期結果> |
-
-**驗證步驟**
-
-1. <前置條件與入口>
-2. <操作與預期結果>
+```text
+自我驗證 | <含時區的時間> | Commit: <short SHA>
+結果：PASS <n>、FAIL <n>、BLOCK <n>
+截圖證據：<完整 / 證據未完成：AC 編號及缺少情境>
+覆蓋：<live / intercepted / mixed；尚待真實 BE 驗證的範圍>
+報告：<confirmed GCS browser URL>
+限制：<pending checks；報告約 30 天後清除，需 bucket 存取權限>
 ```
 
-Upload new Jira image attachments through REST API under
-[Jira attachment uploads](../../using-jira/references/jira-attachments.md).
-Retain the HTTP 200 response's attachment IDs and `content` URLs. Reuse only
-media matching the current Before and After sources. For the image table,
-use verified Media Services references and actual image dimensions. The
-template's 1280 by 800 dimensions are examples. Neither an attachment ID nor a
-`content` URL is a Media Services ID. If upload or inline reference resolution
-fails, retain successful attachment URLs and local evidence and leave image
-publication pending. A file link alone does not satisfy this image table.
-
-Validate the instantiated ADF, AC coverage, status values, and media identity
-and order. Resolve all template tokens before publishing. The formats follow
-[ADF structure](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/)
-and [media nodes](https://developer.atlassian.com/cloud/jira/platform/apis/document/nodes/media/).
-
-## 4. Publish verification results
-
-The assigned **using-jira** child uses the tools permitted by active Jira
-instructions under
-[Jira operations](../../using-jira/references/jira-cli.md) for current
-content, publication, readback, and retry handling. Follow active Jira cache and
-refresh requirements.
-
-Write the complete ADF from a task-owned scratch file to the designated comment.
-Create a comment only when none exists. On reruns, replace its prior AC results
-and images instead of appending history. Preserve unrelated content and attachments.
-After readback, confirm the task and designated comment ID, original AC wording
-and order, status values, source labels, and Before/After media identity and
-order. Confirm that no intermediate-version images or old results remain in the
-verification sections. Text, attachment counts, file links, or hashes alone do
-not establish that the required image tables were published correctly. Keep
-successful IDs and report publication unverified if structured readback is missing.
-
-Publish PASS, PASS(FIXTURE), FAIL, and BLOCK results in the verification comment
-and keep them in the local record. Return FAIL defects to the implementation
-owner and re-verify after the fix before continuing delivery. A publication-only
-request does not authorize source changes.
-The task description remains numbered functional AC; verification does not add
-checkboxes, completion markers, or description writes. On reruns, replace stale
-results in the designated comment.
-
-Track upload and comment outcomes separately. Retain successful IDs
-so partial failures do not repeat uploads or comments. Archive the result and
-evidence links under [Task files and cleanup](../playbooks/task-artifacts.md).
+Read back the designated comment under active Jira/cache instructions. Confirm
+the commit, counts, screenshot completeness/gaps, coverage and exact report URL,
+with unrelated content intact. Incomplete reports may be published with their gaps
+visible in both HTML and Jira; publication does not complete missing evidence.
+Keep upload and Jira outcomes separate. After a timeout, inspect current state
+before retrying so successful uploads and comments are not duplicated.

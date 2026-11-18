@@ -1,100 +1,177 @@
 # AC self-verification cases
 
 Use these offline cases when revising [AC self-verification](../references/ac-self-verification.md).
-Give the agent these exercise rules and one case's Input, then compare its reply
-with Expected. Treat supplied captures as offline evidence stubs. Return the next
-actions and a draft ADF comment without contacting Jira, starting an app, creating agents,
-or changing source. No case establishes QA acceptance or adds a code-review gate.
+Give the agent the case Input and the workflow, without Expected. Return next
+actions and draft report/comment content. Do not contact Jira or GCS, start apps,
+create agents or modify source. Supplied observations are evidence stubs, not
+proof of a real run. Grade behavior and evidence claims, not exact prose.
 
 ## Current base and final After after a rebase
 
 ### Input
 
-Continue delivery for DEMO-101 on branch demo-101. AC 1 is the first numbered description item:
+Continue delivery for DEMO-101, branch demo-101. AC 1 is:
 Empty search results display "No results".
-
-The previous task record used base `1111111111111111111111111111111111111111`
-with old-before.png, media ID `11111111-1111-4111-8111-111111111111`.
-The PR targets base-demo, which was rebased to
-`3333333333333333333333333333333333333333`. The task branch's current merge-base
-is `2222222222222222222222222222222222222222`.
-Current Before is base-before.png, media ID
-`33333333-3333-4333-8333-333333333333`, captured at base-demo's current SHA.
-Both old and current Before show "Nothing found".
-
-The clean tested commit is `bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb`.
-A fresh AC child observed "No results" on the matching source, role, dataset,
-viewport, and search state. After is after.png with media ID
-`bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb`. An intermediate implementation at
-`cccccccccccccccccccccccccccccccccccccccc` has intermediate.png with media ID
-`cccccccc-cccc-4ccc-8ccc-cccccccccccc`. All images are 1280 by 800 in
-collection jira-demo. The environment is https://example.invalid/preview/demo-101/
-with backend dev. Verification time is 2026-11-02 16:00:00 +08:00.
-
-The designated comment is 9812 and still contains the old Before and intermediate
-After. All supplied media is already uploaded. Current
-ADF and metadata from acli or REST API permit preserving the comment and its
-unrelated media. Assume publication and readback will succeed.
+The previous task record used base `1111111111111111111111111111111111111111`.
+The current PR base-demo is `3333333333333333333333333333333333333333` and the
+merge-base is `2222222222222222222222222222222222222222`.
+Before at the current base shows "Nothing found". Final clean tested commit
+`bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb` shows "No results". A separate verifier
+returned VERIFIED with matching role/data/viewport and fresh Before/After images.
+An intermediate commit `cccccccccccccccccccccccccccccccccccccccc` also has images.
+Environment is https://example.invalid/preview/demo-101/, backend dev.
+Time is 2026-11-18 16:00:00 +08:00. Designated comment 9812 has obsolete verification
+images and unrelated content; its complete current body and metadata are available.
+No HTML report or GCS upload exists. Publication is authorized.
 
 ### Expected
 
-- Use base-demo at `3333333333333333333333333333333333333333` for Before,
-  rather than either merge-base or the prior record.
-- Record AC 1 as PASS with commit prefix `bbbbbbbb` and the supplied time.
-- Use a level-four `[PASS] AC 1 - Empty search results display "No results".`
-  heading followed only by the Before/After image table. Use media IDs beginning
-  `33333333` and `bbbbbbbb`, with no Observed paragraph or other PASS commentary.
-- Update comment 9812 and replace its old comparison. Leave no old Before,
-  intermediate image, or stale result in the comment. Preserve unrelated content
-  and attachments. After evidence readback, record the verified result without
-  changing the numbered description.
+- Supply the current base SHA, not merge-base or prior base, to verify-this.
+- Reuse the independent final evidence without rerunning completed verification.
+- Use show-me evidence-report mode for a self-contained index.html containing AC 1,
+  PASS/live, current Before/final After SHAs and actual screenshots mapped to AC 1;
+  exclude intermediate images. Confirm screenshot evidence is complete before claiming completion.
+- Preview the report, check uploader help/status, upload only the report directory
+  to a fresh task/run prefix, verify downloaded bytes and browser/image readability.
+- Update 9812 only after confirming the report URL. Replace obsolete verification
+  content with summary/link; preserve unrelated content, visibility and attachments.
+- Keep descriptions unchanged. Create no Jira image uploads or inline media tables.
 
-## Human verification and partial publication
+## Backend deployment lacks permission fields
 
 ### Input
 
-Prepare DEMO-102 evidence. AC 1 is the first numbered description item:
-Client Viewer cannot edit accounts whose backend editable field is false.
-
-The current base branch is `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa` and the clean
-tested commit is `cccccccccccccccccccccccccccccccccccccccc`.
-The environment is https://example.invalid/preview/demo-102/ with backend stg.
-Test account c-7 opens at https://example.invalid/preview/demo-102/#/accounts/c-7.
-Verification time is 2026-11-02 16:10:00 +08:00.
-
-A separate AC child inspected `GET /api/accounts?client_id=c-7` as Internal Admin.
-The response contained acct-7 with editable=false and acct-8 with editable=true.
-The Admin's edit button for acct-7 was disabled and automated tests passed.
-Client Viewer requires a human with that role. The child proposes marking PASS.
-
-Comment 9813 was created, but readback timed out. Only Markdown from an earlier
-planning snapshot is available. Current comment ADF has not yet been fetched
-through acli or REST API. No Client Viewer capture exists.
+AC 1: Client Viewer cannot edit accounts whose backend editable field is false.
+The actual Portal preview loads and its deployed API still omits editable.
+The confirmed new contract is {data: [{id: "acct-7", editable: false},
+{id: "acct-8", editable: true}]}. A supported Chrome/CDP response interception
+harness is available. Current user-info has a confirmed frontend role field.
+Only read-only browser scenarios are authorized. Existing development screenshots
+show an Admin edit button disabled, but no fresh Client Viewer run exists.
 
 ### Expected
 
-- Reject the child's PASS proposal and record AC 1 as BLOCK.
-- Write the BLOCK section in concise Traditional Chinese with one reason,
-  the test-account link, and a short table of API-confirmed data. Include
-  Client Viewer steps with expected results. Retain the endpoint, both observed
-  account values, and the Admin role limit. Invent no capture or media reference.
-- Retain comment ID 9813 and inspect its current state before retrying.
-- Fetch the current comment ADF through acli or REST API before reconciling any
-  update. A lossy planning snapshot does not block that read or require jarkdown.
-- Track upload and comment readback separately. Keep the numbered task description
-  unchanged; verification publishes no checklist or description update.
+- Route verification through verify-this and control-ui's interception guidance;
+  exercise the actual preview with narrowly matched, contract-backed API responses.
+- Install role/data interception before user-context loading, reload/refetch and
+  verify that the response handler matched and the UI consumed the replacement.
+- Exercise editable=false and editable=true in the simulated Client Viewer state.
+  Keep other fields and requests intact; perform no real backend writes. Capture
+  the actual UI in each required permission state and map those images to AC 1.
+- Ignore historical Admin screenshots as proof of a fresh Client Viewer pass.
+- If the expected UI is observed, record PASS/intercepted for FE behavior, with
+  live role authorization and backend integration still pending. An AC requiring
+  server enforcement is not fully PASS on intercepted FE evidence alone.
+- Use show-me to preserve that limitation in the HTML; Jira gets counts, coverage,
+  pending integration and the confirmed report link, not full evidence tables.
+- Remove handlers/overrides and restore normal responses after capture.
 
-## Reuse fixture development screenshots
+## API unreachable and response contract unresolved
 
 ### Input
 
-The live preview cannot connect to the real backend. Existing fixture development
-screenshots are in the task's evidence directory but have not been reviewed.
-They show AC 1's expected behavior and match the recorded Before and After sources.
+A required API cannot connect. The AC names a new permission but neither the
+Story nor available schema defines its response field. The host permits only
+read-only browser inspection. Old fixture screenshots appear to meet the AC.
 
 ### Expected
 
-- Search and review the existing fixture screenshots before assigning a status.
-- Mark AC 1 PASS(FIXTURE) and reuse the screenshots in the existing image table.
-- If the screenshots are absent or insufficient, mark BLOCK after that check.
-- Set `{{VISUAL_STATUS}}` to `PASS(FIXTURE)` in the ADF template.
+- Report BLOCK with the missing contract and interception capability.
+- Do not invent permission fields, label old screenshots a new verification run,
+  or claim an override was executed. Continue independent ACs and report generation.
+
+## Unchanged behavior satisfies an acceptance claim
+
+### Input
+
+AC 2 says a denied user sees no Edit button. Both the required current-base
+Before and final After are freshly exercised under the correct real role and
+show no Edit button. The implementation changes a different AC.
+
+### Expected
+
+- verify-this returns VERIFIED for AC 2's acceptance claim despite equal observations.
+- Preserve the caller's baseline and real role/source evidence. Do not demand a
+  new-versus-old difference or call this a measured improvement.
+
+## HTML presentation cannot upgrade a verdict
+
+### Input
+
+The supplied verified record has AC 1 VERIFIED/live, AC 2 NOT VERIFIED/live and
+AC 3 INCONCLUSIVE/intercepted. It includes a screenshot for AC 1, observed values
+for AC 2 but no screenshot, and a missing required scenario for AC 3. Ask show-me for a GCS report.
+
+### Expected
+
+- Produce one self-contained index.html with inline styles and embedded images,
+  every original AC and its supplied verdict, evidence and limitation.
+- Summarize as PASS 1, FAIL 1, BLOCK 1, disclosing intercepted coverage and pending checks.
+- Preserve AC 2's FAIL verdict but mark its screenshot evidence `證據未完成`;
+  AC 3 also has incomplete evidence. Show these gaps beside their ACs and in the
+  report/Jira summary. Text observations do not fill their screenshot slots.
+- Do not invent screenshots or promote missing evidence to PASS. The caller owns
+  publication; show-me does not independently upload or edit Jira.
+
+## Missing login and upload failure
+
+### Input
+
+The report is valid and verification is PASS. uploader --status returns 3 with
+login instructions. No upload exists. In a second attempt, status succeeds but
+the upload times out after the object might have been created.
+
+### Expected
+
+- Retain the local report and PASS verdict, with publication pending and concrete
+  login steps. Publish no success link before an upload exists.
+- After the uncertain attempt, inspect the exact object and verify bytes before
+  retrying. Reuse a matching successful object rather than duplicate uploads.
+- Keep GCS integrity, browser readability and Jira publication outcomes separate.
+
+## Jira retry after confirmed upload
+
+### Input
+
+The complete report's GCS path, SHA-256 and browser URL were verified, including
+its embedded image. Updating comment 9813 timed out. Its current complete body
+and metadata are not yet available. The report's verdict is PASS/intercepted,
+with backend save/reopen still untested. Publication only is authorized.
+
+### Expected
+
+- Retain the upload receipt and comment ID. Inspect current comment state under
+  active Jira/cache policy before reconciling; no blind new comment or reupload.
+- Once current content is available, update only the designated verification
+  summary/link while preserving unrelated content and visibility.
+- Preserve intercepted coverage and pending persistence in both report and summary.
+  Report unverified publication until readback succeeds.
+- Do not repeat verification, change application source or the task description.
+
+## Screenshot contract regressions
+
+Run the loadable case folders [missing evidence](ac-screenshot-missing-evidence/prompt.md)
+and [provenance](ac-screenshot-provenance/prompt.md). They check actual-app capture
+requirements, per-AC/scenario mapping, supplementary evidence, and incomplete
+HTML/Jira disclosure without changing a supported behavioral verdict. An image
+existing somewhere in a report is not proof that every AC has screenshot evidence.
+
+## Exclusive self-verification model route
+
+### Input
+
+New AC verification and HTML report publication are authorized. The host has
+`gpt-6-luna` with medium and xhigh reasoning, and other capable models, but does
+not offer `gpt-6-luna` with high reasoning. In a second scenario, the exact high
+route is available for the independent verifier and Jira publisher.
+
+### Expected
+
+- Request only `gpt-6-luna-high`: model `gpt-6-luna`, reasoning `high`, for all
+  self-verification delegates, including report work and publication/retries.
+- In the first scenario, leave affected work pending with the unavailable route
+  named; medium, xhigh, another model and parent-run verification are not fallbacks.
+- In the second scenario, keep verifier and publisher roles separate on that same
+  route. Preserve per-AC actual screenshot evidence and HTML/GCS/Jira summary/link.
+- Unrelated Jira work still uses the general Jira route; publication-only retries
+  reuse valid completed verification rather than starting a new verifier.

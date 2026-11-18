@@ -22,16 +22,25 @@ The host decides its own native tool syntax. `Task`, `Agent`, and similar names 
 
 | Route                   | Agent kind | Launch arguments                                    | Use                                       |
 | ----------------------- | ---------- | --------------------------------------------------- | ----------------------------------------- |
+| `gpt-6-luna-high`       | `codex`    | `-m gpt-6-luna -c model_reasoning_effort="high"`    | AC self-verification only route           |
 | `gpt-6-luna-extra-high` | `codex`    | `-m gpt-6-luna -c model_reasoning_effort="xhigh"`   | Default code work                         |
 | `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Exploration, code work, and review        |
-| `gpt-6.1-terra-medium`  | `codex`    | `-m gpt-6.1-terra -c model_reasoning_effort="medium"` | Jira operations through **using-jira**    |
+| `gpt-6-luna-medium`     | `codex`    | `-m gpt-6-luna -c model_reasoning_effort="medium"`  | Jira operations through **using-jira**    |
 | `claude-opus-5.5-high`  | `claude`   | `--model claude-opus-5-5 --effort high`             | Hard code and design                      |
 | `claude-opus-5.5-med`   | `claude`   | `--model claude-opus-5-5 --effort medium`           | Prose and judgment                        |
 | `gpt-6.1-sol-medium`    | `codex`    | `-m gpt-6.1-sol -c model_reasoning_effort="medium"` | Independent design and adversarial review |
 
 These are requested routes, not claims of availability. If the host lacks a route or the installed client rejects its arguments, that route is unavailable. Do not weaken a required route to make launch succeed.
 
-**using-jira** requires the Jira operations route for reads, drafts, writes,
+AC self-verification uses only `gpt-6-luna-high` (model `gpt-6-luna`, reasoning
+`high`) for its delegated verification, evidence/report work and publication,
+including standalone retries through **using-jira**. This workflow-specific route
+takes precedence over general code, prose and Jira routes. Keep the verifier
+separate from the implementer and Jira publisher; sharing a model does not merge
+those roles. If unavailable, leave the affected work pending without substituting
+another model or reasoning effort.
+
+Outside AC self-verification, **using-jira** requires the Jira operations route for reads, drafts, writes,
 uploads, and readback, including operations reached from other workflows or
 references. The coordinator assigns one child the authorized Jira scope; that
 child executes directly rather than spawning another Jira child. Keep AC evidence

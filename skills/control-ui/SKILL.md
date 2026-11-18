@@ -27,6 +27,13 @@ Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before savin
 5. Select the correct page by stable app markers, not by tab order alone.
 6. Prefer accessibility roles, labels, and stable `data-*` selectors over coordinates.
 
+## Backend unavailable or outdated
+
+When the real app cannot exercise required response data or permissions because
+its API is unreachable or outdated, read [API response interception](references/api-response-interception.md).
+Use it on the actual app/preview and record FE coverage separately from live
+backend integration.
+
 ## Generic web harness
 
 Use the repo's installed browser tooling when possible. If the repo already has Playwright, a minimal one-off probe looks like:

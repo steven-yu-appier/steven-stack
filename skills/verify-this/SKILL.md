@@ -1,6 +1,6 @@
 ---
 name: verify-this
-description: Tests a specific claim against fresh local evidence. Use for verification requests, before-and-after comparisons, or proof that a fix works.
+description: Tests an acceptance claim or before/after improvement against fresh evidence. Use for verification requests, before-and-after comparisons, or proof that a fix works.
 disable-model-invocation: true
 ---
 
@@ -19,12 +19,18 @@ Do not use this for vague claims like "the code is cleaner". Ask for a measurabl
 
 ## Workflow
 
-1. Restate the claim in falsifiable form: condition, metric, and threshold.
+1. Restate the claim in falsifiable form: conditions and observable expected result, or a metric and threshold for a measured improvement.
 2. Choose the smallest local test or interaction that can disprove it.
-3. Capture a baseline from the old state: merge base, parent commit, failing branch, or current broken repro.
-4. Capture treatment from the changed state with the same command, data, warmup, and environment.
-5. Compare raw artifacts: numbers, screenshots, terminal transcripts, HTTP responses, profiles, heap snapshots, or test output.
-6. Return exactly one verdict: `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`.
+3. For a comparison, use the caller's specified baseline; otherwise resolve the old state from the merge base, parent commit, failing branch, or broken repro. An acceptance claim may be checked against its expected result without a baseline. Capture Before when the caller requires it.
+4. Exercise the tested state. For a comparison, match command, data, warmup and environment to the baseline. Record the tested revision, role and coverage mode.
+5. Honor the caller's required evidence format and per-claim mapping when
+   collecting and returning evidence. Missing required captures stay explicitly
+   incomplete even when observations establish a behavioral verdict. For AC
+   self-verification, take the screenshot contract from the caller; supplementary
+   text, API responses, test output or generated visuals cannot satisfy it.
+6. Compare raw artifacts: numbers, screenshots, terminal transcripts, HTTP responses, profiles, heap snapshots, or test output.
+7. For UI claims whose backend is unavailable or outdated, use **control-ui**'s [API response interception](../control-ui/references/api-response-interception.md). Report intercepted FE coverage and pending live integration separately.
+8. Return exactly one verdict: `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`.
 
 ## Local surfaces
 
@@ -55,9 +61,9 @@ Before cleanup, put the claim, measured result and limitations in the archived t
 
 ## Verdict rules
 
-- `VERIFIED`: baseline and treatment differ in the predicted direction, by the claimed threshold, with no obvious confound.
-- `NOT VERIFIED`: the behavior is unchanged, moves the wrong way, or misses the threshold.
-- `INCONCLUSIVE`: no valid baseline, noisy signal, failed measurement, or an environment difference invalidates the comparison.
+- `VERIFIED`: the exercised state meets the acceptance claim, including preserved behavior, or the comparison meets its claimed threshold with no obvious confound. Equal Before/After can verify an unchanged acceptance requirement; it cannot establish a claimed improvement.
+- `NOT VERIFIED`: the exercised state contradicts the acceptance expectation, or a claimed improvement is unchanged, moves the wrong way, or misses its threshold.
+- `INCONCLUSIVE`: missing evidence, a missing required baseline, noisy signal, failed measurement, or an environment difference prevents the claim from being decided. Intercepted responses establish only the exercised FE behavior, not live backend authorization or persistence.
 
 ## Output
 
@@ -68,7 +74,10 @@ VERIFIED | NOT VERIFIED | INCONCLUSIVE
 Claim: <falsifiable claim>
 
 Evidence:
-<metric/artifact>: baseline=<...>, treatment=<...>, delta=<...>, threshold=<...>
+<artifact/observation>: expected=<...>, observed=<...>
+<for comparisons>: baseline=<...>, treatment=<...>, delta=<...>, threshold=<...>
+Coverage: <live / intercepted / mixed; tested revision, role and limitations>
+Required evidence: <complete / incomplete; mapped capture paths and provenance, or missing states/reasons>
 
 Reasoning:
 <one tight paragraph naming the evidence and any confounds>

@@ -25,7 +25,7 @@ If sources still allow different observable outcomes or contain an unresolved `[
 
 This gate passes when every affected result has a requirement source or recorded owner decision. Calling a plan "confirmed" is insufficient. Re-enter the gate whenever new ambiguity or conflicting evidence appears.
 
-For Jira task numbered AC, [resolve the Before source](ac-self-verification.md#1-resolve-the-before-source) before source changes and confirm it again at verification.
+For Jira task numbered AC, [resolve the Before source](ac-self-verification.md#1-resolve-the-verification-scope) before source changes and confirm it again at verification.
 
 ## Implement the confirmed scope
 
@@ -39,12 +39,12 @@ Before writing or changing a behavioral assertion, trace its expected result to 
 
 The delivery owner compares the final artifact with the original AC and design sources, not just the implementation report or passing tests. Account for added behavior against the confirmed scope and remove unsupported additions.
 
-Exercise the applicable flows and states in the real application. For Figma acceptance, compare exact copy and casing, complete tooltip text, component variants, dimensions, typography, colors, spacing, and placement in the affected states. Verify conditional content, filtered counts, and empty/loading/error states where relevant. Reusing a DS component or checking one happy path does not complete this comparison. Screenshots may help local inspection; uploading them is not a gate.
+Exercise the applicable flows and states in the real application. For Figma acceptance, compare exact copy and casing, complete tooltip text, component variants, dimensions, typography, colors, spacing, and placement in the affected states. Verify conditional content, filtered counts, and empty/loading/error states where relevant. Reusing a DS component or checking one happy path does not complete this comparison. For Jira task AC self-verification, follow its required per-AC screenshot contract. Other acceptance work selects evidence appropriate to the claim.
 
-Record observed results with the tested source revision and environment. Separate fixture behavior, live API save/reopen, and backend execution coverage. A merged backend contract or Done ticket does not establish the serving deployment. A local operand investigation supports only that operand's conclusion.
+Record observed results with the tested source revision and environment. Separate intercepted frontend behavior, live API save/reopen, and backend execution coverage. A merged backend contract or Done ticket does not establish the serving deployment. A local operand investigation supports only that operand's conclusion.
 
 Acceptance passes when every applicable result has a confirmed source and current behavioral evidence, including the required visual comparison. Report unresolved, failed, blocked, or unexecuted checks and their reasons as pending. Verified slices may be published in an authorized draft with those gaps; publication is not QA readiness. Claim readiness only for the scope whose acceptance passed, and name unmet integration prerequisites.
 
 Opening a PR formats this record into reviewer targets. Refresh affected acceptance after requirement or source changes and rebuild the handoff claims from the current results.
 
-For Jira task numbered AC, run [AC self-verification](ac-self-verification.md) at delivery to record the engineer's evidence and results in the verification comment.
+For Jira task numbered AC, run [AC self-verification](ac-self-verification.md) at delivery to compose **verify-this** and **show-me**, upload the HTML report to GCS, and publish its summary/link in Jira.

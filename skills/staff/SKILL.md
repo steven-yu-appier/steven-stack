@@ -12,9 +12,9 @@ Read [Task files and cleanup](playbooks/task-artifacts.md) before producing loca
 
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
-For implementation or fix work with a Jira task numbered AC, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It owns the Before/After sources, separate verifier, Jira evidence comment, and verification results, including local-only publication limits.
+For implementation or fix work with a Jira task numbered AC, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It coordinates AC coverage through **verify-this**, HTML reporting through **show-me**, GCS publication, and the Jira summary/link, including local-only publication limits.
 
-For standalone drafting, publication, updates, image additions, or retries of task AC self-verification results, read the same [AC self-verification](references/ac-self-verification.md) before preparing the comment. Route Jira operations through **using-jira**, even when no implementation or fix is requested.
+For standalone drafting, publication, updates, evidence additions, or retries of task AC self-verification results, read the same [AC self-verification](references/ac-self-verification.md) before preparing the comment. Route Jira operations through **using-jira**, even when no implementation or fix is requested.
 
 For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
 
@@ -109,7 +109,7 @@ Routine cleanup of this task's owned, consumed logs and intermediate files follo
 
 When coordinating development, delegate implementation and test work through [`references/subagent-routing.md`](references/subagent-routing.md). Use one child for coupled work and split independent slices when useful. The parent scopes the task, assigns work, reviews results, and owns acceptance and delivery. An assigned implementation child completes its scope directly; this rule does not require it to delegate again. Preserve required second opinions and host restrictions. Routed workflow skills (**how**, **why**, **arena**, **architect**, **interrogate**) choose their roles and model routes. The routing file owns host-specific spawn mechanics.
 
-Delegate Jira operations through **using-jira** on `gpt-6.1-terra-medium`, including reads, drafts, writes, uploads, and readback. An assigned Jira operations child executes directly without recursive delegation. Other children return Jira work to the coordinator. This role does not replace the separate AC verifier or authorize implementation, Git delivery, or unrelated Jira writes.
+Delegate Jira operations through **using-jira** using the Jira route in [Subagent routing](references/subagent-routing.md#model-routes), including reads, drafts, writes, uploads, and readback. AC self-verification uses its exclusive `gpt-6-luna-high` route. An assigned Jira operations child executes directly without recursive delegation. Other children return Jira work to the coordinator. This role does not replace the separate AC verifier or authorize implementation, Git delivery, or unrelated Jira writes.
 
 Every child prompt opens with the staff invocation, `$staff` for Codex and `/staff` for Claude Code. It gives the child its role and model route, its access mode, the working directory or worktree, file pointers, success criteria, and the output contract. The routing file owns how that prompt reaches each host.
 

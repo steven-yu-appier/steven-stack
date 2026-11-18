@@ -4,4 +4,8 @@ focus: trace
 weight: 1
 ---
 
-Draft ADF retains the exact AC heading and the ordered Before and After inline media table.
+Jira draft contains a concise verification time/commit summary, PASS count,
+complete per-AC actual screenshot evidence, intercepted FE coverage, pending real backend integration and the exact confirmed
+GCS browser URL. Notes temporary retention and reader access. Includes no
+Before/After media table or Jira image upload. Plans comment readback separately
+from already-completed report upload verification.

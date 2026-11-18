@@ -39,5 +39,5 @@ Screenshot: <url|string>
 - When revising AC, preserve unchanged group names, wording, and order; apply
   [Dated updates](dated-updates.md) to changed items.
 - Record verification results under
-  [self-verification comment](../../staff/references/ac-self-verification.md#4-publish-verification-results).
+  [self-verification comment](../../staff/references/ac-self-verification.md#5-publish-a-jira-summary-and-link).
   Keep completion states out of the description.

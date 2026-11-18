@@ -241,17 +241,27 @@ standalone; this integration does not add it to delivery workflows.
 
 For Jira task numbered AC, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
-A separate child compares the current base branch with the self-verification
-commit. When the real backend is unavailable, existing fixture verification
-screenshots can support PASS(FIXTURE). Passing sections contain only Before/After
-screenshots. BLOCK sections use short Traditional Chinese instructions with test links and verified API data.
-Staff records verification results in the comment and keeps descriptions as numbered AC. All Jira attachments use
-[REST API uploads](skills/using-jira/references/jira-attachments.md),
-with returned `content` URLs available for file links. Inline images require
-verified media references. Other Jira object operations use acli or Jira REST API. Only source Story reads
-during breakdown and planning use jarkdown.
-The reusable [ADF template](skills/staff/assets/ac-self-verification.adf.json)
-records engineer self-verification, not QA acceptance.
+This workflow uses only `gpt-6-luna-high` for delegated work, including report
+preparation and Jira publication; unavailable routing leaves that work pending.
+A separate verifier uses **verify-this** for AC claims and the applicable
+control skill to exercise the actual application. When a backend API is unreachable
+or outdated, **control-ui** uses scoped response interception on the real app;
+reports distinguish intercepted frontend coverage from pending live integration.
+**show-me** presents the results as a self-contained HTML report with embedded
+evidence. Every AC presents actual app screenshots mapped to its scenarios;
+missing or mismatched captures are marked `證據未完成` separately from the
+behavioral verdict. Text, API responses and diagrams supplement those captures.
+Staff uploads it using `upload-deletable-files`, then **using-jira**
+updates the designated comment with a short summary and report link. Descriptions
+remain numbered functional AC. Report URLs require bucket access and are temporary,
+with a documented lifecycle of about 30 days; local archives retain the report.
+This is the engineer's record, not QA acceptance.
+
+The uploader requires Google Cloud CLI, a configured account and bucket permissions.
+Run `upload-deletable-files --help` and `--status` before publishing. Missing tools
+or failed authentication leave publication pending with setup steps; local-only
+work keeps its report without uploading. Separately requested Jira attachments
+still use [REST API uploads](skills/using-jira/references/jira-attachments.md).
 
 Optional repository settings live in `.steven-stack/config.yaml` and
 `.steven-stack/config.local.yaml`; neither file is required. `docs_root` defaults
@@ -386,17 +396,18 @@ surface that users see. You can also invoke these skills directly.
   drive, inspect, and profile an interactive CLI or TUI.
 - [`control-ui`](skills/control-ui/) builds or reuses a local browser or CDP harness to
   drive, screenshot, and profile a web, IDE, or Electron UI.
-- [`verify-this`](skills/verify-this/) tests one falsifiable claim against a baseline
-  and a treatment, then returns `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`.
+- [`verify-this`](skills/verify-this/) checks an acceptance claim or measures a before/after
+  comparison, then returns `VERIFIED`, `NOT VERIFIED`, or `INCONCLUSIVE`.
 
 ### Standalone tools
 
 - [`bro`](skills/bro/) restates the last message in simpler language without jargon.
 - [`using-jira`](skills/using-jira/) handles Jira reads, drafts, writes,
-  attachments, and readback in a `gpt-6.1-terra-medium` child. Engineering
+  attachments, and readback through the configured Jira route. AC self-verification
+  uses only `gpt-6-luna-high`. Engineering
   tasks keep numbered functional AC in descriptions and implementation plans in
   comments. AC self-verification publication follows Staff's designated-comment
-  and Before/After image rules, including standalone requests and retries.
+  and GCS report summary/link rules, including standalone requests and retries.
   Formats live in its `references/` directory.
 - [`post-pending-review-comments`](skills/post-pending-review-comments/) writes
   validated findings to an unsubmitted GitHub review and verifies the result.
@@ -405,7 +416,8 @@ surface that users see. You can also invoke these skills directly.
 - [`recall`](skills/recall/) rebuilds your recent working context from Claude Code and
   Codex transcripts, live state, and the shared record.
 - [`show-me`](skills/show-me/) explains the current topic with concise diagrams,
-  code-shape sketches, and focused HTML artifacts.
+  code-shape sketches, and focused HTML artifacts. Its evidence-report mode
+  presents verified results without changing their verdicts or coverage.
 - [`skill-audit`](skills/skill-audit/) reviews a skill's triggering, target mechanics,
   and instruction fitness without editing the skill.
 - [`teach`](skills/teach/) runs `how` and `why` and combines their findings into one
