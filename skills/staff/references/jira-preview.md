@@ -28,8 +28,9 @@ Include the derived URLs in the PR body before creation. Synchronization starts 
 
 ## Synchronize the Story comment
 
-Delegate preview synchronization to [using-jira](../../using-jira/SKILL.md) on
-`gpt-6.1-terra-medium`. Its assigned child performs Story/comment reads, updates,
+Read [Model routing](model-routing.md#workflow-roles) for the Jira role, then
+delegate preview synchronization to [using-jira](../../using-jira/SKILL.md).
+Its assigned child performs Story/comment reads, updates,
 and readback under [Jira operations](../../using-jira/references/jira-cli.md),
 following active Jira tool and cache instructions.
 

@@ -241,8 +241,9 @@ standalone; this integration does not add it to delivery workflows.
 
 For Jira task numbered AC, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
-This workflow uses only `gpt-6-luna-high` for delegated work, including report
-preparation and Jira publication; unavailable routing leaves that work pending.
+[Model routing](skills/staff/references/model-routing.md) owns the exclusive
+self-verification route, including report preparation and Jira publication;
+unavailable routing leaves that work pending.
 A separate verifier uses **verify-this** for AC claims and the applicable
 control skill to exercise the actual application. When a backend API is unreachable
 or outdated, **control-ui** uses scoped response interception on the real app;
@@ -404,7 +405,7 @@ surface that users see. You can also invoke these skills directly.
 - [`bro`](skills/bro/) restates the last message in simpler language without jargon.
 - [`using-jira`](skills/using-jira/) handles Jira reads, drafts, writes,
   attachments, and readback through the configured Jira route. AC self-verification
-  uses only `gpt-6-luna-high`. Engineering
+  resolves its workflow override from [Model routing](skills/staff/references/model-routing.md). Engineering
   tasks keep numbered functional AC in descriptions and implementation plans in
   comments. AC self-verification publication follows Staff's designated-comment
   and GCS report summary/link rules, including standalone requests and retries.

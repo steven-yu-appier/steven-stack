@@ -39,7 +39,9 @@ Read both prompt assets in full and supply the resolved scope and constraints:
 - [Code reuse reviewer](references/personas/code-reuse-reviewer.md)
 - [Efficiency reviewer](references/personas/efficiency-reviewer.md)
 
-Route both reviewers through [staff's subagent routing contract](../staff/references/subagent-routing.md) using `gpt-6.1-sol-medium`, with read-only access to the project. Launch them concurrently when supported and collect both terminal outcomes before applying anything. They return text; the parent saves any report. Do not grant writes just to save a report.
+Read [Model routing](../staff/references/model-routing.md#workflow-roles) for
+the simplification reviewer roles. Route both through [staff's subagent routing
+contract](../staff/references/subagent-routing.md), with read-only access to the project. Launch them concurrently when supported and collect both terminal outcomes before applying anything. They return text; the parent saves any report. Do not grant writes just to save a report.
 
 These are leaf review assignments. Give each child the Staff context required by the routing contract, plus its prompt asset, scope, constraints, and expected findings. Its success criterion is its assigned review only; it does not run a delivery, open a PR, invoke this addon recursively, or delegate another review.
 

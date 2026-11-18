@@ -161,16 +161,16 @@ existing somewhere in a report is not proof that every AC has screenshot evidenc
 ### Input
 
 New AC verification and HTML report publication are authorized. The host has
-`gpt-6-luna` with medium and xhigh reasoning, and other capable models, but does
-not offer `gpt-6-luna` with high reasoning. In a second scenario, the exact high
-route is available for the independent verifier and Jira publisher.
+the self-verification model with different reasoning efforts and other capable
+models, but not the exact route currently configured in Model routing. In a second
+scenario, that exact route is available for the independent verifier and publisher.
 
 ### Expected
 
-- Request only `gpt-6-luna-high`: model `gpt-6-luna`, reasoning `high`, for all
-  self-verification delegates, including report work and publication/retries.
+- Read Model routing and request its exact AC self-verification model and effort
+  for all delegates, including report work and publication/retries.
 - In the first scenario, leave affected work pending with the unavailable route
-  named; medium, xhigh, another model and parent-run verification are not fallbacks.
+  named; another effort, model and parent-run verification are not fallbacks.
 - In the second scenario, keep verifier and publisher roles separate on that same
   route. Preserve per-AC actual screenshot evidence and HTML/GCS/Jira summary/link.
 - Unrelated Jira work still uses the general Jira route; publication-only retries

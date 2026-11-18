@@ -1,8 +1,8 @@
 schema_version: "1.1"
 name: standalone-verification-publication
 expected_outcome: |
-  Routes standalone publication through AC self-verification using only gpt-6-luna
-  with high reasoning, separately from the completed evidence verifier. Reuses the
+  Routes standalone publication through AC self-verification, reading Model routing
+  for its exclusive model and effort separately from the completed evidence verifier. Reuses the
   verified self-contained HTML/GCS report and complete per-AC actual screenshots.
   Updates comment 9812 with summary, screenshot completeness, coverage and report
   link while preserving unrelated content. No ADF image tables or Jira image

@@ -1,6 +1,7 @@
 # Jira read routing
 
-Assign Jira reads to the **using-jira** child on `gpt-6.1-terra-medium` under
+Assign Jira reads to the **using-jira** child using the workflow-specific Jira
+role from [Model routing](model-routing.md#workflow-roles), under
 [Subagent routing](subagent-routing.md). The rules below choose the read tool;
 active repository and user instructions take precedence.
 

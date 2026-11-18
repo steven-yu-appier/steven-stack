@@ -1,8 +1,9 @@
 # Jira operations
 
 Execute these commands within the assigned **using-jira** child under
-[Subagent routing](../../staff/references/subagent-routing.md#model-routes).
-AC self-verification uses only `gpt-6-luna-high`; other work uses the general Jira route.
+[Model routing](../../staff/references/model-routing.md#workflow-roles) and
+[Subagent routing](../../staff/references/subagent-routing.md). Resolve the
+workflow-specific Jira role before executing commands.
 For task AC self-verification comments, follow
 [AC self-verification](../../staff/references/ac-self-verification.md) before
 selecting a comment or building a payload. Its designated-comment and summary/link

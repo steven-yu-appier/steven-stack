@@ -81,7 +81,7 @@ Launch all matching investigators before waiting for any investigator. Don't ask
 
 Subagent config (each):
 
-- Route: `gpt-6.1-sol-medium`
+- Read [Model routing](../staff/references/model-routing.md#workflow-roles) for the why investigator role.
 - Give each investigator access to its assigned MCP, and instruct it not to modify files or external state.
 
 Each investigator gets:
@@ -125,7 +125,7 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 Launch one synthesizer:
 
-- Route: `claude-opus-5.5-med`
+- Read [Model routing](../staff/references/model-routing.md#workflow-roles) for the why synthesizer role.
 - Give the synthesizer access to the MCPs needed to verify citations, and instruct it not to modify files or external state.
 
 The synthesizer gets:

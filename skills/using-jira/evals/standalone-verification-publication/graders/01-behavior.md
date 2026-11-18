@@ -4,6 +4,7 @@ focus: trace
 weight: 1
 ---
 
-Selects only gpt-6-luna with high reasoning for self-verification Jira publication,
-separate from the evidence verifier. If that route is unavailable, leaves
-publication pending rather than using another model, effort or parent execution.
+Reads Model routing and resolves its exact AC self-verification model and effort
+for Jira publication, separately from the evidence verifier. If that route is
+unavailable, leaves publication pending without substituting another model,
+effort or parent execution. Does not copy a model policy from a workflow file.

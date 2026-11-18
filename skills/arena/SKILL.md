@@ -29,7 +29,7 @@ Give all N candidates the same task prompt.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric. State what success looks like for *this* task, then turn it into 3-6 concrete gradeable criteria. Use the rubric in Phase D. Candidates only see the task.
-3. Pick the runners. Default to one each on `claude-opus-5.5-med`, `gpt-6.1-sol-high`, and `claude-opus-5.5-high`. Launch more when the arena covers multiple design directions. Use the same route N times when the work is generation-bound rather than judgment-sensitive.
+3. Pick the runners. Use the caller's resolved candidate pool, or read [Model routing](../staff/references/model-routing.md#workflow-roles) for arena's default runner pool. Launch more when the arena covers multiple design directions. Use the same route N times when the work is generation-bound rather than judgment-sensitive.
 4. Assign output paths. Each candidate writes to its own location (a git worktree where possible, otherwise `<task-scratch>/arena/candidate-<n>/`), per the **separate-before-serializing-shared-state** principle skill.
 
 ## Phase B: Fan out
@@ -42,7 +42,7 @@ If a candidate fails to produce output, proceed with N-1 and note the dropout in
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, choose one route from the default cross-judge pool. The pool contains `claude-opus-5.5-med`, `gpt-6.1-sol-high`, and `claude-opus-5.5-high`. Prefer a different model family from the parent's. Launch one read-only judge on that route. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't launch the judge while candidates are still writing.
+After all Phase B candidates complete, read [Model routing](../staff/references/model-routing.md#workflow-roles) and choose one route from arena's cross-judge pool. Prefer a different model family from the parent's. Launch one read-only judge on that route. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't launch the judge while candidates are still writing.
 
 ## Phase D: Pick a base
 

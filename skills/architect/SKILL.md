@@ -32,7 +32,8 @@ Skip Phase A only when the work is greenfield with no surrounding system to inte
 
 Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
 
-Use your configured architect routes (defaults `gpt-6.1-sol-high` and `claude-opus-5.5-high`).
+Read [Model routing](../staff/references/model-routing.md#workflow-roles) and
+pass its architect candidate pool to arena.
 
 Require at least two structurally distinct candidates before synthesis, per **exhaust-the-design-space**. Variations within one design do not count.
 

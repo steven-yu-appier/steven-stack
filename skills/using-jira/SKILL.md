@@ -8,9 +8,9 @@ description: Handles Jira reads, issues, descriptions, comments, metadata, relat
 ## Delegate Jira operations
 
 The coordinator delegates this workflow to a Jira operations child using
-[Subagent routing](../staff/references/subagent-routing.md#model-routes).
-AC self-verification publication and retries use only `gpt-6-luna-high`;
-other Jira work uses the general Jira route. Pass the requested
+[Model routing](../staff/references/model-routing.md#workflow-roles) to select
+the Jira role, including the self-verification override, and
+[Subagent routing](../staff/references/subagent-routing.md) for host controls. Pass the requested
 operation, targets, source pointers, task paths, publication authority, and any
 known comment or attachment IDs. Follow active user and repository Jira
 instructions for reads, writes, credentials, and cache handling.

@@ -35,12 +35,9 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn reviewers
 
-Launch both reviewers before waiting for either reviewer. Use the Reviewer A/B labels and routes below.
-
-| Subagent | Route |
-|----------|-------|
-| Reviewer A | `gpt-6.1-sol-high` |
-| Reviewer B | `claude-opus-5.5-high` |
+Read [Model routing](../staff/references/model-routing.md#workflow-roles) for
+interrogate's Reviewer A and Reviewer B roles. Launch both reviewers before
+waiting for either reviewer.
 
 For each reviewer:
 - Make the subagent read-only.

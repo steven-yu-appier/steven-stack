@@ -1,4 +1,4 @@
 interface:
   display_name: "Using Jira"
-  short_description: "Handle Jira operations through a Terra medium child"
+  short_description: "Handle Jira operations through the configured worker route"
   default_prompt: "Use $using-jira to complete the requested Jira changes within the specified scope and publication authority."

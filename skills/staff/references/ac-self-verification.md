@@ -7,12 +7,10 @@ targets. Investigations and Story planning without resolved task AC are not
 applicable. Local-only or draft-only work retains the report without uploads
 or Jira writes.
 
-All delegated work in this workflow uses only `gpt-6-luna-high`, model
-`gpt-6-luna` with `high` reasoning, under
-[Subagent routing](subagent-routing.md#model-routes). This includes the verifier,
-report preparation and **using-jira** publication or retries. Keep their roles
-separate. If that route is unavailable, report the affected step pending rather
-than falling back to another model or effort.
+Before delegating, read [Model routing](model-routing.md#workflow-roles) and
+resolve the AC self-verification route for every worker, including report work
+and **using-jira** publication or retries. Keep their roles separate and follow
+that route's availability rules.
 
 ## Contents
 

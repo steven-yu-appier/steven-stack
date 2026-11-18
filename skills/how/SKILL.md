@@ -23,7 +23,7 @@ When in doubt, take the simple path.
 
 Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. When delegating, launch all supported explorers before waiting for any explorer:
 
-- Route: `gpt-6.1-sol-medium`
+- Read [Model routing](../staff/references/model-routing.md#workflow-roles) for the how explorer role.
 - Ask each explorer to inspect the code without modifying files.
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
@@ -36,7 +36,7 @@ Inspect the code without modifying files and explain it in the parent. Use the *
 
 Synthesize the exploration in the parent, or, when supported and useful, launch one explainer after all explorers return:
 
-- Route: `claude-opus-5.5-med`
+- Read [Model routing](../staff/references/model-routing.md#workflow-roles) for the how explainer role.
 - Ask the explainer to inspect the code without modifying files.
 
 Build its prompt from `references/explainer-prompt.md`, keeping the **[Synthesis]** sections and every explorer's findings filled in.

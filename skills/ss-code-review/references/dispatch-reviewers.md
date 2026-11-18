@@ -27,11 +27,9 @@ When Stage 3c selected the lite roster, the fast pass still runs.
 
 #### Model tiering
 
-Three reviewers inherit the session model with no override: `correctness-reviewer`, `security-reviewer`, and `adversarial-reviewer`. These perform the highest-stakes analysis — logic bugs, security vulnerabilities, adversarial failure scenarios — and should run at whatever capability level the user has configured. If the user is on Opus, these get Opus.
-
-All other persona subagents and bundled local prompt assets use the platform's mid-tier model to reduce cost and latency. See the Spawning subsection below for the exact dispatch-time override.
-
-The orchestrator (this skill) also inherits the session model; it handles intent discovery, reviewer selection, finding merge/dedup, and synthesis.
+Before assigning reviewer models, read
+[Model routing](../../staff/references/model-routing.md#local-code-review-tiers).
+It owns session inheritance, reviewer tiers and supported host fallbacks.
 
 #### Run ID
 
@@ -45,12 +43,10 @@ Omit the `mode` parameter when dispatching sub-agents so the user's configured p
 
 **Resolve `<root>` in any prompt asset before it leaves this stage.** A subagent never runs the artifact-root block, so a `<root>` placeholder still in the text it receives is a literal path it will search and find nothing at. Whenever you read a prompt asset here — by any of the dispatch routes below — substitute the artifact root this run resolved into every `<root>` it contains.
 
-**Model override at dispatch time — this is a correctness guarantee, not cosmetics.** Omitting the override on a top-tier parent session (e.g. Opus) silently runs that reviewer at the expensive tier — the regression this prevents. The tier is a deterministic function of the persona, so as you select reviewers in Stage 3, **record each reviewer's tier in an internal working list** — that list is your external memory (the role the old printed `[session model]`/`[mid-tier]` labels served) and it must exist and be honored even though it is no longer rendered in the user-facing announce:
-
-- **Session model** (no override; inherits the session model) — `correctness-reviewer`, `security-reviewer`, and `adversarial-reviewer` only.
-- **Mid-tier** — every other persona and CE agent: pass the platform's balanced mid-tier model. In Claude Code, that is the Sonnet class. In Codex, apply this tier only when the active dispatch primitive exposes an explicit model or custom-agent selector; task wording alone does not select a different model. Otherwise omit the override and inherit the parent model — a working review on the parent model beats a broken dispatch on an unrecognized name.
-
-Apply this on **every** Agent / `spawn_agent` / subagent call. A missed override is a silent cost-and-quality regression, so treat the internal tier list as load-bearing — moving it out of the user-facing output removed the *display*, not the discipline.
+Record each reviewer's resolved model selection from Model routing in the
+internal working list, then apply it on every native subagent call. Keep those
+labels out of the user-facing announce. An intended tier in a prompt is not a
+dispatch override.
 
 **Bounded foreground dispatch.** Dispatch the selected reviewers as a **foreground concurrent batch** rather than serially. Ask for background execution off, spawn as many reviewers as the host's active-agent cap accepts, and size each batch to the cap the host actually accepts; never hard-code a number. Reviewers are independent by construction (none is fed another's output — see the independence rule above), so batch composition and completion order cannot change any finding, and stable numbers are assigned downstream after the post-merge sort. Where the harness does not run same-message calls concurrently, this identical dispatch **degrades to serial** automatically — that is the correct floor, not a failure.
 
