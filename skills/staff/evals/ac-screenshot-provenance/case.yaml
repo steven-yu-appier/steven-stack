@@ -1,5 +1,0 @@
-schema_version: "1.1"
-name: ac-screenshot-provenance
-expected_outcome: |
-  Preserve behavioral verdicts while identifying missing or invalid actual-app screenshots per AC.
-  Carry evidence gaps into self-contained HTML and the Jira summary; retain GCS delivery.

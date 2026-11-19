@@ -242,8 +242,7 @@ standalone; this integration does not add it to delivery workflows.
 For Jira task numbered AC, Staff also runs
 [AC self-verification](skills/staff/references/ac-self-verification.md).
 [Model routing](skills/staff/references/model-routing.md) owns the exclusive
-self-verification route, including report preparation and upload. The Jira
-publisher uses the host's default model and effort unless the user specifies a route.
+self-verification route, including report preparation and upload.
 A separate verifier uses **verify-this** for AC claims and the applicable
 control skill to exercise the actual application. When a backend API is unreachable
 or outdated, **control-ui** uses scoped response interception on the real app;

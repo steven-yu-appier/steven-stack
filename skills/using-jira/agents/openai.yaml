@@ -1,4 +1,4 @@
 interface:
   display_name: "Using Jira"
-  short_description: "Handle Jira operations through the configured worker route"
+  short_description: "Handle scoped Jira operations"
   default_prompt: "Use $using-jira to complete the requested Jira changes within the specified scope and publication authority."

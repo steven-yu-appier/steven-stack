@@ -21,8 +21,7 @@ The host decides its own native tool syntax. `Task`, `Agent`, and similar names 
 ## Model routes
 
 When a workflow prescribes a model route, resolve its model and reasoning effort
-in [Model routing](model-routing.md). For workflows without a prescribed route,
-use the host defaults unless the user specifies a route. This file owns launch,
+in [Model routing](model-routing.md). This file owns launch,
 access control and result collection.
 
 ## Enforce access
@@ -56,7 +55,7 @@ Tell a write-capable child which files it owns. Give concurrent writers separate
 
 ## Use a native subagent tool
 
-When a route is prescribed, use its model and reasoning effort as native tool parameters. Otherwise omit those overrides. Translate the CLI settings in the tables into native tool controls; CLI arguments are not native tool parameters. A prompt-only access instruction does not satisfy **Enforce access**. Launch independent children before waiting for any child. A native tool is valid only when it can preserve any requested route, the access mode, and the working directory. Confirm each result belongs to the assigned task before accepting it.
+When a route is prescribed, use its model and reasoning effort as native tool parameters. Translate the CLI settings in the tables into native tool controls; CLI arguments are not native tool parameters. A prompt-only access instruction does not satisfy **Enforce access**. Launch independent children before waiting for any child. A native tool is valid only when it can preserve any requested route, the access mode, and the working directory. Confirm each result belongs to the assigned task before accepting it.
 
 Do not assume that a child inherits active skills. For a native Claude Code Agent child, give the absolute path to staff's `SKILL.md` and require the child to read and follow it before starting. Do not tell it to use the Skill tool or `/staff`. A literal `/staff` in an Agent prompt does not execute a slash command, and the Skill tool refuses staff because staff sets `disable-model-invocation: true`.
 

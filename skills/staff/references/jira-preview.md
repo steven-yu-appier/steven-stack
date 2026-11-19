@@ -4,9 +4,17 @@ Use this reference to select the backend for frontend verification and PR delive
 
 ## Select the backend environment
 
-For frontend work with a selectable backend, choose from the task's acceptance criteria and implementation plan before verification. Use `stg` for pure frontend tasks, including work that only uses the existing backend behavior. If the task requires backend integration, default to `dev` and honor an explicit environment choice for that integration. Apply these rules without asking for confirmation. Skip backend selection when the repository has no selectable backend.
+Choose from the task scope before verification. Honor an explicit user choice;
+otherwise apply the table without asking. Skip repositories without a selectable backend.
 
-Record the selected backend in the PR body. For `idash-mono` and `ad-cloud-portal`, prefix the title with `[use dev]` for `dev`; use no environment prefix for `stg`. Apply other repositories' own backend-selection conventions. This choice does not change the preview hostname or URL path.
+| Backend | When | How |
+| --- | --- | --- |
+| `stg` | Pure FE work using existing backend behavior | No configuration or title prefix required |
+| `dev` | FE work requiring backend integration | Prefix the PR title with `[use dev]` |
+
+The title convention applies to `idash-mono` and `ad-cloud-portal`; use other
+repositories' own conventions. Record the backend in the PR body and use it for
+verification. Preview URLs remain unchanged.
 
 ## Derive preview URLs before creation
 

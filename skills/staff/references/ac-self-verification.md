@@ -8,8 +8,7 @@ applicable. Local-only work and report drafts retain the report without uploads
 or Jira writes.
 
 Before delegating verification or report work, resolve its route in
-[Model routing](model-routing.md#workflow-roles). Route the separate Jira Task
-comment through [using-jira](../../using-jira/SKILL.md) for publication and retries.
+[Model routing](model-routing.md#workflow-roles).
 
 ## Contents
 
@@ -131,7 +130,7 @@ retention limitation, and never claim the link is permanent.
 
 ## 5. Publish a Jira summary and link
 
-Delegate Jira operations to [using-jira](../../using-jira/SKILL.md). Pass the
+Delegate publication and retries to a separate [using-jira](../../using-jira/SKILL.md) child. Pass the
 Task key, branch, tested commit, confirmed GCS report URL, counts by status,
 incomplete-evidence ACs, intercepted coverage, pending checks, and task record.
 Jira receives a short summary and a link to the report in GCS.

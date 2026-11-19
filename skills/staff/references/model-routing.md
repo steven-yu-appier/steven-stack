@@ -38,10 +38,7 @@ Codex uses `-m <model> -c model_reasoning_effort="<effort>"`; Claude uses
 | AC self-verification and report work | `gpt-6-luna-high` only |
 
 AC self-verification's route covers verification, report preparation and GCS
-upload. Keep verifier, implementer and Jira publisher roles separate. If the
-exact model or effort for verification or report work is unavailable, leave that
-work pending. [using-jira](../../using-jira/SKILL.md) has no fixed model route,
-including for publication-only work that reuses completed verification and uploads.
+upload. If the exact model or effort is unavailable, leave that work pending.
 
 For other workflows, preserve their required independence, model diversity and
 fallback rules. An explicit user route takes precedence over defaults. A task

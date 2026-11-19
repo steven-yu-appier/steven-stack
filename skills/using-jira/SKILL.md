@@ -9,8 +9,7 @@ description: Handles Jira reads, issues, descriptions, comments, metadata, relat
 
 The coordinator delegates this workflow to a Jira operations child using
 [Subagent routing](../staff/references/subagent-routing.md) for host controls.
-Use the host's default model and reasoning effort unless the user specifies a
-route. Pass the requested operation, targets, source pointers, task paths,
+Pass the requested operation, targets, source pointers, task paths,
 publication authority, and any known comment or attachment IDs. Follow active
 user and repository Jira instructions for reads, writes, credentials, and cache
 handling.
