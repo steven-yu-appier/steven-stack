@@ -11,7 +11,6 @@ levels or model pools. Resolve the route here, then apply
 | --- | --- | --- | --- |
 | `gpt-6-luna-extra-high` | codex | `gpt-6-luna` | `xhigh` |
 | `gpt-6-luna-high` | codex | `gpt-6-luna` | `high` |
-| `gpt-6-luna-medium` | codex | `gpt-6-luna` | `medium` |
 | `gpt-6.1-sol-medium` | codex | `gpt-6.1-sol` | `medium` |
 | `gpt-6.1-sol-high` | codex | `gpt-6.1-sol` | `high` |
 | `claude-opus-5.5-high` | claude | `claude-opus-5-5` | `high` |
@@ -36,15 +35,13 @@ Codex uses `-m <model> -c model_reasoning_effort="<effort>"`; Claude uses
 | interrogate Reviewer A | `gpt-6.1-sol-high` |
 | interrogate Reviewer B | `claude-opus-5.5-high` |
 | arena default runners and cross-judge pool | `claude-opus-5.5-med`, `gpt-6.1-sol-high`, `claude-opus-5.5-high` |
-| using-jira outside self-verification | `gpt-6-luna-medium` |
-| AC self-verification, all delegates | `gpt-6-luna-high` only |
+| AC self-verification and report work | `gpt-6-luna-high` only |
 
-AC self-verification's route takes precedence over general code, prose and Jira
-roles. It covers verification, report preparation and publication, including
-standalone using-jira retries. Keep verifier, implementer and publisher roles
-separate even when the model is shared. If its exact model/effort is unavailable,
-leave affected work pending; another model, effort or parent execution is not a
-fallback. Publication-only work reuses completed valid verification.
+AC self-verification's route covers verification, report preparation and GCS
+upload. Keep verifier, implementer and Jira publisher roles separate. If the
+exact model or effort for verification or report work is unavailable, leave that
+work pending. [using-jira](../../using-jira/SKILL.md) has no fixed model route,
+including for publication-only work that reuses completed verification and uploads.
 
 For other workflows, preserve their required independence, model diversity and
 fallback rules. An explicit user route takes precedence over defaults. A task

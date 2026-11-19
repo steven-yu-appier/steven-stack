@@ -1,9 +1,8 @@
 # Jira read routing
 
-Assign Jira reads to the **using-jira** child using the workflow-specific Jira
-role from [Model routing](model-routing.md#workflow-roles), under
-[Subagent routing](subagent-routing.md). The rules below choose the read tool;
-active repository and user instructions take precedence.
+Assign Jira reads through [using-jira](../../using-jira/SKILL.md). Use the rules
+below to choose the read tool unless active repository or user instructions
+specify otherwise.
 
 Use jarkdown only to read the source Story, including its comments and attachments, during Story/task breakdown and planning. The cache and promotion procedure below applies only to those Story reads.
 

@@ -1,10 +1,10 @@
 schema_version: "1.1"
 name: standalone-verification-publication
 expected_outcome: |
-  Routes standalone publication through AC self-verification, reading Model routing
-  for its exclusive model and effort separately from the completed evidence verifier. Reuses the
-  verified self-contained HTML/GCS report and complete per-AC actual screenshots.
-  Updates comment 9812 with summary, screenshot completeness, coverage and report
-  link while preserving unrelated content. No ADF image tables or Jira image
-  uploads. Plans readback and leaves publication pending if the required route
-  is unavailable. Does not contact Jira or change source in this offline case.
+  Routes standalone publication through a Jira child using the host defaults.
+  The unavailable verifier route does not block publishing completed evidence.
+  Reuses the verified self-contained HTML/GCS report and complete per-AC actual
+  screenshots. Updates Task comment 9812 with summary, screenshot completeness,
+  coverage and report link while preserving unrelated content. No ADF image
+  tables or Jira image uploads. Plans readback without contacting Jira or changing
+  source in this offline case.

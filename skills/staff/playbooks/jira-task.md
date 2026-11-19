@@ -8,8 +8,7 @@ Apply [Staff's Jira scope](../SKILL.md#autonomy).
    Reuse reviewed drafts and approval from Story breakdown. For a standalone
    request, use the user's specified changes as the scope. A description-only
    request stays limited to the description.
-2. Read [Model routing](../references/model-routing.md#workflow-roles) for the
-   workflow-specific Jira role, then delegate [using-jira](../../using-jira/SKILL.md)
-   with those inputs through [Subagent routing](../references/subagent-routing.md).
+2. Delegate [using-jira](../../using-jira/SKILL.md) with those inputs through
+   [Subagent routing](../references/subagent-routing.md).
    It owns drafting, formats, publication, and readback. Return its result and
    any pending operations. Jira-only work ends at that result.

@@ -7,10 +7,9 @@ targets. Investigations and Story planning without resolved task AC are not
 applicable. Local-only work and report drafts retain the report without uploads
 or Jira writes.
 
-Before delegating, read [Model routing](model-routing.md#workflow-roles) and
-resolve the AC self-verification route for every worker, including report work
-and **using-jira** publication or retries. Keep their roles separate and follow
-that route's availability rules.
+Before delegating verification or report work, resolve its route in
+[Model routing](model-routing.md#workflow-roles). Route the separate Jira Task
+comment through [using-jira](../../using-jira/SKILL.md) for publication and retries.
 
 ## Contents
 

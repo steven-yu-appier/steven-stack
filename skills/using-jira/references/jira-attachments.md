@@ -1,7 +1,6 @@
 # Jira attachment commands
 
-Run this workflow in the assigned **using-jira** child using the Jira role from
-[Model routing](../../staff/references/model-routing.md#workflow-roles).
+Run this workflow in the assigned **using-jira** child.
 Task AC self-verification uses a GCS HTML report and a Jira summary/link under
 [AC self-verification](../../staff/references/ac-self-verification.md). Use this
 reference only for separately requested Jira attachments.

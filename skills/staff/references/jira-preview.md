@@ -28,8 +28,7 @@ Include the derived URLs in the PR body before creation. Synchronization starts 
 
 ## Synchronize the Story comment
 
-Read [Model routing](model-routing.md#workflow-roles) for the Jira role, then
-delegate preview synchronization to [using-jira](../../using-jira/SKILL.md).
+Delegate preview synchronization to [using-jira](../../using-jira/SKILL.md).
 Its assigned child performs Story/comment reads, updates,
 and readback under [Jira operations](../../using-jira/references/jira-cli.md),
 following active Jira tool and cache instructions.

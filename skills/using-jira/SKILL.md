@@ -8,17 +8,17 @@ description: Handles Jira reads, issues, descriptions, comments, metadata, relat
 ## Delegate Jira operations
 
 The coordinator delegates this workflow to a Jira operations child using
-[Model routing](../staff/references/model-routing.md#workflow-roles) to select
-the Jira role, including the self-verification override, and
-[Subagent routing](../staff/references/subagent-routing.md) for host controls. Pass the requested
-operation, targets, source pointers, task paths, publication authority, and any
-known comment or attachment IDs. Follow active user and repository Jira
-instructions for reads, writes, credentials, and cache handling.
+[Subagent routing](../staff/references/subagent-routing.md) for host controls.
+Use the host's default model and reasoning effort unless the user specifies a
+route. Pass the requested operation, targets, source pointers, task paths,
+publication authority, and any known comment or attachment IDs. Follow active
+user and repository Jira instructions for reads, writes, credentials, and cache
+handling.
 
 An assigned Jira operations child executes its scope directly without delegating
 this workflow again. An implementation child hands Jira operations back to its
 coordinator for routing. The coordinator reviews the result and owns delivery.
-If the required route or tool access is unavailable, leave Jira operations
+If required delegation or Jira tool access is unavailable, leave Jira operations
 pending and report the missing capability. Do not substitute a parent-run operation.
 
 ## Scope and authorization

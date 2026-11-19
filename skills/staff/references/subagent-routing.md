@@ -1,6 +1,6 @@
 # Subagent routing
 
-Use this contract whenever a skill delegates work. The workflow chooses the role and whether delegation is required. [Model routing](model-routing.md) selects its model and effort. This file chooses the control method. Explicit independence or model-diversity gates remain required.
+Use this contract whenever a skill delegates work. The workflow chooses the role and whether delegation is required. [Model routing](model-routing.md) defines prescribed model routes. This file chooses the control method. Explicit independence or model-diversity gates remain required.
 
 ## Contents
 
@@ -20,9 +20,9 @@ The host decides its own native tool syntax. `Task`, `Agent`, and similar names 
 
 ## Model routes
 
-Before assigning a delegate, read [Model routing](model-routing.md). It owns
-model selection, reasoning effort, workflow overrides and provider defaults.
-Use the workflow and role to resolve the route there; this file owns launch,
+When a workflow prescribes a model route, resolve its model and reasoning effort
+in [Model routing](model-routing.md). For workflows without a prescribed route,
+use the host defaults unless the user specifies a route. This file owns launch,
 access control and result collection.
 
 ## Enforce access
@@ -43,7 +43,7 @@ For write delegates, assign a unique subdirectory of the task owner's scratch un
 Every child prompt includes:
 
 - The staff invocation as the first characters of the prompt, with text following on the same line. Use `$staff` for Codex and `/staff` for Claude Code. Claude Code loads the skill only when `/staff` starts the message.
-- The role and exact route name.
+- The role and any prescribed route name.
 - Read-only or write access.
 - The working directory or assigned worktree.
 - File pointers instead of copied bulk context.
@@ -56,7 +56,7 @@ Tell a write-capable child which files it owns. Give concurrent writers separate
 
 ## Use a native subagent tool
 
-Use the route name to select the native model and reasoning effort. Translate the CLI settings in the tables into native tool controls; CLI arguments are not native tool parameters. A prompt-only access instruction does not satisfy **Enforce access**. Launch independent children before waiting for any child. A native tool is valid only when it can preserve the requested route, access mode, and working directory. Confirm each result belongs to the assigned task before accepting it.
+When a route is prescribed, use its model and reasoning effort as native tool parameters. Otherwise omit those overrides. Translate the CLI settings in the tables into native tool controls; CLI arguments are not native tool parameters. A prompt-only access instruction does not satisfy **Enforce access**. Launch independent children before waiting for any child. A native tool is valid only when it can preserve any requested route, the access mode, and the working directory. Confirm each result belongs to the assigned task before accepting it.
 
 Do not assume that a child inherits active skills. For a native Claude Code Agent child, give the absolute path to staff's `SKILL.md` and require the child to read and follow it before starting. Do not tell it to use the Skill tool or `/staff`. A literal `/staff` in an Agent prompt does not execute a slash command, and the Skill tool refuses staff because staff sets `disable-model-invocation: true`.
 

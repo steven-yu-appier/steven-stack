@@ -5,7 +5,7 @@ timeout_seconds: 600
 allowed_tools: [Read, Glob, Grep, Skill, Write, Edit, Bash]
 ---
 
-離線演練，禁止連 Jira 或 GCS、啟動 app、修改 source 或真的建立子代理。請讀取 skills/using-jira/SKILL.md，回傳下一步、預計使用的子代理模型與 reasoning effort，以及 Jira 留言草稿。僅列出需要的操作，不執行。
+離線演練，禁止連 Jira 或 GCS、啟動 app、修改 source 或真的建立子代理。請讀取 skills/using-jira/SKILL.md，回傳下一步、子代理的模型選擇方式，以及 Jira 留言草稿。僅列出需要的操作，不執行。Host 可用預設子代理，但無法使用 AC verifier 指定的 model 和 reasoning effort。
 
 把 DEMO-101 的 AC 自我驗證結果貼到 Jira。這次只發布結果，不改程式。
 branch 是 demo-101。task record 指定 comment 9812，同 task、branch、author 與 visibility 都已確認，完整現有內容可用，含舊的驗證圖片與一段需要保留的其他內容。

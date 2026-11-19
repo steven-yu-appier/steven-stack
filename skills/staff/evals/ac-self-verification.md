@@ -163,15 +163,16 @@ existing somewhere in a report is not proof that every AC has screenshot evidenc
 New AC verification and HTML report publication are authorized. The host has
 the self-verification model with different reasoning efforts and other capable
 models, but not the exact route currently configured in Model routing. In a second
-scenario, that exact route is available for the independent verifier and publisher.
+scenario, the exact route is available for verification and report work, and a
+Jira operations child can use the host defaults.
 
 ### Expected
 
 - Read Model routing and request its exact AC self-verification model and effort
-  for all delegates, including report work and publication/retries.
+  for verification and report work.
 - In the first scenario, leave affected work pending with the unavailable route
   named; another effort, model and parent-run verification are not fallbacks.
-- In the second scenario, keep verifier and publisher roles separate on that same
-  route. Preserve per-AC actual screenshot evidence and HTML/GCS/Jira summary/link.
-- Unrelated Jira work still uses the general Jira route; publication-only retries
-  reuse valid completed verification rather than starting a new verifier.
+- In the second scenario, use a separate Jira publisher on the host defaults.
+  Preserve per-AC actual screenshot evidence and the HTML/GCS/Task summary and link.
+- Publication-only retries with a verified report reuse it and do not depend on
+  availability of the verifier route.
