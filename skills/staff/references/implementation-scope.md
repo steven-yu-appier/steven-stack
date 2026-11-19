@@ -27,6 +27,8 @@ This gate passes when every affected result has a requirement source or recorded
 
 For Jira task numbered AC, [resolve the Before source](ac-self-verification.md#1-resolve-the-verification-scope) before source changes and confirm it again at verification.
 
+For frontend tasks with a selectable backend, [select the environment](jira-preview.md#select-the-backend-environment) from the confirmed scope and carry it into verification and PR delivery.
+
 ## Implement the confirmed scope
 
 Give implementers and reviewers the acceptance record and original source pointers, not only a paraphrased plan. Implement the smallest change that satisfies it. Add behavior, including fallbacks or keyboard handling, only for a confirmed AC or explicit repository contract. Keep unrelated refactoring out of scope.

@@ -1,12 +1,12 @@
 # Preview links and Jira sync
 
-Read this reference before PR publication. Confirm the backend environment when applicable. Preview derivation and Jira synchronization below apply only to new PRs in `ad-cloud-portal` or `idash-mono`; existing-PR maintenance preserves preview URLs and skips Jira synchronization.
+Use this reference to select the backend for frontend verification and PR delivery. Preview derivation and Jira synchronization below apply only to new PRs in `ad-cloud-portal` or `idash-mono`; existing-PR maintenance preserves preview URLs and skips Jira synchronization.
 
-## Confirm the backend environment
+## Select the backend environment
 
-For a frontend PR with a selectable backend, establish an explicit user choice of `dev` or `stg` for this PR. Reuse a choice already confirmed in the session. Otherwise ask before publication, offering `stg` as the proposed default; only a reply confirms it. Continue independent preparation while awaiting the answer. A staging preview hostname does not establish the backend choice. For repositories without a backend-dependent preview, such as this skill repository, this gate is not applicable.
+For frontend work with a selectable backend, choose from the task's acceptance criteria and implementation plan before verification. Use `stg` for pure frontend tasks, including work that only uses the existing backend behavior. If the task requires backend integration, default to `dev` and honor an explicit environment choice for that integration. Apply these rules without asking for confirmation. Skip backend selection when the repository has no selectable backend.
 
-Record the confirmed backend in the PR body. For `idash-mono` and `ad-cloud-portal`, prefix the title with `[use dev]` for `dev`; use no environment prefix for `stg`. Apply other repositories' own backend-selection conventions. This choice does not change the preview hostname or URL path.
+Record the selected backend in the PR body. For `idash-mono` and `ad-cloud-portal`, prefix the title with `[use dev]` for `dev`; use no environment prefix for `stg`. Apply other repositories' own backend-selection conventions. This choice does not change the preview hostname or URL path.
 
 ## Derive preview URLs before creation
 

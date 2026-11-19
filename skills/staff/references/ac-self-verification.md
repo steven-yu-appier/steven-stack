@@ -23,10 +23,11 @@ that route's availability rules.
 ## 1. Resolve the verification scope
 
 Reuse the acceptance record from [Implementation scope](implementation-scope.md).
-Keep every AC's original wording and numbering. Record the environment, role,
-backend and tested source. After uses the final stable tested commit; local
-uncommitted work records HEAD plus a diff fingerprint and stays local until
-that verification commit exists.
+Keep every AC's original wording and numbering. For frontend work, apply the
+[backend selection rule](jira-preview.md#select-the-backend-environment) when
+applicable. Record the environment, role, backend and tested source. After uses
+the final stable tested commit. For uncommitted work, record HEAD and a diff
+fingerprint and keep the report local until the verification commit exists.
 
 Before is the PR's current base branch, or the verified parent for a stack.
 Record its full SHA and supply it to **verify-this** as the comparison source.

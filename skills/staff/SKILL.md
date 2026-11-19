@@ -16,7 +16,7 @@ For implementation or fix work with a Jira task numbered AC, read [AC self-verif
 
 For standalone drafting, publication, updates, evidence additions, or retries of task AC self-verification results, read the same [AC self-verification](references/ac-self-verification.md) before preparing the comment. Route Jira operations through **using-jira**, even when no implementation or fix is requested.
 
-For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Before publishing a PR, read [Preview links and Jira sync](references/jira-preview.md) for backend environment confirmation and repository-specific preview rules.
+For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Read [Preview links and Jira sync](references/jira-preview.md) for backend selection and repository-specific preview rules.
 
 For any Jira attachment upload, read [Jira attachment uploads](../using-jira/references/jira-attachments.md). Upload through REST API and use the returned `content` URL for file links.
 
