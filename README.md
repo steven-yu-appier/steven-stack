@@ -253,7 +253,8 @@ evidence. Every AC presents actual app screenshots mapped to its scenarios;
 missing or mismatched captures are marked `證據未完成` separately from the
 behavioral verdict. Text, API responses and diagrams supplement those captures.
 Staff uploads it using `upload-deletable-files`, then **using-jira**
-updates the designated comment with a short summary and report link. Descriptions
+creates or updates the dedicated Jira Task comment with a short summary and
+the verified report link, then reads it back. Descriptions
 remain numbered functional AC. Report URLs require bucket access and are temporary,
 with a documented lifecycle of about 30 days; local archives retain the report.
 This is the engineer's record, not QA acceptance.

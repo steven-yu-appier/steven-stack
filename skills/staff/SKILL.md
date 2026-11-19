@@ -86,6 +86,8 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Automatic delivery.** A Staff implementation or fix request authorizes task-scoped commit, normal push, and PR creation or maintenance. After cleanup and successful final verification, continue directly through [Opening a PR](playbooks/opening-a-pr.md), including updating an existing PR body for the resulting change and evidence. Do not end with a local-only completion report, ask whether to commit or push, or wait for another reminder. Apply this to follow-up fixes and accepted review changes as well as the initial implementation. Delivery is complete when the intended commit is verified on the remote branch and the current PR body and head are read back successfully, plus any applicable preview synchronization outcome is reported.
 
+For delivery with numbered Jira task AC, this scope also covers uploading the HTML report and publishing its summary and link in the [dedicated Task verification comment](references/ac-self-verification.md#5-publish-a-jira-summary-and-link). Full delivery includes comment readback. Report pending publication separately from PR and Story preview status.
+
 Read-only and review-only requests authorize inspection and reporting, not source edits, comment cleanup, commits, or runtime changes. A playbook or delegated skill cannot expand that authorization. This is a workflow constraint, not a claim that the host enforces a read-only sandbox.
 
 Story planning permits inspection, clarification, draft artifacts, and isolated

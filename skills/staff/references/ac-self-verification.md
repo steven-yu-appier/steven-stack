@@ -4,7 +4,7 @@ Use for implementation or fix work with a resolved Jira task's numbered AC,
 and standalone report drafts, publication, updates, and retries. This is the
 engineer's verification record, separate from QA acceptance and PR reviewer
 targets. Investigations and Story planning without resolved task AC are not
-applicable. Local-only or draft-only work retains the report without uploads
+applicable. Local-only work and report drafts retain the report without uploads
 or Jira writes.
 
 Before delegating, read [Model routing](model-routing.md#workflow-roles) and
@@ -133,16 +133,17 @@ retention limitation, and never claim the link is permanent.
 ## 5. Publish a Jira summary and link
 
 Delegate Jira operations to [using-jira](../../using-jira/SKILL.md). Pass the
-confirmed report URL, counts by status, incomplete-evidence ACs, intercepted coverage, pending checks,
-tested commit and task record. This workflow uploads its report to GCS;
-Jira receives only a short summary and report link.
+Task key, branch, tested commit, confirmed GCS report URL, counts by status,
+incomplete-evidence ACs, intercepted coverage, pending checks, and task record.
+Jira receives a short summary and a link to the report in GCS.
 
-Reuse the task and branch's designated verification comment. Verify any recorded
-comment ID, author and visibility; without one, find an unambiguous match and
-create only after confirming none exists. Unavailable or ambiguous lookup
-leaves publication pending. Update the verification section in place, replacing
-its old results, image tables and report link while preserving unrelated content,
-visibility and existing attachments. The task description remains functional AC.
+Publish a dedicated verification comment on the Jira Task for this branch.
+Verify any recorded comment ID, author and visibility. If there is no recorded
+ID, find an unambiguous matching Task verification comment or create one after
+confirming none exists. Record the comment ID for retries. If lookup is
+unavailable or ambiguous, leave publication pending. Update the verification
+section of an existing match in place, replacing its old results, image tables
+and report link while preserving unrelated content, visibility and attachments.
 
 Use ordinary text paragraphs and a link, for example:
 
@@ -155,9 +156,9 @@ Use ordinary text paragraphs and a link, for example:
 限制：<pending checks；報告約 30 天後清除，需 bucket 存取權限>
 ```
 
-Read back the designated comment under active Jira/cache instructions. Confirm
-the commit, counts, screenshot completeness/gaps, coverage and exact report URL,
-with unrelated content intact. Incomplete reports may be published with their gaps
+Read back the designated comment on the Jira Task under active Jira/cache
+instructions. Confirm the commit, counts, screenshot completeness, coverage,
+and exact report URL, with unrelated content intact. Incomplete reports may be published with their gaps
 visible in both HTML and Jira; publication does not complete missing evidence.
 Keep upload and Jira outcomes separate. After a timeout, inspect current state
 before retrying so successful uploads and comments are not duplicated.

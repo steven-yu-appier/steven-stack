@@ -38,7 +38,7 @@ requested; a field update, description edit, or upload adds no plan comment.
 | Request | Route |
 | --- | --- |
 | Clarify a Story or break it into tasks | Use **jira-dev-task-from-story** before publication-ready task drafting. |
-| Draft, publish, update, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the comment. It owns the verification/report workflow and designated comment. Publish only its summary and confirmed GCS report link; reuse completed evidence and uploads. |
+| Draft, publish, update, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the dedicated Jira Task comment. Publish its summary and confirmed GCS report link; reuse completed evidence and uploads. |
 | Create an engineering task | [Task description](references/task-description.md) for AC; [Implementation plan](references/implementation-plan.md) for its plan comment. |
 | Create a Story, survey, or other ticket type | [Ticket formats](references/ticket-formats.md). |
 | Add or revise an implementation-plan comment | [Implementation plan](references/implementation-plan.md). |
