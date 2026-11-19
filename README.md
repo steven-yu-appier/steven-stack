@@ -456,10 +456,12 @@ review with the lead agent's own opinion.
 - `show-me` comes from [HumanLayer's skill catalog][humanlayer-show-me].
 - `test-audit` comes from [OpenClaw's repository skills][openclaw-test-audit].
 - `arena`, `architect`, `figure-it-out`, `how`, `interrogate`, `no-comments`,
-  the `principle-*` skills, `recall`, `show-me-your-work`, `tdd`, `teach`, `technical-writing`,
-  `typescript-best-practices`, `unslop`, and `why` come from
+  the `principle-*` skills, `recall`, `show-me-your-work`, `tdd`, `teach`,
+  `typescript-best-practices`, and `why` come from
   [pstack's skill catalog][pstack-principles]. `recall` and `teach` come from a
   [later pstack revision][pstack-teach].
+- `technical-writing` and `unslop` use [pstack's writing skills][pstack-writing]
+  with model invocation enabled.
 
 [cursor-team-kit]: https://github.com/cursor/plugins/tree/12d587dfb20741cafc376c42c696c5f6e2a64487/cursor-team-kit/skills
 [bro-x]: https://x.com/dillon_mulroy/status/2079238358358778142
@@ -467,3 +469,4 @@ review with the lead agent's own opinion.
 [openclaw-test-audit]: https://github.com/openclaw/openclaw/blob/792907dce5f2264b79a92d96fb4d0bf1fbd6c5d2/.agents/skills/test-audit/SKILL.md
 [pstack-teach]: https://github.com/cursor/plugins/tree/ecc249f1e306fc64ddf83c7bed16cacf7c2239db/pstack/skills
 [pstack-principles]: https://github.com/cursor/plugins/tree/5bf2b1544db739998121a306340631963c2ff3de/pstack/skills
+[pstack-writing]: https://github.com/cursor/plugins/tree/35a90942a7f02e1ebbc2443643179815f2147954/pstack/skills
