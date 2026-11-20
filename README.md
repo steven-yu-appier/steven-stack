@@ -101,6 +101,15 @@ claude plugin marketplace remove steven-local
 See the [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins/install) for
 distribution options and local marketplace behavior.
 
+## Release the plugin
+
+Follow the [version bump instructions in `AGENTS.md`](AGENTS.md#update-the-plugin-version-before-pushing)
+before you push plugin changes.
+
+After you refresh `steven-stack@steven-local`, check its installed version with
+`codex plugin list --marketplace steven-local --json` in Codex or
+`claude plugin list` in Claude Code.
+
 ## Start here
 
 Invoke `/staff` in Claude Code or `$staff` in Codex with your task. Staff
