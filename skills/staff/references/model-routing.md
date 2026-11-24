@@ -13,6 +13,7 @@ levels or model pools. Resolve the route here, then apply
 | `gpt-6-luna-high` | codex | `gpt-6-luna` | `high` |
 | `gpt-6.1-sol-medium` | codex | `gpt-6.1-sol` | `medium` |
 | `gpt-6.1-sol-high` | codex | `gpt-6.1-sol` | `high` |
+| `gpt-6.2-sol-medium` | codex | `gpt-6.2-sol` | `medium` |
 | `claude-opus-5.5-high` | claude | `claude-opus-5-5` | `high` |
 | `claude-opus-5.5-med` | claude | `claude-opus-5-5` | `medium` |
 
@@ -28,6 +29,8 @@ Codex uses `-m <model> -c model_reasoning_effort="<effort>"`; Claude uses
 | Exploration, general code review | `gpt-6.1-sol-medium` |
 | how explorers; why investigators | `gpt-6.1-sol-medium` |
 | how explainer; why synthesizer | `claude-opus-5.5-med` |
+| Jira Story planner | `claude-opus-5.5-high` |
+| Jira Story plan reviewer | `gpt-6.2-sol-medium` |
 | recall history workers | `gpt-6.1-sol-medium` |
 | no-comments Comment Sicko | `gpt-6.1-sol-medium` |
 | ss-simplify-code reuse and efficiency reviewers | `gpt-6.1-sol-medium` |

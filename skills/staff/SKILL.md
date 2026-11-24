@@ -24,7 +24,7 @@ The Principles section below grounds every trigger. In your reply, name each pri
 
 Remaining triggers:
 
-- Jira Story grooming, grilling, breakdown, or planning → **Story breakdown and planning**. Jira reads, drafts, writes, attachments, and verification publication → **Jira operations**. These routes take precedence over Feature for planning or Jira-only requests, and stop at their requested artifacts.
+- Jira Story grooming, grilling, breakdown, planning, or plan review → **Story breakdown and planning**. Jira reads, drafts, writes, attachments, and verification publication → **Jira operations**. These routes take precedence over Feature for planning or Jira-only requests, and stop at their requested artifacts.
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
