@@ -5,6 +5,8 @@ description: Handles Jira reads, issues, descriptions, comments, metadata, relat
 
 # Use Jira
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 ## Delegate Jira operations
 
 The coordinator delegates this workflow to a Jira operations child using
@@ -37,7 +39,7 @@ requested; a field update, description edit, or upload adds no plan comment.
 | Request | Route |
 | --- | --- |
 | Clarify a Story or break it into tasks | Use **jira-dev-task-from-story** before publication-ready task drafting. |
-| Draft, publish, update, or retry task AC self-verification results | Read [AC self-verification](../staff/references/ac-self-verification.md) before preparing the dedicated Jira Task comment. Publish its summary and confirmed GCS report link; reuse completed evidence and uploads. |
+| Draft or publish AC verification results, including retries | Read [AC self-verification](../staff/references/ac-self-verification.md) for the verification comment on the named issue. Use the confirmed GCS report URL. |
 | Create an engineering task | [Task description](references/task-description.md) for AC; [Implementation plan](references/implementation-plan.md) for its plan comment. |
 | Create a Story, survey, or other ticket type | [Ticket formats](references/ticket-formats.md). |
 | Add or revise an implementation-plan comment | [Implementation plan](references/implementation-plan.md). |

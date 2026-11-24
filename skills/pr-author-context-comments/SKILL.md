@@ -5,6 +5,8 @@ description: Draft and optionally publish author-authored GitHub pull-request co
 
 # PR author context comments
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 Attach short-lived review context to the changed line it explains without adding that commentary to the source tree.
 
 ## Authorization and modes

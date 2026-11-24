@@ -12,6 +12,10 @@ Codex Desktop and Claude Code. It includes `plugin.json` and
 catalogs at `.agents/plugins/marketplace.json` (Codex) and
 `.claude-plugin/marketplace.json` (Claude Code). No MCP server is bundled.
 
+### Configure your accounts
+
+Copy the [Staff config template](skills/staff/references/staff-config.example.toml) to `~/.config/steven-stack/staff-config.toml` and fill in your Git identity, GitHub and Jira accounts, team contacts and ticket defaults. Codex and Claude Code use the same file. See [Staff config](skills/staff/references/staff-config.md) for field usage.
+
 ### Install in Codex Desktop
 
 Run these commands in your terminal, replacing the path if your checkout lives
@@ -125,7 +129,7 @@ subagent tool.
 ```mermaid
 flowchart TD
     U(["/staff task"]) --> S[staff]
-    S --> P["Playbooks<br/>investigation · story-breakdown · jira-task · bug-fix · perf-issue · hillclimb<br/>runtime-forensics · trace-forensics · feature · refactoring<br/>prototype · autonomous-run · session-pickup · worktree-cleanup · opening-a-pr"]
+    S --> P["Playbooks<br/>investigation · story-breakdown · jira-task · bug-fix · perf-issue · hillclimb<br/>runtime-forensics · trace-forensics · feature · refactoring<br/>prototype · autonomous-run · session-pickup · worktree-cleanup · task-complete · opening-a-pr"]
     S -. large or unusual task .-> F[figure-it-out]
     S --> PR["principle-* skills<br/>one rule each"]
     P --> W["Workflows<br/>jira-dev-task-from-story · using-jira<br/>how · why · architect · arena · interrogate · tdd"]
@@ -179,7 +183,8 @@ the context window until a task needs them.
   [prototype](skills/staff/playbooks/prototype.md),
   [autonomous run](skills/staff/playbooks/autonomous-run.md),
   [session pickup](skills/staff/playbooks/session-pickup.md),
-  [worktree cleanup](skills/staff/playbooks/worktree-cleanup.md), and
+  [worktree cleanup](skills/staff/playbooks/worktree-cleanup.md),
+  [task complete](skills/staff/playbooks/task-complete.md), and
   [opening a PR](skills/staff/playbooks/opening-a-pr.md) playbooks.
 
 ### Workflows
@@ -248,7 +253,7 @@ existing skills. The addon and the final verification are not repeated when
 their relevant source and constraints are unchanged. Code review remains
 standalone; this integration does not add it to delivery workflows.
 
-For Jira task numbered AC, Staff also runs
+Use `$staff Build the plan` to implement a confirmed plan and run task-complete. Use `$staff Verify the task <KEY>` or `$staff Verify the story <KEY>` to verify and publish on that issue. Both workflows use
 [AC self-verification](skills/staff/references/ac-self-verification.md).
 [Model routing](skills/staff/references/model-routing.md) owns the exclusive
 self-verification route, including report preparation and upload.
@@ -261,7 +266,7 @@ evidence. Every AC presents actual app screenshots mapped to its scenarios;
 missing or mismatched captures are marked `證據未完成` separately from the
 behavioral verdict. Text, API responses and diagrams supplement those captures.
 Staff uploads it using `upload-deletable-files`, then **using-jira**
-creates or updates the dedicated Jira Task comment with a short summary and
+creates or updates the dedicated verification comment on the target issue with a short summary and
 the verified report link, then reads it back. Descriptions
 remain numbered functional AC. Report URLs require bucket access and are temporary,
 with a documented lifecycle of about 30 days; local archives retain the report.

@@ -1,0 +1,22 @@
+[git]
+name = ""
+email = ""
+final_trailer = "Co-authored-by: Codex <codex@openai.com>"
+
+[github]
+user = ""
+
+[jira]
+site = "appier.atlassian.net"
+user = ""
+
+[jira.team]
+pm = []
+be = []
+qa = []
+
+[jira.ticket_defaults]
+project = ""
+team = ""
+label = ""
+sprint = ""

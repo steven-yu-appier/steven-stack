@@ -5,6 +5,8 @@ description: Post GitHub PR review findings as pending draft review threads at c
 
 # Post pending review comments
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 Use this workflow when the user wants review findings posted to GitHub PR code locations as draft review comments, without submitting the review.
 
 ## Guardrails

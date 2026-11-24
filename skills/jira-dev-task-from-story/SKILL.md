@@ -8,6 +8,8 @@ description: >-
 
 # Plan engineering tasks from a Story
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 Identify uncovered work and draft the tasks needed to deliver it. Apply
 [Staff's planning scope](../staff/SKILL.md#autonomy).
 [Story breakdown and planning](../staff/playbooks/story-breakdown.md) owns the

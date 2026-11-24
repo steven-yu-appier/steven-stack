@@ -3,10 +3,7 @@
 - The subject should describe the actual change, not only a Jira ticket key.
 - Keep the body high-level and focused on intent/impact, not a file-by-file list.
 - Format body details as bullet points.
-- End the commit with a `Co-authored-by:` line for the tool that wrote it.
-  - Codex: `Co-authored-by: Codex <codex@openai.com>`
-  - Claude Code: `Co-Authored-By: Claude <noreply@anthropic.com>` (it may add a version like `Claude Opus 4.8` on its own; leave that as is)
-  - If both helped, keep both lines.
+- Use the author and final trailer from [Staff config](../references/staff-config.md). Separate the trailers from the body with a blank line. Place the configured trailer last, exactly once.
 - When revising commit messages, preserve existing bodies and trailers unless explicitly asked to rewrite them.
 
 ### Default commit format

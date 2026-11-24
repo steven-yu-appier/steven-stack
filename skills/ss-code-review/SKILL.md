@@ -5,6 +5,8 @@ description: "Structured code review for bugs, regressions, tests, and standards
 
 # Code review
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 Read [Scoped checks](../staff/references/scoped-checks.md) before starting the review. It governs every stage, including reviewers, validators, and local apply; pass its absolute path and the check scope to every delegate.
 
 Read [Task files and cleanup](../staff/playbooks/task-artifacts.md) before producing local output, including standalone review. Reuse caller task paths when supplied. The owner-checked runner `<run-dir>` is scratch for intermediate review data; final report files use a unique `<report-dir>` under the task archive. Stage 6 owns report persistence and review-run cleanup. Only a standalone task owner finishes the helper-managed task scratch.

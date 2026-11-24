@@ -14,7 +14,7 @@ and Jira-only workflows stop at their own outputs and do not invoke this playboo
 - Preview synchronization, publication, and readback
 - Forge, stacks, readiness, and babysitting
 
-For implementation and fix work, follow Staff's **Automatic delivery** scope in [`../SKILL.md`](../SKILL.md#autonomy). Read-only playbooks and explicitly limited requests perform only their authorized actions. The delivery owner runs this playbook after successful final verification without another user prompt.
+For implementation and fix work, follow Staff's **Automatic delivery** scope in [`../SKILL.md`](../SKILL.md#autonomy). Read-only playbooks and explicitly limited requests perform only their authorized actions. During [Task complete](task-complete.md), workers execute their assigned sections and return results to Staff. Use [Staff config](../references/staff-config.md) for GitHub identity and the new PR assignee.
 
 **Acceptance gate.** Apply [Acceptance and delivery](../references/implementation-scope.md#acceptance-and-delivery) before drafting readiness claims. Use its acceptance record to build Verification. Keep authorized draft publication separate from QA readiness when coverage is pending.
 
@@ -34,7 +34,7 @@ Run `ss-simplify-code` once after implementation and before final verification f
 
 **AC self-verification.** For Jira task numbered AC, run [AC self-verification](../references/ac-self-verification.md) against the stable tested source. Follow its rules for preview dependencies, reruns, and publication limits.
 
-**Push.** Resolve the current branch and its required remote or existing upstream; use `git push -u origin HEAD` only when no repository rule or upstream specifies another destination. Detached HEAD or an ambiguous destination leaves push pending. Use a normal push and verify that the intended commit reached the remote branch. If the push is rejected or its outcome is uncertain, inspect the remote before retrying; forced updates require a separate explicit user instruction. A failed push leaves publication of that change pending.
+**Push.** Resolve the current branch and its required remote or existing upstream; use `git push -u origin HEAD` only when no repository rule or upstream specifies another destination. Attach a detached worktree to the intended task branch before pushing. An ambiguous destination leaves push pending. Use a normal push and verify that the intended commit reached the remote branch. If the push is rejected or its outcome is uncertain, inspect the remote before retrying; forced updates require a separate explicit user instruction. A failed push leaves publication of that change pending.
 
 **Continue to the PR.** After a verified push, find the open PR for the exact repository and head branch through `gh`. For an existing PR, preserve its base and preview URLs, refresh its body from the complete current change and verification evidence, and correct its environment title prefix if needed. Apply changed metadata with `gh pr edit` using `--body-file` or `--title` as needed, then perform the freshness and readback checks below. If the title and body are current, verify them without an edit. If no open PR exists, resolve the base from the user, repository convention, or verified remote default and create a draft; ask only if that choice remains ambiguous. Do not modify a closed or merged PR. Report the delivered commit, remote branch, PR URL, verification results, and any pending actions after completing the authorized delivery steps.
 
@@ -100,7 +100,7 @@ The first non-empty line of every PR body must be exactly `- [ ] QA`, including 
 
 **Freshness gate.** Immediately before creating or updating the PR, read the current head again. If `currentHead != draftHead`, refresh the commits and diff, revise every affected section and set `draftHead = currentHead`. Do not publish until the draft describes the current head.
 
-**Preview and Jira.** For a new PR in `ad-cloud-portal` or `idash-mono`, derive the preview URLs under [Preview links and Jira sync](../references/jira-preview.md), including its library-only exception, and include them in the body. After successful creation and PR readback, synchronize those URLs to the Jira Story comment using that reference. Existing-PR maintenance preserves preview URLs and does not trigger Jira synchronization. Report the Story key, preview URLs, comment ID and outcome, or the concrete pending reason.
+**Preview and Jira.** For a new PR in `ad-cloud-portal` or `idash-mono`, derive the preview URLs under [Preview links and Jira sync](../references/jira-preview.md), including its library-only exception, and include them in the body. After PR readback, return the preview URLs to Staff for Jira worker dispatch, or delegate the sync directly for standalone PR work. On pickup, finish a recorded pending preview sync for this delivery. Ordinary existing-PR updates preserve preview URLs. Report the Story key, preview URLs, comment ID and outcome, or the concrete pending reason.
 
 **Body file.** Use a task-specific temporary file for the forge command. Do not retain one file per PR by default. When the user requests a retained copy, save it separately, keep it synchronized with the reviewed draft after every refresh, and still use a temporary forge input. Remove only the temporary file after publication. For a preview-only request, show the body without creating or updating the PR.
 
@@ -118,4 +118,4 @@ Attach videos when they prove a claim. Do not paste full SHAs, swarm or arena la
 
 **Babysit.** Opening a PR does not start a babysit. Post the URL and keep building. Finish the phase or stack first. Run a separate babysit pass only when the user asks for one after the whole stack exists. A babysit for each new PR stalls the build and spends checks on commits that later waves restart. Push back when feedback drifts from intent.
 
-A subagent that opens a PR follows the delivery-addon and cleanup order above and runs `interrogate` on the resulting code. Any accepted review fixes require refreshed addon coverage for the affected code and final verification before publication. It returns the URL and does not babysit. Return to the parent.
+For contested designs, confirm the `interrogate` review covered the resulting code before publication. Accepted review fixes require refreshed addon coverage and final checks. Return the verified PR to the coordinator.

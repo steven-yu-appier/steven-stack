@@ -1,6 +1,6 @@
 # Preview links and Jira sync
 
-Use this reference to select the backend for frontend verification and PR delivery. Preview derivation and Jira synchronization below apply only to new PRs in `ad-cloud-portal` or `idash-mono`; existing-PR maintenance preserves preview URLs and skips Jira synchronization.
+Use this reference to select the backend for frontend verification and PR delivery. Preview derivation and Jira synchronization below apply only to new PRs in `ad-cloud-portal` or `idash-mono`; ordinary existing-PR maintenance preserves preview URLs. Resume pending synchronization for a new PR from the same task record.
 
 ## Select the backend environment
 
@@ -32,7 +32,7 @@ Use the returned `previewLinks` verbatim. The URL shape is `https://idash-stagin
 
 Apply that exception before interpreting `noApps`. If no app or exception produces a preview, omit preview links, report the reason, and skip Jira preview synchronization. A missing helper, nonzero exit, or missing package/mapping leaves preview generation pending; resolve it before creating the PR.
 
-Include the derived URLs in the PR body before creation. Synchronization starts only after a new PR was successfully created in this execution and its remote body was verified.
+Include the derived URLs in the PR body before creation. Record the repository, head branch, Story and pending sync in the task record before creation. After creation or pickup, verify the matching remote PR and its body, then reconcile the Story comment. Record its ID and verified outcome.
 
 ## Synchronize the Story comment
 

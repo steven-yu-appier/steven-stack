@@ -13,6 +13,6 @@
 6. Arrange small, ordered commits under **Opening a PR**'s Commits policy. Stack follow-ups while preserving published history.
    Use the **sequence-verifiable-units** principle skill, building, verifying, and committing each small unit before the next.
 7. If the design is contested, `interrogate` before shipping.
-8. Run **Opening a PR**.
+8. Run [Task complete](task-complete.md).
 Code-coupled work (one feature, one migration) goes to a single owner with the checkpoint inline. That owner may delegate independent slices after the blocking phase under Staff's routing contract. Parent-level fan-out is for slices that produce independent artifacts (audits, cross-subsystem investigations, competing experiments). Rewrite the checkpoint at phase boundaries. Spawn a fresh owner rather than chaining interrupts.
 **Reply:** what you built, what you chose and why, the throughput checkpoint, open decisions. Tables for design alternatives.

@@ -12,9 +12,9 @@ Read [Task files and cleanup](playbooks/task-artifacts.md) before producing loca
 
 Before changing behavior or writing acceptance tests, read [Implementation scope](references/implementation-scope.md). It owns requirement sources, ambiguity resolution, component mapping, and acceptance readiness from task intake through delivery. Pass its confirmed outcomes and source pointers to implementers and reviewers.
 
-For implementation or fix work with a Jira task numbered AC, read [AC self-verification](references/ac-self-verification.md) before source changes and run it at delivery. It coordinates AC coverage through **verify-this**, HTML reporting through **show-me**, GCS publication, and the Jira summary/link, including local-only publication limits.
+For Jira Tasks with numbered AC, read [AC self-verification](references/ac-self-verification.md) before implementation and run it at delivery.
 
-For standalone drafting, publication, updates, evidence additions, or retries of task AC self-verification results, read the same [AC self-verification](references/ac-self-verification.md) before preparing the comment. Route Jira operations through **using-jira**, even when no implementation or fix is requested.
+**Standalone verification.** `Verify the task <KEY>` or `Verify the story <KEY>` runs [AC self-verification](references/ac-self-verification.md) through GCS publication and Jira comment readback on the named issue. For drafts, local-only runs or publication retries, follow the same reference within the requested scope.
 
 For Jira reads, follow [Jira read routing](references/jira-read-policy.md): use jarkdown for source Story reads during breakdown and planning, and acli or Jira REST API for all other Jira object operations. Read [Preview links and Jira sync](references/jira-preview.md) for backend selection and repository-specific preview rules.
 
@@ -24,7 +24,7 @@ The Principles section below grounds every trigger. In your reply, name each pri
 
 Remaining triggers:
 
-- Jira Story grooming, grilling, breakdown, planning, or plan review → **Story breakdown and planning**. Jira reads, drafts, writes, attachments, and verification publication → **Jira operations**. These routes take precedence over Feature for planning or Jira-only requests, and stop at their requested artifacts.
+- Jira Story grooming, grilling, breakdown, planning, or plan review → **Story breakdown and planning**. Jira reads, drafts, writes, attachments, and posting a verified report link → **Jira operations**. These routes take precedence over Feature for planning or Jira-only requests, and stop at their requested artifacts.
 - Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 - About to ask a "which approach", "how should I", or "what should this do" fork → classify it before asking. Observe facts such as current behavior, timing, layout, or output yourself, using the Prototype playbook (`playbooks/prototype.md`) when a sketch is needed. A read-only Investigation stays with its evidence. Product intent follows Implementation scope's clarification gate. Within confirmed requirements, an autonomy grant covers routine execution choices; decide, act, and report. Named approval gates and the Always-pause list still apply.
 - Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
@@ -84,9 +84,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 ## Autonomy
 
-**Automatic delivery.** A Staff implementation or fix request authorizes task-scoped commit, normal push, and PR creation or maintenance. After cleanup and successful final verification, continue directly through [Opening a PR](playbooks/opening-a-pr.md), including updating an existing PR body for the resulting change and evidence. Do not end with a local-only completion report, ask whether to commit or push, or wait for another reminder. Apply this to follow-up fixes and accepted review changes as well as the initial implementation. Delivery is complete when the intended commit is verified on the remote branch and the current PR body and head are read back successfully, plus any applicable preview synchronization outcome is reported.
-
-For delivery with numbered Jira task AC, this scope also covers uploading the HTML report and publishing its summary and link in the [dedicated Task verification comment](references/ac-self-verification.md#5-publish-a-jira-summary-and-link). Full delivery includes comment readback. Report pending publication separately from PR and Story preview status.
+**Automatic delivery.** `Build the plan` implements the confirmed plan. When implementation or a fix settles, run [Task complete](playbooks/task-complete.md) automatically, including task-scoped commit, normal push, PR delivery and applicable Jira publication. Use [Staff config](references/staff-config.md) for account and assignment settings.
 
 Read-only and review-only requests authorize inspection and reporting, not source edits, comment cleanup, commits, or runtime changes. A playbook or delegated skill cannot expand that authorization. This is a workflow constraint, not a claim that the host enforces a read-only sandbox.
 
@@ -149,7 +147,7 @@ the planning scope.
 
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y. `playbooks/investigation.md`.
 - **Story breakdown and planning.** A Jira Story to clarify, grill, decompose, or plan against the actual repositories. Invokes **jira-dev-task-from-story** and conditionally uses existing planning workflows. `playbooks/story-breakdown.md`.
-- **Jira operations.** Read or draft Jira content and publish authorized task AC, implementation plans, self-verification results, metadata, attachments, and relationships through **using-jira**. `playbooks/jira-task.md`.
+- **Jira operations.** Use **using-jira** for ticket operations. For standalone verification, Staff owns the AC run and assigns Jira reads and publication to **using-jira**. `playbooks/jira-task.md`.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence. `playbooks/bug-fix.md`.
 - **Perf issue.** A measured slowness to trace and improve against a baseline. `playbooks/perf-issue.md`.
 - **Hillclimb.** Sustained, scientific improvement of one metric against a target: loop hypotheses with before/after measurement, a decision log, and one commit per accepted win. Distinct from Perf issue, which is a one-off fix. `playbooks/hillclimb.md`.
@@ -161,5 +159,5 @@ the planning scope.
 - **Autonomous run.** A long task to drive to completion without stopping ("run until done", "/loop until X"). `playbooks/autonomous-run.md`.
 - **Session pickup.** Resuming or taking over a prior agent's in-flight work from a Claude Code or Codex transcript, or a pushed branch. `playbooks/session-pickup.md`.
 - **Worktree and simulator cleanup.** Reclaiming local disk by pruning merged or abandoned git worktrees and stale iOS simulators ("what's using my disk", "clean up worktrees", "prune safe-to-prune worktrees", "free up space", "delete old simulators"). `playbooks/worktree-cleanup.md`.
-- **Opening a PR.** Delivery for playbooks that produce authorized code changes. Investigation, Story planning, and Jira-only work stop at their own outputs. `playbooks/opening-a-pr.md`.
+- **Task complete.** Coordinate implementation handoff and delivery. `playbooks/task-complete.md`. For standalone PR work use `playbooks/opening-a-pr.md`.
 - **Task files and cleanup.** Shared setup and finish steps for every playbook and standalone artifact producer. `playbooks/task-artifacts.md`.

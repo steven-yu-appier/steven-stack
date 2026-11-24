@@ -1,7 +1,7 @@
 ### Jira operations
 
 Use for Jira operations, including task creation, implementation plan comments,
-and standalone AC self-verification publication or updates.
+and posting an existing verification report. Staff runs fresh Task or Story verification under [AC self-verification](../references/ac-self-verification.md).
 Apply [Staff's Jira scope](../SKILL.md#autonomy).
 
 1. Identify the target tasks, source material, requested fields, and authorization.

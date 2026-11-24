@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Why
 
+For account-specific operations, use [Staff config](../staff/references/staff-config.md).
+
 Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
