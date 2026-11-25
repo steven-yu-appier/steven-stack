@@ -111,7 +111,7 @@ When coordinating development, delegate implementation and test work through [`r
 
 Delegate Jira operations through **using-jira**, including reads, drafts, writes, uploads, and readback. An assigned Jira operations child executes directly without recursive delegation. Other children return Jira work to the coordinator. This role does not replace the separate AC verifier or authorize implementation, Git delivery, or unrelated Jira writes.
 
-Every child prompt opens with the staff invocation, `$staff` for Codex and `/staff` for Claude Code. It gives the child its role, model route when prescribed, access mode, working directory or worktree, file pointers, success criteria, and output contract. The routing file owns how that prompt reaches each host.
+Build each child prompt using the host-specific invocation and absolute skill paths in [Subagent routing](references/subagent-routing.md#build-the-child-prompt).
 
 Launch independent workers before waiting for any worker. You own every result. Read each report or diff and write your own summary. Do not pass through a child summary. If no available control method can honor a required route, follow the routing file's fallback. Never claim that a model or independent worker ran when it did not.
 

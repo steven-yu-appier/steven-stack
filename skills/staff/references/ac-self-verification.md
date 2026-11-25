@@ -6,21 +6,27 @@ Staff coordinates the verification worker and a separate Jira worker. Use [model
 
 At delivery, use the Task and its [acceptance record](implementation-scope.md). For standalone verification, read the named Task or Story through **using-jira** under the active Jira read policy. Use that issue's AC and publish the report comment on that same key. Linked issues provide context. Preserve AC wording and numbering. Assign stable numbers in source order where needed.
 
-Identify the branch, tested commit, environment, role and applicable [backend](jira-preview.md#select-the-backend-environment) from the issue, PR or task record. Resolve which revision the running app serves. For comparisons, record the full SHA of the PR's current base or verified stack parent. Without a PR, use a confirmed comparison revision. Recheck the base before publication. Mark unresolved comparisons or untested ACs BLOCK with the reason. If no AC can be identified, request the missing criteria.
+Identify the branch, served revision, environment, role and [backend](jira-preview.md#select-the-backend-environment). Request missing ACs.
+
+For comparisons, the coordinator resolves the current PR base, verified stack parent or confirmed baseline and fetches missing objects. For local Before runs, use `git worktree add --detach "$TASK_SCRATCH/before" "$BASE_SHA"`. Verify HEAD and give the verifier the worker-visible absolute checkout path and both full SHAs. Remove the Before checkout with `git worktree remove` after use. Recheck the base before publication and refresh affected evidence if it moved.
 
 Standalone verification authorizes the report upload and verification comment. Report failures for the implementer. Source fixes, Git delivery and Story preview sync belong to implementation. Local-only and draft requests retain the report locally. For uncommitted changes, record HEAD plus a diff fingerprint and keep the report local until the verified commit exists.
 
 ## 2. Verify each AC
 
+If login or an undeployed backend blocks the target screen, assign one code worker to prepare a shared test login and [contract-backed fixtures](../../control-ui/references/api-response-interception.md) in scratch. Give verifiers the startup and reset commands after a smoke test shows the intended persona reached the screen and the app consumed the fixtures.
+
 Assign a fresh verifier distinct from the implementer. Pass the AC, source revisions, environment and task paths to [verify-this](../../verify-this/SKILL.md). Reuse evidence only while its requirements, source and environment still match. If independent verification is unavailable, record it as pending.
 
-Capture actual app screenshots with **control-ui**. Map each required state to its AC, screenshot path, revision, role and scenario. Compare Before and After with equivalent data, role and viewport. Reuse an image across ACs only when it proves each mapped claim. For unavailable backend behavior, use [contract-backed interception](../../control-ui/references/api-response-interception.md) and capture the UI after it consumes the response.
+Capture actual app screenshots with **control-ui**. Map each required state to its AC, screenshot path, revision, role and scenario. Compare Before and After with equivalent data, role and viewport. Reuse an image across ACs only when it proves each mapped claim. For unavailable backend behavior, intercept the contract-backed response and capture the UI after the app consumes it.
 
-Record three results per AC:
+In scratch `record.md`, use one `## AC <id>` section per assigned AC. Record:
 
-- **Behavior.** VERIFIED becomes PASS, NOT VERIFIED becomes FAIL, INCONCLUSIVE or unexercised becomes BLOCK.
+- **Behavior.** Map VERIFIED to `Verdict: PASS`, NOT VERIFIED to `Verdict: FAIL`, and inconclusive or unexercised behavior to `Verdict: BLOCK`. Each BLOCK needs two lines: `Attempt:` with the actual command or app action, and `Error:` with the observed output or UI response. Redact secrets. Cite a failed prerequisite only for ACs it blocks.
 - **Coverage.** Record live, intercepted or mixed. Name intercepted fields and scenarios. Keep real backend integration pending for intercepted claims.
 - **Screenshot evidence.** Mark complete only when every required state has a readable, current, matching app screenshot. Otherwise record `證據未完成`, the missing state and reason, even for an observed PASS.
+
+Before `worker_done`, run `python3 "$STAFF_DIR/scripts/check-ac-record.py" "$RECORD" <AC IDs...>` with every assigned ID. The coordinator reruns the checker and reviews the evidence before accepting the record.
 
 During implementation, fix FAIL results and refresh affected verification. An authorized draft PR can disclose blocked coverage.
 

@@ -116,15 +116,15 @@ After you refresh `steven-stack@steven-local`, check its installed version with
 
 ## Start here
 
-Invoke `/staff` in Claude Code or `$staff` in Codex with your task. Staff
+In Claude Code, invoke `/steven-stack:staff` for the plugin or `/staff` for a standalone installation. In Codex, use the staff selector shown by the skill picker. Staff
 matches the task to a playbook, loads the principles that apply, and delegates
 work to subagents. You rarely call the other skills yourself.
 
 ## How it fits together
 
 Staff is the entry point. Its playbooks call workflow skills and cleanup
-passes. Workflows delegate through the routing contract using the host's native
-subagent tool.
+passes. Workflows delegate through the routing contract using an Orca worker or a native
+subagent.
 
 ```mermaid
 flowchart TD
